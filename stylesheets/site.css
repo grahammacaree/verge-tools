@@ -246,7 +246,12 @@ a.download {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  text-decoration: none; }
+  text-decoration: none;
+  opacity: 0.5;
+  pointer-events: none; }
+  a.download.active {
+    pointer-events: auto;
+    opacity: 1; }
   a.download.visible {
     display: block; }
   a.download:hover {
@@ -619,11 +624,13 @@ header {
 
 .tool.title .tool-selector {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
+  display: -ms-grid;
+  display: grid;
   gap: 1rem;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr; }
   .tool.title .tool-selector li {
     flex: 1;
     aspect-ratio: 1;
@@ -1340,7 +1347,7 @@ header {
     font-size: 0.75rem;
     cursor: pointer;
     border: 2px solid #6600FF;
-    flex: 1;
+    flex: 1 1 0;
     border-radius: 0.125rem;
     white-space: nowrap;
     font-weight: 600;
@@ -1351,7 +1358,8 @@ header {
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
-            user-select: none; }
+            user-select: none;
+    width: 25%; }
     .command-line-image-generator .input .options .regen:hover {
       background-color: transparent;
       color: #6600FF; }
@@ -1458,6 +1466,461 @@ header {
         -webkit-transform-origin: center center;
                 transform-origin: center center; }
     .command-line-image-generator .input .image-container .lockup .layer {
+      inset: -1px;
+      z-index: 1;
+      position: absolute;
+      pointer-events: none; }
+
+.installer-image-generator .edit {
+  margin-top: 1rem; }
+  .installer-image-generator .edit .edit-inner div label {
+    display: block;
+    gap: 0.25rem; }
+    .installer-image-generator .edit .edit-inner div label span {
+      display: none; }
+      .installer-image-generator .edit .edit-inner div label span:first-child {
+        display: inline; }
+  .installer-image-generator .edit.selected .edit-inner label span {
+    display: inline; }
+    .installer-image-generator .edit.selected .edit-inner label span:first-child {
+      display: none; }
+  .installer-image-generator .edit input[type=file] {
+    color: transparent; }
+
+.installer-image-generator .options-top {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  width: auto;
+  max-width: 1100px;
+  margin-left: 0; }
+  .installer-image-generator .options-top .images, .installer-image-generator .options-top .patterns {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.875rem; }
+    .installer-image-generator .options-top .images .label, .installer-image-generator .options-top .patterns .label {
+      font-weight: 600;
+      flex: 0;
+      white-space: nowrap;
+      -webkit-transform: translateY(0.175rem);
+              transform: translateY(0.175rem); }
+    .installer-image-generator .options-top .images .number span, .installer-image-generator .options-top .patterns .number span {
+      display: inline-block;
+      height: 0.875rem;
+      width: 0.875rem;
+      margin-left: 0.5rem;
+      border: 2px solid #000;
+      background-color: #000;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+      border-radius: 0.075rem;
+      -webkit-transform: translateY(0.125rem);
+              transform: translateY(0.125rem); }
+    .installer-image-generator .options-top .images .entry, .installer-image-generator .options-top .patterns .entry {
+      text-align: center;
+      flex: 1; }
+      .installer-image-generator .options-top .images .entry .inner, .installer-image-generator .options-top .patterns .entry .inner {
+        display: inline-block;
+        padding: 0.075rem 0.25rem 0.125rem;
+        opacity: 0.625;
+        cursor: pointer;
+        border-radius: 0.125rem;
+        border: 2px solid #fff; }
+        .installer-image-generator .options-top .images .entry .inner:hover, .installer-image-generator .options-top .images .entry .inner.selected, .installer-image-generator .options-top .patterns .entry .inner:hover, .installer-image-generator .options-top .patterns .entry .inner.selected {
+          opacity: 1;
+          border-color: rgba(102, 0, 255, 0.2); }
+        .installer-image-generator .options-top .images .entry .inner.selected, .installer-image-generator .options-top .patterns .entry .inner.selected {
+          background-color: rgba(102, 0, 255, 0.2);
+          border-color: transparent; }
+    .installer-image-generator .options-top .images.patterns, .installer-image-generator .options-top .patterns.patterns {
+      gap: 1.25rem; }
+      .installer-image-generator .options-top .images.patterns .swap, .installer-image-generator .options-top .patterns.patterns .swap {
+        font-weight: normal;
+        margin-top: 0.5rem;
+        font-size: 0.75rem;
+        font-style: italic;
+        display: block; }
+    .installer-image-generator .options-top .images .pattern .inner, .installer-image-generator .options-top .patterns .pattern .inner {
+      width: 100%;
+      aspect-ratio: 16/9; }
+      .installer-image-generator .options-top .images .pattern .inner svg, .installer-image-generator .options-top .patterns .pattern .inner svg {
+        width: 100%;
+        height: auto; }
+        .installer-image-generator .options-top .images .pattern .inner svg path, .installer-image-generator .options-top .patterns .pattern .inner svg path {
+          fill: #282828;
+          stroke: #282828; }
+        .installer-image-generator .options-top .images .pattern .inner svg polygon.cls-3, .installer-image-generator .options-top .patterns .pattern .inner svg polygon.cls-3 {
+          fill: #282828; }
+
+.installer-image-generator .installer-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+  margin: 0;
+  position: relative; }
+  .installer-image-generator .installer-container .decoration {
+    inset: 0; }
+    .installer-image-generator .installer-container .decoration svg {
+      display: none;
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+         object-fit: cover; }
+  .installer-image-generator .installer-container.background-1 {
+    background-color: #282828; }
+    .installer-image-generator .installer-container.background-1 .decoration svg:nth-child(1) {
+      display: block; }
+    .installer-image-generator .installer-container.background-1.alt-color {
+      background-color: #3cffd0; }
+      .installer-image-generator .installer-container.background-1.alt-color .mosaic .top-bar, .installer-image-generator .installer-container.background-1.alt-color .mosaic .bottom-bar {
+        background-color: #282828; }
+        .installer-image-generator .installer-container.background-1.alt-color .mosaic .top-bar:before, .installer-image-generator .installer-container.background-1.alt-color .mosaic .top-bar:after, .installer-image-generator .installer-container.background-1.alt-color .mosaic .bottom-bar:before, .installer-image-generator .installer-container.background-1.alt-color .mosaic .bottom-bar:after {
+          background-color: #282828; }
+  .installer-image-generator .installer-container.background-2 {
+    background-color: #282828; }
+    .installer-image-generator .installer-container.background-2 .decoration svg:nth-child(2) {
+      display: block; }
+      .installer-image-generator .installer-container.background-2 .decoration svg:nth-child(2) polygon {
+        fill: #3cffd0; }
+    .installer-image-generator .installer-container.background-2 .mosaic .top-bar, .installer-image-generator .installer-container.background-2 .mosaic .bottom-bar {
+      background-color: #fff; }
+      .installer-image-generator .installer-container.background-2 .mosaic .top-bar:before, .installer-image-generator .installer-container.background-2 .mosaic .top-bar:after, .installer-image-generator .installer-container.background-2 .mosaic .bottom-bar:before, .installer-image-generator .installer-container.background-2 .mosaic .bottom-bar:after {
+        background-color: #fff; }
+    .installer-image-generator .installer-container.background-2.alt-color {
+      background-color: #3cffd0; }
+      .installer-image-generator .installer-container.background-2.alt-color .decoration svg:nth-child(2) polygon {
+        fill: #beb5ba; }
+      .installer-image-generator .installer-container.background-2.alt-color .mosaic .top-bar, .installer-image-generator .installer-container.background-2.alt-color .mosaic .bottom-bar {
+        background-color: #fff; }
+        .installer-image-generator .installer-container.background-2.alt-color .mosaic .top-bar:before, .installer-image-generator .installer-container.background-2.alt-color .mosaic .top-bar:after, .installer-image-generator .installer-container.background-2.alt-color .mosaic .bottom-bar:before, .installer-image-generator .installer-container.background-2.alt-color .mosaic .bottom-bar:after {
+          background-color: #fff; }
+  .installer-image-generator .installer-container.background-3 {
+    background-color: #282828; }
+    .installer-image-generator .installer-container.background-3 .decoration svg:nth-child(3) {
+      display: block; }
+    .installer-image-generator .installer-container.background-3.alt-color {
+      background-color: #3cffd0; }
+      .installer-image-generator .installer-container.background-3.alt-color .mosaic .top-bar, .installer-image-generator .installer-container.background-3.alt-color .mosaic .bottom-bar {
+        background-color: #beb5ba; }
+        .installer-image-generator .installer-container.background-3.alt-color .mosaic .top-bar:before, .installer-image-generator .installer-container.background-3.alt-color .mosaic .top-bar:after, .installer-image-generator .installer-container.background-3.alt-color .mosaic .bottom-bar:before, .installer-image-generator .installer-container.background-3.alt-color .mosaic .bottom-bar:after {
+          background-color: #beb5ba; }
+      .installer-image-generator .installer-container.background-3.alt-color .decoration svg path {
+        stroke: #fff;
+        fill: #fff; }
+      .installer-image-generator .installer-container.background-3.alt-color .decoration svg polygon.cls-3 {
+        fill: #fff; }
+  .installer-image-generator .installer-container .mosaic {
+    position: absolute;
+    aspect-ratio: 1.25;
+    top: 50%;
+    left: 50%;
+    height: 60%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+    .installer-image-generator .installer-container .mosaic .top-bar, .installer-image-generator .installer-container .mosaic .bottom-bar {
+      position: absolute;
+      left: -2rem;
+      right: -2rem;
+      height: 2rem;
+      background-color: #3cffd0; }
+      .installer-image-generator .installer-container .mosaic .top-bar:before, .installer-image-generator .installer-container .mosaic .top-bar:after, .installer-image-generator .installer-container .mosaic .bottom-bar:before, .installer-image-generator .installer-container .mosaic .bottom-bar:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 2rem;
+        background-color: #3cffd0;
+        height: 1.5rem; }
+      .installer-image-generator .installer-container .mosaic .top-bar:before, .installer-image-generator .installer-container .mosaic .bottom-bar:before {
+        left: 0; }
+      .installer-image-generator .installer-container .mosaic .top-bar:after, .installer-image-generator .installer-container .mosaic .bottom-bar:after {
+        right: 0; }
+    .installer-image-generator .installer-container .mosaic .top-bar {
+      bottom: 100%; }
+      .installer-image-generator .installer-container .mosaic .top-bar:before, .installer-image-generator .installer-container .mosaic .top-bar:after {
+        top: calc(100% - 1px); }
+    .installer-image-generator .installer-container .mosaic .bottom-bar {
+      top: 100%; }
+      .installer-image-generator .installer-container .mosaic .bottom-bar:before, .installer-image-generator .installer-container .mosaic .bottom-bar:after {
+        bottom: calc(100% - 1px); }
+    .installer-image-generator .installer-container .mosaic .image-group {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      position: absolute;
+      inset: 0;
+      z-index: 1; }
+      .installer-image-generator .installer-container .mosaic .image-group .left, .installer-image-generator .installer-container .mosaic .image-group .right {
+        height: 100%;
+        width: 100%;
+        flex: 1 1 auto; }
+      .installer-image-generator .installer-container .mosaic .image-group .image-container {
+        display: block;
+        padding: 0;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        position: relative; }
+        .installer-image-generator .installer-container .mosaic .image-group .image-container.active:before {
+          position: absolute;
+          inset: 0;
+          outline: 1px dotted #212121;
+          outline: 5px auto -webkit-focus-ring-color;
+          content: "";
+          display: block;
+          -webkit-box-sizing: border-box;
+                  box-sizing: border-box; }
+        .installer-image-generator .installer-container .mosaic .image-group .image-container.draggable {
+          border: 0.125rem dashed #6600FF;
+          border-radius: 0.5rem;
+          position: relative;
+          background-color: #fff; }
+          .installer-image-generator .installer-container .mosaic .image-group .image-container.draggable.active:before {
+            inset: -3px;
+            border-radius: 0.5rem; }
+          .installer-image-generator .installer-container .mosaic .image-group .image-container.draggable:after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            max-width: 90%;
+            display: block;
+            content: "Drop image";
+            font-family: Poly Sans, Helvetica, Arial, sans-serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: #6600FF;
+            -webkit-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+            text-align: center; }
+          .installer-image-generator .installer-container .mosaic .image-group .image-container.draggable.dragging {
+            background-color: rgba(102, 0, 255, 0.25); }
+          .installer-image-generator .installer-container .mosaic .image-group .image-container.draggable div {
+            display: none; }
+        .installer-image-generator .installer-container .mosaic .image-group .image-container .image-inner {
+          width: 100%;
+          height: 100%; }
+        .installer-image-generator .installer-container .mosaic .image-group .image-container .picture {
+          position: relative;
+          margin: 0;
+          height: 100%;
+          width: 100%; }
+        .installer-image-generator .installer-container .mosaic .image-group .image-container .image {
+          position: absolute;
+          inset: 0%;
+          width: auto; }
+          .installer-image-generator .installer-container .mosaic .image-group .image-container .image .image-holder {
+            position: absolute;
+            inset: 0; }
+          .installer-image-generator .installer-container .mosaic .image-group .image-container .image .image-holder .image-holder-inner {
+            width: 100%;
+            height: 100%;
+            text-align: center; }
+            .installer-image-generator .installer-container .mosaic .image-group .image-container .image .image-holder .image-holder-inner img {
+              height: 100%;
+              width: 100%;
+              -o-object-fit: cover;
+                 object-fit: cover; }
+          .installer-image-generator .installer-container .mosaic .image-group .image-container .image img {
+            -webkit-transform-origin: center center;
+                    transform-origin: center center; }
+      .installer-image-generator .installer-container .mosaic .image-group .right, .installer-image-generator .installer-container .mosaic .image-group .left {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem; }
+      .installer-image-generator .installer-container .mosaic .image-group.one .right {
+        display: none; }
+      .installer-image-generator .installer-container .mosaic .image-group.two .right .image-container:last-child {
+        display: none; }
+      .installer-image-generator .installer-container .mosaic .image-group:not(.four) .left .image-container:last-child {
+        display: none; }
+
+.installer-image-generator .options {
+  display: none;
+  margin: 0;
+  padding: 1rem 0 0; }
+  .installer-image-generator .options.visible {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; }
+    .installer-image-generator .options.visible .download {
+      display: block;
+      margin-top: 0; }
+  .installer-image-generator .options input[type="range"] {
+    accent-color: #6600FF; }
+  .installer-image-generator .options .regen {
+    background-color: #6600FF;
+    padding: 0.25rem 0.75rem;
+    text-transform: uppercase;
+    color: #fff;
+    font-style: normal;
+    font-size: 0.75rem;
+    cursor: pointer;
+    border: 2px solid #6600FF;
+    flex: 1 1 0;
+    border-radius: 0.125rem;
+    white-space: nowrap;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    font-family: Poly Sans Mono, Courier New, Courier, monospace;
+    text-align: center;
+    pointer-events: auto;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    width: 25%; }
+    .installer-image-generator .options .regen:hover {
+      background-color: transparent;
+      color: #6600FF; }
+  .installer-image-generator .options .ratios {
+    width: 100%; }
+
+.verge-filter-generator .story {
+  gap: 1rem; }
+
+.verge-filter-generator .input .edit .edit-inner label {
+  display: block; }
+  .verge-filter-generator .input .edit .edit-inner label span {
+    display: none; }
+    .verge-filter-generator .input .edit .edit-inner label span:first-child {
+      display: inline; }
+
+.verge-filter-generator .input .edit.selected .edit-inner label span {
+  display: inline; }
+  .verge-filter-generator .input .edit.selected .edit-inner label span:first-child {
+    display: none; }
+
+.verge-filter-generator .input .edit input[type=file] {
+  color: transparent; }
+
+.verge-filter-generator .input .options {
+  display: none;
+  margin: 0;
+  padding: 0; }
+  .verge-filter-generator .input .options.visible {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; }
+    .verge-filter-generator .input .options.visible .download {
+      display: block;
+      margin-top: 0; }
+  .verge-filter-generator .input .options input[type="range"] {
+    accent-color: #6600FF; }
+  .verge-filter-generator .input .options .regen {
+    background-color: #6600FF;
+    padding: 0.25rem 0.75rem;
+    text-transform: uppercase;
+    color: #fff;
+    font-style: normal;
+    font-size: 0.75rem;
+    cursor: pointer;
+    border: 2px solid #6600FF;
+    flex: 1 1 0;
+    border-radius: 0.125rem;
+    white-space: nowrap;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    font-family: Poly Sans Mono, Courier New, Courier, monospace;
+    text-align: center;
+    pointer-events: auto;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    width: 25%; }
+    .verge-filter-generator .input .options .regen:hover {
+      background-color: transparent;
+      color: #6600FF; }
+  .verge-filter-generator .input .options .ratios {
+    width: 100%; }
+
+.verge-filter-generator .input .image-container {
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 1.5;
+  flex: 1;
+  max-width: 750px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: block;
+  order: 0; }
+  .verge-filter-generator .input .image-container svg {
+    position: absolute;
+    inset: 0; }
+  .verge-filter-generator .input .image-container.draggable {
+    border: 0.125rem dashed #6600FF;
+    border-radius: 0.5rem;
+    position: relative; }
+    .verge-filter-generator .input .image-container.draggable:after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 90%;
+      display: block;
+      content: "Drop image";
+      font-family: Poly Sans, Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 2.5rem;
+      color: #6600FF;
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+      text-align: center; }
+    .verge-filter-generator .input .image-container.draggable.dragging {
+      background-color: rgba(102, 0, 255, 0.25); }
+    .verge-filter-generator .input .image-container.draggable div {
+      display: none; }
+  .verge-filter-generator .input .image-container .image-inner {
+    position: relative;
+    overflow: hidden; }
+    .verge-filter-generator .input .image-container .image-inner img.download {
+      display: none; }
+  .verge-filter-generator .input .image-container .lockup {
+    font-family: Poly Sans, Helvetica, Arial, sans-serif;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    aspect-ratio: 1.5;
+    cursor: move;
+    /*.image {
+					filter: grayscale(1);
+					position: absolute;
+					inset: 7%;
+					width: auto;
+					.image-holder {
+						position: absolute;
+						inset: 0;
+					}
+					.image-holder {
+						
+						.image-holder-inner {
+							width: 100%;
+							height: 100%;
+							//background-color: #000;
+							text-align: center;
+							img {
+								height: 100%;
+								width: 100%;
+							}
+						}
+					}
+					img {
+						//filter: saturate(0.125)  brightness(0.625);
+						transform-origin: center center;
+					}
+				}
+				*/ }
+    .verge-filter-generator .input .image-container .lockup .picture {
+      position: relative;
+      margin: 0;
+      height: 100%;
+      width: 100%; }
+    .verge-filter-generator .input .image-container .lockup .layer {
       inset: -1px;
       z-index: 1;
       position: absolute;

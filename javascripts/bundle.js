@@ -835,8 +835,6 @@
     const convertToImage = (node, link, name) => {
       toPng(node, { pixelRatio: 3})
       .then(function (dataUrl) {
-      	console.log(name);
-      	console.log(link);
     	  link.download = name;
     	  link.classList.remove('downloading');
     	  link.classList.add('downloaded');
@@ -847,7 +845,7 @@
     	  if(animationHolder) {
     		  animationHolder.classList.remove('active');
     		}
-      })
+      }, {removeContainer: false})
       .catch(function (error) {
         console.error('oops, something went wrong!', error);
       });

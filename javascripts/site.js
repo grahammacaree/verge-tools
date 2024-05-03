@@ -1,5 +1,7 @@
 // This is where it all goes :)
 
+
+
 const colors = ['c000000', 'c6600FF', 'cffffff'];
 const ratios = ['r16x9', 'r9x16'];
 const cmd_ratios = ['r1x1', 'r3x2'];
@@ -126,9 +128,8 @@ const createImage= async(image, target = false)=> {
 
 
 const capture = (id, link, name) => {
-	const node = document.querySelector(id);
 	link.classList.add('downloading');
-	convertToImage(node, link, name);
+	convertToImage(id, link, name);
 };
 
 function isImage(item, file) {
@@ -240,23 +241,6 @@ function checkImageBounds(image, container) {
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
-
-	
-	document.querySelector(".article-scraper .download").addEventListener('click', (event) => {
-		capture(".article-scraper .capture", event.target, "verge-article.png");	
-	})
-
-	document.querySelector(".decoder-image-generator .download").addEventListener('click', (event) => {
-		if(!event.target.classList.contains('captured')) {
-			capture(".decoder-image-generator .capture", event.target, "decoder-image.png");	
-		}
-	})
-
-	document.querySelector(".command-line-image-generator .download").addEventListener('click', (event) => {
-		if(!event.target.classList.contains('captured')) {
-			capture(".command-line-image-generator .capture", event.target, "command-line-image.png");	
-		}
-	})
 
 	document.querySelectorAll('#image').forEach(item => {
 		item.addEventListener('change', (event) => {
@@ -574,7 +558,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	document.querySelectorAll('.brightness-slider').forEach(slider => {
 		input = slider.querySelector('input');
 		input.addEventListener('input', (event) => {
-			var target = document.querySelector(`[data-adjustment='${input.dataset.target}']`);
+			var target;
+			if(document.querySelectorAll(`[data-adjustment='${slider.querySelector('input').dataset.target}']`).length > 1) {
+				target = document.querySelector(`.image-container.active [data-adjustment='${slider.querySelector('input').dataset.target}']`);
+			} else {
+				target = document.querySelector(`[data-adjustment='${slider.dataset.target}']`);
+			}
+			console.log(slider.dataset.target);
 			const brightness = event.target.value;
 			target.dataset.brightness = brightness;
 			updateFilters(target);
@@ -584,7 +574,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	document.querySelectorAll('.contrast-slider').forEach(slider => {
 		input = slider.querySelector('input');
 		input.addEventListener('input', (event) => {
-			var target = document.querySelector(`[data-adjustment='${input.dataset.target}']`);
+			var target;
+			if(document.querySelectorAll(`[data-adjustment='${slider.querySelector('input').dataset.target}']`).length > 1) {
+				target = document.querySelector(`.image-container.active [data-adjustment='${slider.querySelector('input').dataset.target}']`);
+			} else {
+				target = document.querySelector(`[data-adjustment='${slider.dataset.target}']`);
+			}
+			console.log(slider.dataset.target);
 			const contrast = parseInt(event.target.value);
 			target.dataset.contrast = contrast;
 			updateFilters(target);
@@ -599,8 +595,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 	document.querySelectorAll('.zoom-slider').forEach(slider => {
 		slider.addEventListener('input', (event) => {
-			
-			var target = document.querySelector(`[data-adjustment='${input.dataset.target}']`);
+
+			var target;
+			//if [data-adjustment='${slider.dataset.target}'].length > 1, pick the active one
+			console.log(document.querySelectorAll(`[data-adjustment='${slider.dataset.target}']`).length);
+			if(document.querySelectorAll(`[data-adjustment='${slider.dataset.target}']`).length > 1) {
+				target = document.querySelector(`.image-container.active [data-adjustment='${slider.dataset.target}']`);
+			} else {
+				target = document.querySelector(`[data-adjustment='${slider.dataset.target}']`);
+			}
 			var zooms = target.querySelectorAll('.zooming');
 			zooms.forEach(zoom => {
 				var transform = zoom.style.transform;
@@ -624,22 +627,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 	
 	//add 'dragging' class to 'draggable' on drag over
-	document.querySelector('.decoder-image-generator .image-container').addEventListener('dragover', (event) => {
+	document.querySelector('.image-container').addEventListener('dragover', (event) => {
 		if(event.target.classList.contains('draggable')) {
 			event.target.classList.add('dragging');
 		}
 	});
 
 	//remove 'dragging' class from 'draggable' on drag leave
-	document.querySelector('.decoder-image-generator .image-container').addEventListener('dragleave', (event) => {
+	document.querySelector('.image-container').addEventListener('dragleave', (event) => {
 		if(event.target.classList.contains('draggable')) {
 			event.target.classList.remove('dragging');
 		}
 	});
 
 	document.addEventListener("dragover", function(event) {
-  event.preventDefault();
-});
+  	event.preventDefault();
+	});
 
 	//on image drop upload image
 	document.querySelector('.decoder-image-generator .image-container').addEventListener('drop', (event) => {
@@ -669,23 +672,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		}
 	});
 
-	//add 'dragging' class to 'draggable' on drag over
-document.querySelector('.command-line-image-generator .image-container').addEventListener('dragover', (event) => {
-	if(event.target.classList.contains('draggable')) {
-		event.target.classList.add('dragging');
-	}
-});
-
-//remove 'dragging' class from 'draggable' on drag leave
-document.querySelector('.command-line-image-generator .image-container').addEventListener('dragleave', (event) => {
-	if(event.target.classList.contains('draggable')) {
-		event.target.classList.remove('dragging');
-	}
-});
-
-document.addEventListener("dragover", function(event) {
-event.preventDefault();
-});
 
 function commandLineBoxes() {
 	const frames = document.querySelectorAll('.command-line-image-generator .command-line-frame');
@@ -748,5 +734,276 @@ document.querySelector('.command-line-image-generator .image-container').addEven
 			}
 		});
 	});
+
+	document.querySelector('.verge-filter-generator #verge-filter').addEventListener('change', (event) => {
+		const target = document.querySelector('.verge-filter-generator .image-container .picture .image .image-holder svg image');
+		
+		const image = event.srcElement.files[0];
+		if(isImage(document.querySelector('.verge-filter-generator #verge-filter-image'), image)) {
+				//set svg image to image
+				target.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', `${URL.createObjectURL(image)}`);
+				//create html image with src
+				const imageCheck = new Image();
+				imageCheck.src = `${URL.createObjectURL(image)}`;
+				imageCheck.onload = function() {
+					//get aspect ratio
+					const aspectRatio = imageCheck.width/imageCheck.height;
+					var height = 500;
+					var width = 750;
+					if(aspectRatio > 1) {
+						//get updated height
+						height = width/aspectRatio;
+					} else {
+						//get updated width
+						width = height*aspectRatio;
+					}
+					target.closest('svg').setAttribute('preserveAspectRatio', `xMidYMid meet`);
+					//set svg width and height to 100%
+					target.closest('svg').setAttribute('width', `${width}`);
+					target.closest('svg').setAttribute('height', `${height}`);
+					//set svg viewbox to 0 0 width height
+					target.closest('svg').setAttribute('viewBox', `0 0 ${width} ${height}`);
+					//find image-container, set max-width to width and aspect ratio to height/width
+					target.closest('.image-container').style.setProperty('max-width', `${width}px`);
+					target.closest('.image-container').style.setProperty('aspect-ratio', `${aspectRatio}`);
+					//find .lockup
+					target.closest('.lockup').style.setProperty('aspect-ratio', `${aspectRatio}`);
+					delete imageCheck;
+				}
+
+
+			}
+		document.querySelector('.verge-filter-generator .draggable').classList.remove('dragging');
+		document.querySelector('.verge-filter-generator .draggable').classList.remove('draggable');
+		document.querySelector('.verge-filter-generator .edit').classList.add('selected');
+		document.querySelector('.verge-filter-generator .options').classList.add('visible');
+		addPanning();
+	});
+
+	document.querySelector('.verge-filter-generator .image-container').addEventListener('drop', (event) => {
+		event.preventDefault();
+		if(event.target.classList.contains('draggable')) {
+			event.target.classList.remove('dragging');
+			const target = document.querySelector('.verge-filter-generator .image-container .picture .image .image-holder svg image');
+			const image = event.dataTransfer.files[0];
+			if(isImage(document.querySelector('.verge-filter-generator #verge-filter-image'), image)) {
+				//set svg image to image
+				target.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', `${URL.createObjectURL(image)}`);
+				//create html image with src
+				const imageCheck = new Image();
+				imageCheck.src = `${URL.createObjectURL(image)}`;
+				imageCheck.onload = function() {
+					//get aspect ratio
+					const aspectRatio = imageCheck.width/imageCheck.height;
+					var height = 500;
+					var width = 750;
+					if(aspectRatio > 1) {
+						//get updated height
+						height = width/aspectRatio;
+					} else {
+						//get updated width
+						width = height*aspectRatio;
+					}
+					target.closest('svg').setAttribute('preserveAspectRatio', `xMidYMid meet`);
+					//set svg width and height to 100%
+					target.closest('svg').setAttribute('width', `${width}`);
+					target.closest('svg').setAttribute('height', `${height}`);
+					//set svg viewbox to 0 0 width height
+					target.closest('svg').setAttribute('viewBox', `0 0 ${width} ${height}`);
+					//find image-container, set max-width to width and aspect ratio to height/width
+					target.closest('.image-container').style.setProperty('max-width', `${width}px`);
+					target.closest('.image-container').style.setProperty('aspect-ratio', `${aspectRatio}`);
+					//find .lockup
+					target.closest('.lockup').style.setProperty('aspect-ratio', `${aspectRatio}`);
+					delete imageCheck;
+				}
+
+
+			}
+			document.querySelector('.verge-filter-generator .draggable').classList.remove('dragging');
+			document.querySelector('.verge-filter-generator .draggable').classList.remove('draggable');
+			document.querySelector('.verge-filter-generator .edit').classList.add('selected');
+			document.querySelector('.verge-filter-generator .options').classList.add('visible');
+			addPanning();
+		}
+	});
+
+	//when paste occurs, check active tool for .image-container. upload image to first .image-container found
+	document.addEventListener('paste', (event) => {
+		//check which tool is active
+		const activeTool = document.querySelector('.tool.active');
+		//get data-tool-name
+		const toolName = activeTool.dataset.toolName;
+		const items = (event.clipboardData  || event.originalEvent.clipboardData).items;
+		for (index in items) {
+			const item = items[index];
+			if (item.kind === 'file') {
+				const image = item.getAsFile();
+					if(toolName == "verge-filter") {
+						const target = document.querySelector('.verge-filter-generator .image-container .picture .image .image-holder svg image');
+							console.log('success?')
+							if(isImage(document.querySelector('.verge-filter-generator #verge-filter-image'), image)) {
+							//set svg image to image
+							target.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', `${URL.createObjectURL(image)}`);
+							//create html image with src
+							const imageCheck = new Image();
+							imageCheck.src = `${URL.createObjectURL(image)}`;
+							imageCheck.onload = function() {
+								//get aspect ratio
+								const aspectRatio = imageCheck.width/imageCheck.height;
+								var height = 500;
+								var width = 750;
+								if(aspectRatio > 1) {
+									//get updated height
+									height = width/aspectRatio;
+								} else {
+									//get updated width
+									width = height*aspectRatio;
+								}
+								target.closest('svg').setAttribute('preserveAspectRatio', `xMidYMid meet`);
+								//set svg width and height to 100%
+								target.closest('svg').setAttribute('width', `${width}`);
+								target.closest('svg').setAttribute('height', `${height}`);
+								//set svg viewbox to 0 0 width height
+								target.closest('svg').setAttribute('viewBox', `0 0 ${width} ${height}`);
+								//find image-container, set max-width to width and aspect ratio to height/width
+								target.closest('.image-container').style.setProperty('max-width', `${width}px`);
+								target.closest('.image-container').style.setProperty('aspect-ratio', `${aspectRatio}`);
+								//find .lockup
+								target.closest('.lockup').style.setProperty('aspect-ratio', `${aspectRatio}`);
+								delete imageCheck;
+							}
+
+
+						}
+						document.querySelector('.verge-filter-generator .draggable').classList.remove('dragging');
+						document.querySelector('.verge-filter-generator .draggable').classList.remove('draggable');
+						document.querySelector('.verge-filter-generator .edit').classList.add('selected');
+						document.querySelector('.verge-filter-generator .options').classList.add('visible');
+						addPanning();
+					}
+				break;
+			}
+		}
+	});
+
+	document.querySelectorAll(".toggle-group").forEach(group => {
+		const target = document.querySelector(`.${group.dataset.target}`);
+		var classes = [];
+		group.querySelectorAll(".toggle").forEach(toggle => {
+			//get classes from data-class
+			classes.push(toggle.dataset.class);
+		})
+
+		group.querySelectorAll(".toggle").forEach(toggle => {
+			//on click get data-class and apply it to target
+
+			toggle.addEventListener('click', (event) => {
+
+				classes.forEach(item => {
+					target.classList.remove(item);
+				});
+				target.classList.add(toggle.dataset.class);
+				//remove selected from group.toggle.selected
+				group.querySelectorAll(".toggle .inner.selected").forEach(selected => {
+					selected.classList.remove('selected');
+				});
+				//add selected to this one
+				toggle.querySelector('.inner').classList.add('selected');
+			});
+		});
+	});
+
+	document.querySelectorAll('.check-toggle').forEach(toggle => {
+		const target = document.querySelector(`.${toggle.dataset.target}`);
+		var applyClass = toggle.dataset.class;
+		//if checkbox is checked, add class to target
+
+		toggle.addEventListener('change', (event) => {
+			//if checkbox is checked, add class to target
+			console.log('test');
+			if(event.target.checked) {
+				target.classList.add(applyClass);
+			} else {
+				target.classList.remove(applyClass);
+			}
+		});
+	});
+
+	document.querySelectorAll('.installer-image-generator .image-container').forEach(container => {
+		container.addEventListener('click', (event) => {
+			//remove active from all other .installer-image-generator .image-container
+			document.querySelectorAll('.installer-image-generator .image-container.active').forEach(container => {
+				container.classList.remove('active');
+			});
+			//add active to this one
+			event.target.closest('.image-container').classList.add('active');
+		});
+	});
+
+	document.querySelectorAll('.installer-image-generator .image-container').forEach(container => {
+		container.addEventListener('drop', (event) => {
+		event.preventDefault();
+		if(event.target.classList.contains('draggable')) {
+			event.target.classList.remove('dragging');
+			const target = container.querySelector('.picture .image .image-holder img');
+			const image = event.dataTransfer.files[0];
+			target.src = `${URL.createObjectURL(image)}`;
+			target.addEventListener('load', (event) => {
+					smartcrop.crop(target, { width: 100, height: 100 }).then(function(result) {
+					target.parentNode.dataset.zoom = 1;
+					addPanning();
+				});
+			});
+			container.classList.remove('dragging');
+			container.classList.remove('draggable');
+			document.querySelector('.installer-image-generator .edit').classList.add('selected');
+			document.querySelector('.installer-image-generator .options').classList.add('visible');
+		}
+	});
+});
+
+document.querySelector('.installer-image-generator #installer-image').addEventListener('change', (event) => {
+		var targetContainer = document.querySelector('.installer-image-generator .image-container.active');
+		if(!targetContainer) {
+			targetContainer = document.querySelector('.installer-image-generator .image-container');
+		}
+		const target = targetContainer.querySelector('.picture .image .image-holder img');
+		const image = document.querySelector('.installer-image-generator #installer-image').files[0];
+		if(isImage(document.querySelector('.installer-image-generator #installer-image'), image)) {
+			target.src = `${URL.createObjectURL(image)}`;
+			target.addEventListener('load', (event) => {
+			smartcrop.crop(target, { width: 100, height: 100 }).then(function(result) {
+			  	target.parentNode.dataset.zoom = 1;
+			  	addPanning();
+			});
+		});
+		}
+		targetContainer.classList.remove('dragging');
+		targetContainer.classList.remove('draggable');
+		document.querySelector('.installer-image-generator .edit').classList.add('selected');
+		document.querySelector('.installer-image-generator .options').classList.add('visible');
+		
+	});
+
+	var font = new FontFaceObserver('Poly Sans');
+
+	font.load().then(function () {
+	  document.querySelectorAll('.download').forEach(item => {
+			item.classList.add('active');
+			item.addEventListener('click', (event) => {
+				var name = item.dataset.fileName;
+				//get closest .tool, then find .tool .capture
+				if(document.querySelector('.image-container.active')) {
+						document.querySelector('.image-container.active').classList.remove('active');
+				}	
+				const tool = event.target.closest('.tool');
+				const target = tool.querySelector('.capture');
+				capture(target, event.target, name);
+			});
+		});
+	});
+
+
 
 });
