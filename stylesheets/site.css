@@ -1849,6 +1849,16 @@ header {
           user-select: none;
   display: block;
   order: 0; }
+  .verge-filter-generator .input .image-container .text-box {
+    position: absolute;
+    color: #000;
+    font-family: Poly Sans, Helvetica, Arial, sans-serif;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    font-size: 50px;
+    z-index: 2; }
   .verge-filter-generator .input .image-container svg {
     position: absolute;
     inset: 0; }
