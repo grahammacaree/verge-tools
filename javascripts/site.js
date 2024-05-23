@@ -13,17 +13,21 @@ const decoder_divs = ['x', 'square', 'filled', 'slash'];
 const column_alignments = ['even', 'between', 'around'];
 const commandLineColors = ['#d6f31f', '#5200ff', '#f9f9f9'];
 
+var throughGate = false;
+
 document.documentElement.classList.remove('no-js');
 
 function switchTool(tool) {
-	document.querySelector('.tool.active').classList.remove('active');
-	document.querySelector('.tool.'+tool).classList.add('active');
-	document.querySelector('.text-container.active').classList.remove('active');
-	document.querySelector('.text-container.'+tool).classList.add('active');
-	if(document.querySelector('.left-column .active')) {
-		document.querySelector('.left-column .active').classList.remove('active');
+	if(throughGate) {
+		document.querySelector('.tool.active').classList.remove('active');
+		document.querySelector('.tool.'+tool).classList.add('active');
+		document.querySelector('.text-container.active').classList.remove('active');
+		document.querySelector('.text-container.'+tool).classList.add('active');
+		if(document.querySelector('.left-column .active')) {
+			document.querySelector('.left-column .active').classList.remove('active');
+		}
+		document.querySelector('.left-column [data-tool="'+tool+'"]').classList.add('active');
 	}
-	document.querySelector('.left-column [data-tool="'+tool+'"]').classList.add('active');
 }
 
 function updateBylines() {
@@ -128,8 +132,10 @@ const createImage= async(image, target = false)=> {
 
 
 const capture = (id, link, name) => {
-	link.classList.add('downloading');
-	convertToImage(id, link, name);
+	if(throughGate) {
+		link.classList.add('downloading');
+		convertToImage(id, link, name);
+	}
 };
 
 function isImage(item, file) {
@@ -1004,6 +1010,35 @@ document.querySelector('.installer-image-generator #installer-image').addEventLi
 		});
 	});
 
+	function stringToHash(string) {
+    return string.split('').reduce((hash, char) => {
+        return char.charCodeAt(0) + (hash << 6) + (hash << 16) - hash;
+    }, 0);
+	}
+
+	document.querySelector('#password-button').addEventListener('click', (event) => {
+		const input = document.querySelector('#password-input');
+		if(stringToHash(input.value+"grahamwashere") == -1047751711) {
+			removeGate();
+		}
+	})
+
+	document.querySelector('#password-input').addEventListener('keyup', (event) => {
+		const input = document.querySelector('#password-input');
+		if(stringToHash(input.value+"grahamwashere") == -1047751711 && event.keyCode == 13) {
+			removeGate();
+		}
+	})
+
+	if (localStorage.getItem("vergetools") === "-1047751711") {
+		removeGate();
+	}
+
+	function removeGate() {
+		throughGate = true;
+		document.querySelector('.gate').classList.remove('active');
+		localStorage.setItem("vergetools", -1047751711);
+	}
 
 
 });

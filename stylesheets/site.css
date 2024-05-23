@@ -14,6 +14,51 @@ main {
   width: 80%;
   margin-right: 0; }
 
+.gate {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+  background-color: #6600FF; }
+  .gate.active {
+    display: block; }
+    .gate.active .password {
+      max-width: 80%;
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      gap: 0.5rem; }
+      .gate.active .password span {
+        font-family: Poly Sans, Helvetica, Arial, sans-serif;
+        color: #fff;
+        font-size: 20px;
+        height: 24px;
+        padding: 2px; }
+      .gate.active .password input {
+        padding: 2px;
+        height: 24px;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: Poly Sans, Helvetica, Arial, sans-serif;
+        color: #6600FF; }
+      .gate.active .password button {
+        aspect-ratio: 1;
+        height: 2.5rem;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        background-color: transparent;
+        color: #fff;
+        -webkit-transform: translate(0.5rem, -0.5rem);
+                transform: translate(0.5rem, -0.5rem);
+        cursor: pointer;
+        font-size: 30px; }
+        .gate.active .password button:hover {
+          background-color: rgba(255, 255, 255, 0.5); }
+
 .ads,
 .m-ad {
   max-width: 92%;
