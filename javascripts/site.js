@@ -5,6 +5,8 @@
 const colors = ['c000000', 'c6600FF', 'cffffff'];
 const ratios = ['r16x9', 'r9x16'];
 const cmd_ratios = ['r1x1', 'r3x2'];
+
+const ai_ratios = ['r1x1', 'r3x2', 'r5x4', 'r16x9'];
 var eyebrow = [];
 var byline = [];
 var timestamp;
@@ -891,6 +893,64 @@ document.querySelector('.command-line-image-generator .image-container').addEven
 				break;
 			}
 		}
+	});
+
+	document.querySelector('.ai-label .image-container').addEventListener('drop', (event) => {
+	event.preventDefault();
+	if(event.target.classList.contains('draggable')) {
+		event.target.classList.remove('dragging');
+		const target = document.querySelector('.ai-label .image-container .picture .image .image-holder img');
+		const image = event.dataTransfer.files[0];
+			target.src = `${URL.createObjectURL(image)}`;
+			target.addEventListener('load', (event) => {
+				smartcrop.crop(target, { width: 100, height: 100 }).then(function(result) {
+			  //target.parentNode.style.setProperty('transform', `translate(-${result.topCrop.x}px, -${result.topCrop.y+50}px)`);
+				target.parentNode.dataset.zoom = 1;
+				
+				//inverse.style.setProperty('transform', `translate(-${result.topCrop.x}px, -${result.topCrop.y+50}px)`);
+				//checkImageBounds();
+				addPanning();
+			});
+		});
+		commandLineBoxes();
+		document.querySelector('.ai-label .draggable').classList.remove('dragging');
+		document.querySelector('.ai-label .draggable').classList.remove('draggable');
+		document.querySelector('.ai-label .edit').classList.add('selected');
+		document.querySelector('.ai-label .options').classList.add('visible');
+	}
+});
+
+	document.querySelector('.ai-label #ai-label').addEventListener('change', (event) => {
+		const target = document.querySelector('.ai-label .image-container .picture .image .image-holder img');
+		
+		const image = event.srcElement.files[0];
+		console.log(target, image);
+			target.src = `${URL.createObjectURL(image)}`;
+			target.addEventListener('load', (event) => {
+				smartcrop.crop(target, { width: 100, height: 100 }).then(function(result) {
+			  target.parentNode.dataset.zoom = 1;
+				
+				//inverse.style.setProperty('transform', `translate(-${result.topCrop.x}px, -${result.topCrop.y+50}px)`);
+				//checkImageBounds();
+				addPanning();
+			});
+		});
+		document.querySelector('.ai-label .draggable').classList.remove('draggable');
+		document.querySelector('.ai-label .options').classList.add('visible');
+		document.querySelector('.ai-label .edit').classList.add('selected');
+		addPanning();
+	});
+
+  document.querySelectorAll('.ai-label .ratios .ratio').forEach(ratio => {
+		ratio.addEventListener('click', (event) => {
+			const target = document.querySelector('.ai-label .image-container');
+			if(!ratio.classList.contains('selected')) {
+				document.querySelector('.ai-label .ratios .selected').classList.remove('selected');
+				ratio.querySelector('.inner').classList.add('selected');
+				target.classList.remove(...ai_ratios);
+				target.classList.add(ratio.dataset.ratio);
+			}
+		});
 	});
 
 	document.querySelectorAll(".toggle-group").forEach(group => {

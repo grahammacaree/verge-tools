@@ -1823,6 +1823,169 @@ header {
   .installer-image-generator .options .ratios {
     width: 100%; }
 
+.ai-label .story {
+  gap: 1rem; }
+
+.ai-label .input .edit .edit-inner label {
+  display: block; }
+  .ai-label .input .edit .edit-inner label span {
+    display: none; }
+    .ai-label .input .edit .edit-inner label span:first-child {
+      display: inline; }
+
+.ai-label .input .edit.selected .edit-inner label span {
+  display: inline; }
+  .ai-label .input .edit.selected .edit-inner label span:first-child {
+    display: none; }
+
+.ai-label .input .edit input[type=file] {
+  color: transparent; }
+
+.ai-label .input .options {
+  display: none;
+  margin: 0;
+  padding: 0; }
+  .ai-label .input .options.visible {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; }
+    .ai-label .input .options.visible .download {
+      display: block;
+      margin-top: 0; }
+  .ai-label .input .options input[type="range"] {
+    accent-color: #6600FF; }
+  .ai-label .input .options .ratios {
+    width: 100%; }
+
+.ai-label .input .image-container {
+  margin: 0;
+  padding: 0;
+  max-width: 500px;
+  flex: 1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: block;
+  order: 0;
+  background-color: #f9f9f9;
+  overflow: hidden;
+  position: relative; }
+  .ai-label .input .image-container svg {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+    .ai-label .input .image-container svg .ai-label-boxes {
+      -webkit-transform-origin: center center;
+              transform-origin: center center; }
+  .ai-label .input .image-container.r1x1 {
+    aspect-ratio: 1; }
+    .ai-label .input .image-container.r1x1 .r1x1 {
+      display: block; }
+    .ai-label .input .image-container.r1x1 .r3x2, .ai-label .input .image-container.r1x1 .r5x4, .ai-label .input .image-container.r1x1 .r16x9 {
+      display: none; }
+  .ai-label .input .image-container.r3x2 {
+    aspect-ratio: 1.5;
+    max-width: 750px; }
+    .ai-label .input .image-container.r3x2 .r1x1, .ai-label .input .image-container.r3x2 .r5x4, .ai-label .input .image-container.r3x2 .r16x9 {
+      display: none; }
+    .ai-label .input .image-container.r3x2 .r3x2 {
+      display: block; }
+  .ai-label .input .image-container.r5x4 {
+    aspect-ratio: 5/4; }
+    .ai-label .input .image-container.r5x4 .r1x1, .ai-label .input .image-container.r5x4 .r3x2, .ai-label .input .image-container.r5x4 .r16x9 {
+      display: none; }
+    .ai-label .input .image-container.r5x4 .r5x4 {
+      display: block; }
+  .ai-label .input .image-container.r16x9 {
+    aspect-ratio: 16/9;
+    max-width: 750px; }
+    .ai-label .input .image-container.r16x9 .r1x1, .ai-label .input .image-container.r16x9 .r3x2, .ai-label .input .image-container.r16x9 .r5x4 {
+      display: none; }
+    .ai-label .input .image-container.r16x9 .r16x9 {
+      display: block; }
+  .ai-label .input .image-container.draggable {
+    border: 0.125rem dashed #6600FF;
+    border-radius: 0.5rem;
+    position: relative; }
+    .ai-label .input .image-container.draggable:after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 90%;
+      display: block;
+      content: "Drop image";
+      font-family: Poly Sans, Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 2.5rem;
+      color: #6600FF;
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+      text-align: center; }
+    .ai-label .input .image-container.draggable.dragging {
+      background-color: rgba(102, 0, 255, 0.25); }
+    .ai-label .input .image-container.draggable div {
+      display: none; }
+  .ai-label .input .image-container .image-inner {
+    position: absolute;
+    inset: 0;
+    overflow: hidden; }
+    .ai-label .input .image-container .image-inner img.download {
+      display: none; }
+  .ai-label .input .image-container .lockup {
+    font-family: Poly Sans, Helvetica, Arial, sans-serif;
+    color: #fff;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    cursor: move; }
+    .ai-label .input .image-container .lockup .label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      background-color: #D6F31F;
+      font-family: Poly Sans, Helvetica, Arial, sans-serif;
+      color: #000;
+      padding: 8px 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      font-size: 15px;
+      line-height: 18px; }
+    .ai-label .input .image-container .lockup .picture {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%; }
+    .ai-label .input .image-container .lockup .image {
+      position: absolute;
+      inset: 0; }
+      .ai-label .input .image-container .lockup .image .image-holder {
+        position: absolute;
+        inset: 0; }
+      .ai-label .input .image-container .lockup .image .image-holder .image-holder-inner {
+        width: 100%;
+        height: 100%;
+        text-align: center; }
+        .ai-label .input .image-container .lockup .image .image-holder .image-holder-inner img {
+          height: 100%;
+          width: 100%;
+          -o-object-position: center center;
+             object-position: center center; }
+      .ai-label .input .image-container .lockup .image img {
+        -webkit-transform-origin: center center;
+                transform-origin: center center; }
+    .ai-label .input .image-container .lockup .layer {
+      inset: -1px;
+      z-index: 1;
+      position: absolute;
+      pointer-events: none; }
+
 .verge-filter-generator .story {
   gap: 1rem; }
 
