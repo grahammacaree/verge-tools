@@ -1136,6 +1136,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			const target = document.querySelector('#'+item.dataset.target);
 			const filter = item.dataset.color;
 			const remove = item.parentNode.dataset.classes.split(" ");
+			
 			const stepHolder = item.closest('.step-holder');
 			//add class filter to target, remove all other filter classes
 			target.classList.remove(...remove);

@@ -1723,7 +1723,7 @@ html {
     position: absolute;
     inset: 0;
     background-size: cover; }
-  .image-mosaic .image-container.cFF0052 .background-container:after, .image-mosaic .image-container.c8E2B88 .background-container:after, .image-mosaic .image-container.c6966AD .background-container:after, .image-mosaic .image-container.cFFA632 .background-container:after, .image-mosaic .image-container.c55DF5E .background-container:after, .image-mosaic .image-container.c00ADEF .background-container:after, .image-mosaic .image-container.gradient .background-container:after, .image-mosaic .template-display.cFF0052 .background-container:after, .image-mosaic .template-display.c8E2B88 .background-container:after, .image-mosaic .template-display.c6966AD .background-container:after, .image-mosaic .template-display.cFFA632 .background-container:after, .image-mosaic .template-display.c55DF5E .background-container:after, .image-mosaic .template-display.c00ADEF .background-container:after, .image-mosaic .template-display.gradient .background-container:after {
+  .image-mosaic .image-container.cE90C59 .background-container:after, .image-mosaic .image-container.c66FF75 .background-container:after, .image-mosaic .image-container.cC305A4 .background-container:after, .image-mosaic .image-container.gradient .background-container:after, .image-mosaic .template-display.cE90C59 .background-container:after, .image-mosaic .template-display.c66FF75 .background-container:after, .image-mosaic .template-display.cC305A4 .background-container:after, .image-mosaic .template-display.gradient .background-container:after {
     content: "";
     display: block;
     position: absolute;
