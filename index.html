@@ -79,12 +79,13 @@
     <link rel="apple-touch-icon" href="https://cdn.vox-cdn.com/uploads/chorus_asset/file/23989692/android_chrome_192x192.png" sizes="180x180">
 
 
-
+  <script src="https://cdn.jsdelivr.net/npm/public-google-sheets-parser@latest"></script>
     <link href="stylesheets/site.css" rel="stylesheet" />
 
     <script src="javascripts/fontfaceobserver.js"></script>
     <script src="javascripts/bundle.js"></script>
     <script src="javascripts/site.js"></script>
+    <script src="javascripts/image_mosaic.js"></script>
     <script src="javascripts/html2canvas.js"></script>
     <script src="javascripts/smartcrop.js"></script>
     <script src='https://www.googletagservices.com/tag/js/gpt.js' async></script>
@@ -140,28 +141,76 @@
     
 
 
-<div class="gate active">
-	<div class="password"><span>Enter password:</span> <input id="password-input" autocomplete="off"></input><button id="password-button">➞</button></div>
+
+<div class="gate active brand">
+	<div class="inner">
+
+		<div class="brand-select">
+			<div class="verge-brand brand-item">
+				<svg viewBox="0 0 724 644" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M379.532 122.477V5.61004e-05L0 0L190.8 455.898H331.736L197.464 122.477H379.532Z" fill="white"/>
+<path d="M570.715 0L316.34 642.562H457.506L723.14 0H570.715Z" fill="white"/>
+</svg>
+
+				<span>The Verge</span>
+			</div>
+			<div class="polygon-brand brand-item">
+				<svg viewBox="0 0 1000 1480" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2003_1552)">
+<path d="M500.019 1479.78C494.524 1479.78 489.518 1477.7 485.611 1473.8L5.98313 994.048C3.54104 991.606 1.83157 988.431 0.976838 984.768C0.732628 983.913 0.610524 983.181 0.488419 982.326C0.366314 981.96 0 980.983 0 979.64V497.57L0.976838 493.785C1.09894 493.296 1.34315 492.808 1.46526 492.198L2.80841 489.878C3.41893 488.779 3.90735 488.29 4.39577 487.558C4.88419 486.703 5.2505 486.092 5.73892 485.604L483.901 7.80803L486.832 4.87751C489.152 2.92384 491.96 1.58068 495.135 0.725951C495.745 0.481741 496.722 0.359637 497.455 0.237532C503.682 -0.739306 510.031 1.33647 514.427 5.73225L992.345 483.65L996.008 487.68C997.474 489.633 998.572 491.953 999.305 494.64C999.549 495.616 999.794 496.593 999.794 497.692C1000.28 501.111 999.916 504.53 998.572 507.705C997.474 510.269 996.008 512.467 994.177 514.298L520.41 988.065V1459.39C520.41 1467.57 515.526 1475.02 507.956 1478.19C505.391 1479.17 502.827 1479.66 500.141 1479.66L500.019 1479.78ZM479.749 930.554V520.282H69.4776M930.682 520.282H520.41V930.554M520.41 479.621H930.682L520.41 69.3488V479.621ZM69.4776 479.621H479.627V69.3488M479.749 1410.3V1000.03H69.4776M451.055 959.37L40.6609 549.098V959.37" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_2003_1552">
+<rect width="1000" height="1479.78" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+				<span>Polygon</span>
+			</div>
+		</div>
+		<div class="password"><span>Enter password:</span> <input id="password-input" autocomplete="off"></input><button id="password-button">➞</button></div>
+	</div>
+	<div class="close"><span></span><span></span></div>
 </div>
 
 <div class="flex-container hidden">
 	<div class="left-column">
 		<div class="inner">
-			<a class="home" href="https://www.theverge.com/">
+			<a class="home verge" href="https://www.theverge.com/">
 				<svg  viewBox="0 0 2040 456" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_2719_13397)">
   <path d="M1526.52 117.363L1524.73 176.623C1456.82 172.052 1437.21 189.675 1437.21 247.806V255.764H1378.86V120.998H1437.21V159.274C1454.64 128.323 1478.41 113.783 1526.52 117.335V117.363ZM100.125 361.644H162.111V127.441H100.125V361.672V361.644ZM398.186 117.363C356.247 117.363 330.637 136.391 317.062 156.961V28.5835H0V83.2721H258.738V255.929H317.089C317.089 205.867 346.223 170.234 381.801 170.234C412.34 170.234 426.466 185.269 426.466 239.517V361.672H484.817V219.47C484.817 151.096 450.176 117.39 398.213 117.39L398.186 117.363ZM634.151 314.253C597.692 314.253 573.982 292.388 569.879 255.902H513.539C519.018 319.87 561.15 365.279 633.683 365.279C689.721 365.279 721.278 339.917 737.91 301.861L687.187 279.391C678.926 301.889 665.102 314.225 634.151 314.225V314.253ZM632.774 117.363C609.175 117.363 588.384 122.43 571.008 131.765L599.867 172.85C608.817 167.728 620.189 164.754 634.591 164.754C668.324 164.754 685.645 186.619 687.903 215.808H630.02V255.902H744.877C745.786 249.073 746.254 244.502 746.254 238.14C746.254 150.628 688.371 117.363 632.774 117.363ZM1226 314.253C1189.55 314.253 1165.84 292.388 1161.73 255.902H1105.39C1110.87 319.87 1153 365.279 1225.54 365.279C1281.57 365.279 1313.13 339.917 1329.76 301.861L1279.04 279.391C1270.78 301.889 1256.96 314.225 1226 314.225V314.253ZM1224.63 117.363C1201.03 117.363 1180.24 122.43 1162.86 131.765L1191.72 172.85C1200.67 167.728 1212.04 164.754 1226.45 164.754C1260.18 164.754 1277.5 186.619 1279.76 215.808H1221.87V255.902H1336.73C1337.64 249.073 1338.11 244.502 1338.11 238.14C1338.11 150.628 1280.23 117.363 1224.63 117.363ZM1927.9 314.253C1891.44 314.253 1867.73 292.388 1863.63 255.902H1807.28C1812.76 319.87 1854.9 365.279 1927.43 365.279C1983.47 365.279 2015.02 339.917 2031.66 301.861L1980.93 279.391C1972.67 301.889 1958.85 314.225 1927.9 314.225V314.253ZM1926.52 117.363C1902.92 117.363 1882.13 122.43 1864.75 131.765L1893.61 172.85C1902.56 167.728 1913.94 164.754 1928.34 164.754C1962.07 164.754 1979.39 186.619 1981.65 215.808H1923.77V255.902H2038.62C2039.53 249.073 2040 244.502 2040 238.14C2040 150.628 1982.12 117.363 1926.52 117.363ZM972.141 0.110148L805.294 0H776.297L883.912 255.902H947.963L865.848 52.5407H972.113L972.141 0.110148ZM1095.64 0.0275371L971.7 314.611L971.645 314.473L952.975 361.644H1015.95L1164.9 0.0275371H1095.62H1095.64ZM1647.68 354.347C1673.43 354.347 1694.44 347.325 1709.5 334.878L1685.63 296.96C1678.3 299.851 1670.18 301.476 1661.34 301.476C1628.35 301.476 1609.51 282.007 1603.4 255.902H1544.25C1552.02 311.306 1591.81 354.347 1647.65 354.347H1647.68ZM1725.17 154.18C1712.12 132.839 1685.07 117.335 1647.68 117.335C1610.28 117.335 1577.35 138.429 1559.48 170.069L1608.14 202.012C1617 183.094 1634.49 170.179 1661.37 170.179C1699.64 170.179 1725.17 200.249 1725.17 235.8C1725.17 242.767 1724.18 249.513 1722.3 255.847H1783.49V120.998H1725.14V154.18H1725.17ZM1663.65 407.906C1624.91 407.906 1610.34 388.988 1607.59 367.096H1550.17C1551.52 409.173 1579.5 455.298 1664.56 455.298C1722.33 455.298 1759.92 426.659 1775.42 383.206L1721.86 364.37C1714.18 392.32 1693.31 407.906 1663.65 407.906Z" >
   </g>
 </svg><span class="sr-only">Link back to The Verge</span>
 			</a>
+			<a class="home polygon" href="https://www.polygon.com/">
+				<svg  viewBox="0 0 2000 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2002_1520)">
+<path d="M349.608 491.43V166.528H459.382C494.067 166.082 519.989 170.909 537.109 178.82C572.24 195.047 594.187 232.369 594.187 276.303C594.187 336.464 560.841 389.566 467.739 389.566H429.119V491.43H349.648H349.608ZM464.656 316.667C498.043 316.667 514.716 305.268 514.716 277.601C514.716 249.934 498.489 239.387 461.573 239.387H429.079V316.667H464.656Z" fill="white"/>
+<path d="M725.868 498.895C651.67 498.895 594.592 444.007 594.592 369.364C594.592 294.72 652.968 239.833 725.868 239.833C798.767 239.833 857.143 294.72 857.143 368.471C857.143 442.222 799.172 498.854 725.868 498.854V498.895ZM784.284 369.364C784.284 336.869 759.701 307.905 725.462 307.905C693.414 307.905 667.491 336.018 667.491 369.364C667.491 402.71 692.968 430.823 725.908 430.823C758.849 430.823 784.284 401.858 784.284 369.364Z" fill="white"/>
+<path d="M878.643 491.43V166.528H951.543V491.43H878.643Z" fill="white"/>
+<path d="M1019.17 572.646L1057.79 479.138L967.323 247.743H1045.05L1093.77 389.12H1094.66L1141.19 247.743H1218.47L1096.41 572.646H1019.13H1019.17Z" fill="white"/>
+<path d="M1395.87 462.871C1384.88 486.156 1357.66 499.3 1327.8 499.3C1256.69 499.3 1205.29 444.413 1205.29 371.108C1205.29 297.803 1257.54 239.833 1327.8 239.833C1359.4 239.833 1383.58 251.678 1395.43 270.583H1396.32V247.743H1469.22V465.508C1469.22 498.448 1464.84 523.478 1456.04 540.151C1438.47 573.944 1390.6 599.866 1329.59 599.866C1260.66 599.866 1215.88 560.8 1209.71 514.229H1294.01C1302.37 532.241 1318.59 538.366 1336.61 538.366C1373.48 538.366 1395.87 514.229 1395.87 469.889V462.871ZM1396.28 370.702C1396.28 335.125 1372.14 307.905 1336.57 307.905C1304.07 307.905 1278.19 335.125 1278.19 368.512C1278.19 401.899 1301.47 431.31 1336.57 431.31C1371.66 431.31 1396.28 405.834 1396.28 370.702Z" fill="white"/>
+<path d="M1621.55 498.895C1547.35 498.895 1490.27 444.007 1490.27 369.364C1490.27 294.72 1548.65 239.833 1621.55 239.833C1694.45 239.833 1752.82 294.72 1752.82 368.471C1752.82 442.222 1694.85 498.854 1621.55 498.854V498.895ZM1679.93 369.364C1679.93 336.869 1655.34 307.905 1621.1 307.905C1589.05 307.905 1563.13 336.018 1563.13 369.364C1563.13 402.71 1588.61 430.823 1621.51 430.823C1654.41 430.823 1679.88 401.858 1679.88 369.364H1679.93Z" fill="white"/>
+<path d="M1927.1 491.43V356.22C1927.1 323.279 1915.7 307.904 1888.89 307.904C1859.48 307.904 1847.18 324.131 1847.18 357.072V491.43H1774.28V247.743H1842.36V273.625H1843.25C1858.62 248.595 1880.12 239.387 1909.54 239.387C1953.43 239.387 1999.96 263.97 1999.96 335.977V491.39H1927.06L1927.1 491.43Z" fill="white"/>
+<path d="M166.122 491.592C164.297 491.592 162.634 490.903 161.335 489.605L1.98779 330.216C1.17645 329.405 0.608507 328.35 0.324537 327.133C0.243403 326.849 0.202836 326.606 0.162269 326.322C0.121701 326.2 0 325.876 0 325.43V165.27L0.324537 164.013C0.365104 163.851 0.446238 163.688 0.486806 163.486L0.933044 162.715C1.13588 162.35 1.29815 162.187 1.46042 161.944C1.62269 161.66 1.74439 161.457 1.90665 161.295L160.768 2.55575L161.741 1.58214C162.512 0.933062 163.445 0.486824 164.5 0.202854C164.703 0.12172 165.027 0.0811528 165.27 0.0405856C167.339 -0.283951 169.449 0.40569 170.909 1.86611L329.689 160.646L330.906 161.985C331.393 162.634 331.758 163.404 332.001 164.297C332.082 164.621 332.164 164.946 332.164 165.311C332.326 166.447 332.204 167.583 331.758 168.638C331.393 169.489 330.906 170.22 330.298 170.828L172.897 328.229V484.818C172.897 487.536 171.274 490.01 168.759 491.065C167.907 491.39 167.055 491.552 166.163 491.552L166.122 491.592ZM159.388 309.122V172.816H23.0827M309.203 172.816H172.897V309.122M172.897 159.307H309.203L172.897 23.0016V159.307ZM23.0827 159.307H159.348V23.0016M159.388 468.51V332.204H23.0827M149.855 318.695L13.5089 182.39V318.695" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_2002_1520">
+<rect width="2000" height="599.866" fill="white"/>
+</clipPath>
+</defs>
+</svg><span class="sr-only">Link back to Polygon</span>
+			</a>
 			<ul class="tool-selector">
 				<li class="select-tool" data-tool="title">Home</li>
-					<li class="select-tool" data-tool="article-scraper">Article Scraper</li>
-					<li class="select-tool" data-tool="decoder-image-generator">Decoder Image Generator</li>
-					<li class="select-tool" data-tool="command-line-image-generator">Command Line Image Generator</li>
-					<li class="select-tool" data-tool="installer-image-generator">Installer Image Generator</li>
-					<li class="select-tool" data-tool="verge-filter">Verge Filter</li>
-					<li class="select-tool" data-tool="ai-label">AI Label</li>
+					<li class="select-tool verge" data-tool="article-scraper">Article Scraper</li>
+					<li class="select-tool verge" data-tool="decoder-image-generator">Decoder Image Generator</li>
+					<li class="select-tool verge" data-tool="command-line-image-generator">Command Line Image Generator</li>
+					<li class="select-tool verge" data-tool="installer-image-generator">Installer Image Generator</li>
+					<li class="select-tool verge" data-tool="verge-filter">Verge Filter</li>
+					<li class="select-tool verge" data-tool="ai-label">AI Label</li>
+					<li class="select-tool polygon" data-tool="image-mosaic">Image Mosaic</li>
 			</ul>
 		</div>
 	</div>
@@ -170,33 +219,53 @@
 		<header>
 			<div class="lockup">
 				<div class="text-container title active">
-					<h1>Verge Tools</h1>
+					<div class="switch"><div class="polygon"><svg viewBox="0 0 724 644" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M379.532 122.477V5.61004e-05L0 0L190.8 455.898H331.736L197.464 122.477H379.532Z" fill="white"/>
+<path d="M570.715 0L316.34 642.562H457.506L723.14 0H570.715Z" fill="white"/>
+</svg>
+</div><div class="verge"><svg viewBox="0 0 1000 1480" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2003_1552)">
+<path d="M500.019 1479.78C494.524 1479.78 489.518 1477.7 485.611 1473.8L5.98313 994.048C3.54104 991.606 1.83157 988.431 0.976838 984.768C0.732628 983.913 0.610524 983.181 0.488419 982.326C0.366314 981.96 0 980.983 0 979.64V497.57L0.976838 493.785C1.09894 493.296 1.34315 492.808 1.46526 492.198L2.80841 489.878C3.41893 488.779 3.90735 488.29 4.39577 487.558C4.88419 486.703 5.2505 486.092 5.73892 485.604L483.901 7.80803L486.832 4.87751C489.152 2.92384 491.96 1.58068 495.135 0.725951C495.745 0.481741 496.722 0.359637 497.455 0.237532C503.682 -0.739306 510.031 1.33647 514.427 5.73225L992.345 483.65L996.008 487.68C997.474 489.633 998.572 491.953 999.305 494.64C999.549 495.616 999.794 496.593 999.794 497.692C1000.28 501.111 999.916 504.53 998.572 507.705C997.474 510.269 996.008 512.467 994.177 514.298L520.41 988.065V1459.39C520.41 1467.57 515.526 1475.02 507.956 1478.19C505.391 1479.17 502.827 1479.66 500.141 1479.66L500.019 1479.78ZM479.749 930.554V520.282H69.4776M930.682 520.282H520.41V930.554M520.41 479.621H930.682L520.41 69.3488V479.621ZM69.4776 479.621H479.627V69.3488M479.749 1410.3V1000.03H69.4776M451.055 959.37L40.6609 549.098V959.37" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_2003_1552">
+<rect width="1000" height="1479.78" fill="white"/>
+</clipPath>
+</defs>
+</svg></div><span>Switch</span></div>
+					<h1 class="verge">Verge Tools</h1>
+					<h1 class="polygon">Polygon Tools</h1>
 					<p id="xRy2H8">Use these editorial tools to speed up your workflow. Select a tool from the left column to get started.</p><p id="cwjYxM"><em>Maintained by the Verge Art Team. Please ping Will Joel or Graham MacAree if you run into any problems or have tooling requests.</em></p>
 				</div>
-					<div class="text-container article-scraper">
+					<div class="text-container  verge  article-scraper">
 						<h2>Article Scraper</h2>
 						<p id="wyNG42">Read a Verge story and output a custom image with headline, dek etc.</p>
 					</div>
-					<div class="text-container decoder-image-generator">
+					<div class="text-container  verge  decoder-image-generator">
 						<h2>Decoder Image Generator</h2>
 						<p id="mmqn5Y">Quickly convert images to Decoder’s main format </p>
 					</div>
-					<div class="text-container command-line-image-generator">
+					<div class="text-container  verge  command-line-image-generator">
 						<h2>Command Line Image Generator</h2>
 						<p id="AfirgH">Create an image with Command Line’s styling.</p>
 					</div>
-					<div class="text-container installer-image-generator">
+					<div class="text-container  verge  installer-image-generator">
 						<h2>Installer Image Generator</h2>
 						<p id="6QkfID">Generate an Installer mosaic</p>
 					</div>
-					<div class="text-container verge-filter">
+					<div class="text-container  verge  verge-filter">
 						<h2>Verge Filter</h2>
 						<p id="PbeYNH">Takes an uploaded or pasted image and adds various Verge effects.</p>
 					</div>
-					<div class="text-container ai-label">
+					<div class="text-container  verge  ai-label">
 						<h2>AI Label</h2>
 						<p id="V1wJ3T">Add an ‘AI-generated image’ label to ... AI generated images.</p>
 					</div>
+					<div class="text-container  polygon  image-mosaic">
+						<h2>Image Mosaic</h2>
+						<p id="GVYUWW">Create an image mosaic! Add as many images to the grid as you like, with custom background and colors.</p>
+					</div>
+				
 			</div>
 		</header>
 
@@ -204,15 +273,16 @@
 			<section class="left">
 				<div class="tool title active">
 					<ul class="tool-selector">
-	<li class="select-tool" data-tool="article-scraper"><span>Article Scraper</span></li>
-	<li class="select-tool" data-tool="decoder-image-generator"><span>Decoder Image Generator</span></li>
-	<li class="select-tool" data-tool="command-line-image-generator"><span>Command Line Image Generator</span></li>
-	<li class="select-tool" data-tool="installer-image-generator"><span>Installer Image Generator</span></li>
-	<li class="select-tool" data-tool="verge-filter"><span>Verge Filter</span></li>
-	<li class="select-tool" data-tool="ai-label"><span>AI Label</span></li>
+	<li class="select-tool verge" data-tool="article-scraper"><span>Article Scraper</span></li>
+	<li class="select-tool verge" data-tool="decoder-image-generator"><span>Decoder Image Generator</span></li>
+	<li class="select-tool verge" data-tool="command-line-image-generator"><span>Command Line Image Generator</span></li>
+	<li class="select-tool verge" data-tool="installer-image-generator"><span>Installer Image Generator</span></li>
+	<li class="select-tool verge" data-tool="verge-filter"><span>Verge Filter</span></li>
+	<li class="select-tool verge" data-tool="ai-label"><span>AI Label</span></li>
+	<li class="select-tool polygon" data-tool="image-mosaic"><span>Image Mosaic</span></li>
 </ul>
 				</div>
-					<div class="tool article-scraper" data-tool-name="article-scraper">
+					<div class="tool verge article-scraper" data-tool-name="article-scraper">
 						<form class="article-scraper">
 	<div class="story input">
 		<div class="options">
@@ -297,7 +367,7 @@
 	</div>
 </form>
 					</div>
-					<div class="tool decoder-image-generator" data-tool-name="decoder-image-generator">
+					<div class="tool verge decoder-image-generator" data-tool-name="decoder-image-generator">
 						<form class="decoder-image-generator">
 	<div class="story input">
 		<div class="edit visible">
@@ -433,7 +503,7 @@
 	</div>
 </form>
 					</div>
-					<div class="tool command-line-image-generator" data-tool-name="command-line-image-generator">
+					<div class="tool verge command-line-image-generator" data-tool-name="command-line-image-generator">
 						<form class="command-line-image-generator">
 	<div class="story input">
 		<div class="edit visible">
@@ -900,7 +970,7 @@
 	</div>
 </form>
 					</div>
-					<div class="tool installer-image-generator" data-tool-name="installer-image-generator">
+					<div class="tool verge installer-image-generator" data-tool-name="installer-image-generator">
 						<form class="installer-image-generator">
 	<div class="story input">
 		<div class="options-top">
@@ -1537,7 +1607,7 @@
 	</div>
 </form>
 					</div>
-					<div class="tool verge-filter" data-tool-name="verge-filter">
+					<div class="tool verge verge-filter" data-tool-name="verge-filter">
 						<form class="verge-filter-generator">
 	<div class="story input">
 		<div class="edit visible">
@@ -1553,7 +1623,6 @@
 				
 				<div class="lockup">
 					<div class="picture">
-						
 						<div class="image">
 							<div class="image-holder">
 								<div class="image-holder-inner">
@@ -1578,7 +1647,6 @@
 									    	<image x="0%" y="0%" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" xlink:href=""  class="image-filtered  adjustment-target" data-brightness="100" data-contrast="100" data-adjustment="vfilter-adjust" ></image>
 									    </g>
 									</svg>
-
 								</div>
 							</div>
 						</div>
@@ -1680,10 +1748,10 @@
 
 
 					</div>
-					<div class="tool ai-label" data-tool-name="ai-label">
-						<form class="ai-label">
+					<div class="tool verge ai-label" data-tool-name="ai-label">
+						
+	<form class="ai-label">
 	<div class="story input">
-		
 		<div class="edit visible">
 			<div class="edit-inner">
 				<div>
@@ -1756,7 +1824,7 @@
   </defs>
   <path class="cls-1" d="M12.68,18.79c0-6.03,4.94-10.92,11.04-10.92,1.27,0,2.49.22,3.63.62-2.72-2.81-6.54-4.58-10.78-4.58C8.33,3.91,1.65,10.52,1.65,18.67s6.68,14.76,14.91,14.76c4.05,0,7.72-1.6,10.41-4.2-1.03.31-2.12.48-3.25.48-6.09,0-11.04-4.89-11.04-10.92Z"/>
   <path class="cls-1" d="M16.56,34.83C7.56,34.83.23,27.58.23,18.67S7.56,2.5,16.56,2.5c4.49,0,8.68,1.78,11.8,5.01.45.47.52,1.18.17,1.73-.35.55-1.04.78-1.66.57-1.03-.36-2.1-.54-3.16-.54-5.3,0-9.62,4.27-9.62,9.52s4.32,9.52,9.62,9.52c.96,0,1.92-.14,2.84-.42.62-.19,1.3.07,1.64.62.33.56.24,1.27-.23,1.72-3.07,2.96-7.12,4.6-11.4,4.6ZM16.56,5.31c-7.44,0-13.5,5.99-13.5,13.36s6.05,13.36,13.5,13.36c1.83,0,3.61-.36,5.25-1.05-5.97-.91-10.55-6.03-10.55-12.18s4.81-11.52,10.99-12.24c-1.76-.81-3.69-1.24-5.69-1.24Z"/>
-</svg></label><input type="range" min="40" max="160" value="100"  /><label><?xml version="1.0" encoding="UTF-8"?>
+</svg></label><input type="range" min="40" max="160" value="100"  /><label><<?xml version="1.0" encoding="UTF-8"?>
 <svg id="BRIGHTER" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.06 37.55">
   <defs>
     <style>
@@ -1806,6 +1874,174 @@
 		</div>
 	</div>
 </form>
+					</div>
+					<div class="tool polygon image-mosaic" data-tool-name="image-mosaic">
+						<div class="step-1-selected step-holder">
+	<div class="left">
+		<div class="inner">
+			<h3>Image Background Generator</h3>
+			<ul>
+				<li class="step-selector active selected" data-step="step-1">Choose Layout</li>
+				<li class="step-selector active" data-step="step-2">Select Image<span>s</span></li>
+				<li class="step-selector active" data-step="step-3">Choose Background</li>
+				<li class="step-selector active" data-step="step-4">Choose Filter</li>
+				<li class="step-selector active" data-step="step-5">Adjust Image</li>
+				<li class="step-selector active" data-step="step-6">Finalize/Download</li>
+			</ul>
+		</div>
+	</div>
+	<div class="right">
+		<div class="animation-holder">
+			<div class="capture background" id="image-background-capture">
+				<div class="image-container r3x2" id="background-field">
+					<div class="background-container"  ></div>
+					<div class="upload-image selectable selected element" data-target="image-background-field-1"><div class="inner-container" data-target="image-background-field-1" data-zoom="1" ><img id="image-background-field-1" src="images/placeholder.png"></div></div>
+				</div>
+			</div>
+		</div>
+		<p class="notes step-1 hiding">Select an image cell to enable splitting and corner rounding. For single-image compositions, a 3:2 aspect ratio is best.</p>
+		<div class="mosaic-layout step-1 hiding">
+			<div class="tabs" data-hook="layout-tabs">
+				<div class="select" data-target="layout-tabs">
+					<div class="button active" data-target="tab-templates">Templates</div>
+					<div class="button" data-target="tab-custom">Custom</div>
+				</div>
+				<div class="tab custom" data-hook="tab-custom">
+					
+					<div class="cutout-box"><input  type="checkbox"><label>Cutout</label></div>
+					<div class="padding"><label>Min padding</label><input type="range" min="0" max="30" value="15" class="padding-slider" data-target="image-background-capture" /><label>Max padding</label></div>
+					<div class="gap"><label>Min gap</label><input type="range" min="0" max="10" value="5" class="gap-slider" data-target="image-background-capture" /><label>Max gap</label></div>
+					<div class="buttons">
+						<div class="button splitter" data-type="horizontal">Split Horizontal</div>
+						<div class="button splitter" data-type="vertical">Split Vertical</div>
+						<div class="button merge faded">Merge Cells</div>
+						<div class="button lock" data-step="step-2">Lock Layout</div>
+					</div>
+					<div class="submit">
+						<form  
+							name="rec"
+							method="POST" 
+				  			action="https://script.google.com/macros/s/AKfycbxpH-m7Epyc_v5IRc4XhttImqMTbtysCbR4nGyDJ8zI08-LQWhX7FHy7ivdD7Tg7SYa/exec"
+						>
+							<label for="name">Template name:</label>
+							<input type="text" id="name" name="name">
+							<label for="string" id="string-label">string:</label>
+							<input type="text" id="string" name="string">
+							<button type="submit" tabIndex="-1" class="active">Save</button>
+						</form>
+					</div>
+				</div>
+				<div class="tab templates active" data-hook="tab-templates">
+					
+				</div>
+			</div>
+		</div>
+		<p class="notes step-2 hiding">Drag images, or select images and use the upload button</p>
+		<div class="file-selector hiding step-2">
+			<label for="image-background-input"><span>Select</span><span>Change</span> image:</label>
+			<input type="file" class="image-change" id="image-background-input" name="image-background-input">
+		</div>
+		<p class="notes step-3 hiding">Select a background</p>
+		<div class="background-selector-container hiding step-3">
+			<div class="background-selector" data-target="background-field">
+				<span>None</span>
+			</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background01.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background02.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background03.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background04.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background05.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background06.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background07.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background08.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background09.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background10.png">
+					</div>
+					<div class="background-selector" data-target="background-field">
+						<img src="images/image_background/backgrounds/Background11.png">
+					</div>
+		</div>
+		<p class="notes step-4 hiding">Select color filter</p>
+		<div class="filter-selector-container hiding step-4" data-classes="C305A4 66FF75 E90C59 gradient">
+			
+				<div class="filter-selector" data-color="cC305A4" data-target="background-field">
+					<div class="color" style="background-color: #C305A4"></div><span>#C305A4</span>
+				</div>
+				
+				<div class="filter-selector" data-color="c66FF75" data-target="background-field">
+					<div class="color" style="background-color: #66FF75"></div><span>#66FF75</span>
+				</div>
+				
+				<div class="filter-selector" data-color="c6966AD" data-target="background-field">
+					<div class="color" style="background-color: #6966AD"></div><span>#6966AD</span>
+				</div>
+				
+				<div class="filter-selector" data-color="cE90C59" data-target="background-field">
+					<div class="color" style="background-color: #E90C59"></div><span>#E90C59</span>
+				</div>
+				
+			<div class="filter-selector" data-color="gradient" data-target="background-field">
+				<div class="color" style="background: conic-gradient(#F2EF7B, #C39FC9, #D085B5, #EFA57C, #C3F1F8, #F2EF7B);"></div><span>Gradient</span>
+			</div>
+		</div>
+		<p class="notes step-5 hiding">Select an image and adjust the slider to zoom in. You can pan a zoomed image with your mouse.</p>
+		<div class="image-adjustments hiding step-5">
+			<div class="zoom"><label><?xml version="1.0" encoding="UTF-8"?>
+<svg id="ZOOM_OUT" data-name="ZOOM OUT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.27 37.48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #5200ff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M15.74,31.22C7.13,31.22.12,24.22.12,15.61S7.13-.01,15.74-.01s15.62,7.01,15.62,15.62-7.01,15.62-15.62,15.62ZM15.74,2.99c-6.96,0-12.62,5.66-12.62,12.62s5.66,12.62,12.62,12.62,12.62-5.66,12.62-12.62S22.69,2.99,15.74,2.99Z"/>
+  <rect class="cls-1" x="29.17" y="22.22" width="2.88" height="17.32" rx="1.44" ry="1.44" transform="translate(-12.87 30.69) rotate(-45)"/>
+  <rect class="cls-1" x="14.39" y="7.3" width="2.88" height="17.32" rx="1.44" ry="1.44" transform="translate(-.13 31.79) rotate(-90)"/>
+</svg></label><input type="range" min="0" max="100" value="0" class="zoom-slider" data-target="image-background-field" /><label><?xml version="1.0" encoding="UTF-8"?>
+<svg id="ZOOM_IN" data-name="ZOOM IN" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.27 37.55">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #5200ff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M15.78,31.29C7.17,31.29.16,24.28.16,15.67S7.17.05,15.78.05s15.62,7.01,15.62,15.62-7.01,15.62-15.62,15.62ZM15.78,3.05c-6.96,0-12.62,5.66-12.62,12.62s5.66,12.62,12.62,12.62,12.62-5.66,12.62-12.62S22.73,3.05,15.78,3.05Z"/>
+  <rect class="cls-1" x="29.21" y="22.28" width="2.88" height="17.32" rx="1.44" ry="1.44" transform="translate(-12.9 30.74) rotate(-45)"/>
+  <rect class="cls-1" x="14.43" y="7.36" width="2.88" height="17.32" rx="1.44" ry="1.44" transform="translate(-.15 31.89) rotate(-90)"/>
+  <rect class="cls-1" x="14.43" y="7.17" width="2.88" height="17.32" rx="1.44" ry="1.44"/>
+</svg></label></div>
+			
+		</div>
+		<div class="finalize hiding step-6">
+			<a class="download button" data-target="#image-background-capture" data-file-name="polygon-mosaic.jpg">Finaliz<span>e</span><span>ing </span><span>.</span><span>.</span><span>.</span></a>
+		</div>
+		<div class="template-holder"></div>
+	</div>
+</div>
+
 					</div>
 			</section>
 		</article>

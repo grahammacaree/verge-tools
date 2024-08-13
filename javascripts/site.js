@@ -1079,26 +1079,87 @@ document.querySelector('.installer-image-generator #installer-image').addEventLi
 	document.querySelector('#password-button').addEventListener('click', (event) => {
 		const input = document.querySelector('#password-input');
 		if(stringToHash(input.value+"grahamwashere") == -1047751711) {
-			removeGate();
+			removeGate('verge');
+
+		}
+		if(stringToHash(input.value+"grahamwashere") == -26573789574) {
+			removeGate('polygon');
 		}
 	})
 
 	document.querySelector('#password-input').addEventListener('keyup', (event) => {
 		const input = document.querySelector('#password-input');
 		if(stringToHash(input.value+"grahamwashere") == -1047751711 && event.keyCode == 13) {
-			removeGate();
+			removeGate('verge');
+		}
+		if(stringToHash(input.value+"grahamwashere") == -26573789574 && event.keyCode == 13) {
+			removeGate('polygon');
 		}
 	})
 
 	if (localStorage.getItem("vergetools") === "-1047751711") {
-		removeGate();
+		removeGate('verge');
+	}
+	if (localStorage.getItem("vergetools") === "-26573789574") {
+		removeGate('polygon');
 	}
 
-	function removeGate() {
+
+	function removeGate(brand) {
 		throughGate = true;
 		document.querySelector('.gate').classList.remove('active');
-		localStorage.setItem("vergetools", -1047751711);
+		var root = document.querySelector(':root');
+		if(brand == "verge") {
+			localStorage.setItem("vergetools", -1047751711);
+			root.style.setProperty('--brand-color', '#6600FF');
+			root.style.setProperty('--hed-font', 'Poly Sans,Helvetica,Arial,sans-serif');
+			root.style.setProperty('--text-font', 'FK Roman Standard,Georgia,serif');
+			root.style.setProperty('--spec-font', 'Poly Sans Mono, Courier New, Courier, monospace');
+		}
+		if(brand == "polygon") {
+			localStorage.setItem("vergetools", -26573789574);	
+			root.style.setProperty('--brand-color', '#E90C59');
+			root.style.setProperty('--hed-font', 'Montserrat, sans-serif');
+			root.style.setProperty('--spec-font', 'IBM Plex Sans, sans-serif');
+			root.style.setProperty('--text-font', 'Georgia,serif');
+
+		}
+		document.querySelector('.flex-container').classList.add(brand);
 	}
+
+	document.querySelector(".gate .close").addEventListener('click', function() {
+		const gate = document.querySelector('.gate');
+		gate.classList.remove('verge');
+		gate.classList.remove('polygon');
+		gate.classList.add('brand');
+	});
+
+	document.querySelectorAll(".gate .brand-item").forEach((button) => {
+		button.addEventListener('click', function(e) {
+			var gate = document.querySelector('.gate');
+			gate.classList.remove('brand');
+			if(button.classList.contains('verge-brand')) {
+				gate.classList.add('verge');
+				
+			}
+			if(button.classList.contains('polygon-brand')) {
+				gate.classList.add('polygon');
+			}
+			gate.querySelector('input').focus();
+		});
+	})
+
+	document.querySelector('.lockup .switch').addEventListener('click', function() {
+		const container = document.querySelector('.flex-container');
+		const gate = document.querySelector('.gate');
+		gate.querySelector('input').value = '';
+		gate.classList.remove('verge');
+		gate.classList.remove('polygon');
+		gate.classList.add('brand');
+		gate.classList.add('active');
+		container.classList.remove('verge');		
+		container.classList.remove('polygon');		
+	});
 
 
 });
