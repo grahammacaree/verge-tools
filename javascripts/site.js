@@ -1063,7 +1063,11 @@ document.querySelector('.installer-image-generator #installer-image').addEventLi
 				if(document.querySelector('.image-container.active')) {
 						document.querySelector('.image-container.active').classList.remove('active');
 				}	
+
 				const tool = event.target.closest('.tool');
+				tool.querySelectorAll('.selected').forEach((selected) => {
+					selected.classList.remove('selected');
+				});
 				const target = tool.querySelector('.capture');
 				capture(target, event.target, name);
 			});
