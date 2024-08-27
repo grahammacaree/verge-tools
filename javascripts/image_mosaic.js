@@ -95,7 +95,7 @@ function lockLayout() {
 					target.parentNode.classList.add('uploaded');
 					target.parentNode.dataset.zoom = 1;
 					updateImages(item.parentNode);
-					target.classList.add('pannable');
+					target.parentNode.classList.add('pannable');
 					addPanning();
 					//remove scale transform from target.parentNode
 					target.parentNode.style.setProperty('transform', '');
@@ -629,7 +629,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						
 						//remove scale transform from target.parentNode
 						target.parentNode.style.setProperty('transform', '');
-						target.classList.add('pannable');
+						target.parentNode.classList.add('pannable');
 						addPanning();
 						target.style.setProperty('transform', '');
 					});
@@ -1064,7 +1064,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			});
 			document.querySelectorAll('.image-mosaic .upload-image').forEach(item => {
 					//add pannable to .inner-container
-				item.querySelector('img').classList.add('pannable');
+				item.querySelector('img').parentNode.classList.add('pannable');
 			});
 			addPanning();
 		});
