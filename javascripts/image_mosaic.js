@@ -4,19 +4,10 @@ var imageArray = [1];
 var mosaicResizing = false;
 var layoutLocked = false;
 
-function isPolyImage(file) {
-	const fileType = file['type'];
-	const validImageTypes = ['image/jpeg', 'image/png'];
-	if (validImageTypes.includes(fileType)) {
-	    return true;
-	} else {
-		item.value = null;
-		return false;
-	}
-}
+
 
 function imageSelector() {
-	document.querySelectorAll('.upload-image').forEach(item => {
+	document.querySelectorAll('.image-mosaic .upload-image').forEach(item => {
 		item.addEventListener('click', (event) => {
 			const stepHolder = item.closest('.step-holder');
 			//if item is selectable
@@ -55,7 +46,7 @@ function lockLayout() {
 		item.classList.add('draggable');
 	});
 	//delete all resize nodes
-	document.querySelectorAll('.resize').forEach(item => {
+	document.querySelectorAll('.image-mosaic .resize').forEach(item => {
 		item.parentNode.removeChild(item);
 	}); 
 
@@ -84,7 +75,7 @@ function lockLayout() {
 	document.querySelectorAll('.image-mosaic .split-wrapper').forEach(item => {
 		item.classList.remove('highlight');
 	});
-	document.querySelectorAll('.draggable').forEach(item => {
+	document.querySelectorAll('.image-mosaic .draggable').forEach(item => {
 		//when user starts dragging add class dragging
 		item.addEventListener('dragstart', (event) => {
 			item.classList.add('dragging');
@@ -97,23 +88,22 @@ function lockLayout() {
 		item.addEventListener('drop', (event) => {
 			event.preventDefault();
 			const image = event.dataTransfer.files[0];
-			if(isPolyImage(image)) {
+	
 				const target = document.querySelector('#'+item.dataset.target);
 				target.addEventListener('load', (event) => {
 
 					target.parentNode.classList.add('uploaded');
+					target.parentNode.dataset.zoom = 1;
 					updateImages(item.parentNode);
 					target.classList.add('pannable');
 					addPanning();
-					target.parentNode.dataset.zoom = 1;
 					//remove scale transform from target.parentNode
 					target.parentNode.style.setProperty('transform', '');
 					target.style.setProperty('transform', '');
 				});
 				target.src = `${URL.createObjectURL(image)}`;
 				
-				
-			}
+
 			//remove classes dragging and draggable
 			item.classList.remove('dragging');
 			item.classList.remove('draggable');
@@ -134,67 +124,6 @@ function lockLayout() {
 			}
 		});
 	});
-}
-
-function addPanning() {
-	document.querySelectorAll('.pannable').forEach(item => {
-		var panning = false;
-		//initX and Y
-		var initX = 0;
-		var initY = 0;
-		if(item.dataset.listeners != true) {
-			//turn on panning on mousedown
-			item.addEventListener('mousedown', (event) => {
-				panning = true;
-				initX = event.clientX;
-				initY = event.clientY;
-			});
-			//turn off panning on mouseup
-			item.addEventListener('mouseup', (event) => {
-				panning = false;
-			});
-			item.addEventListener('mouseout', (event) => {
-				panning = false;
-			});
-			//pan inside parent element on mousemove
-			item.addEventListener('mousemove', (event) => {
-				event.preventDefault();
-				if(panning && item.classList.contains('pannable')) {
-					//follow mousemove with transform
-					var transform = item.style.transform;
-					translateImage(item, [event.clientX-initX, event.clientY-initY]);
-					//set initX and Y to current mouse position
-					initX = event.clientX;
-					initY = event.clientY;
-					checkImageBounds(item, item.parentNode);
-				}
-			});
-			item.dataset.listeners = true;
-		}
-	});
-}
-
-function translateImage(image, translation) {
-	//get current transform of image
-	var style = window.getComputedStyle(image);
-	//get transform
-	var transform = style.getPropertyValue('transform');
-	//get x and y
-	var x = 0;
-	var y = 0;
-	if(transform && transform != "none") {
-		//match all translate values in transform
-		var numberPattern = /-?\d+\.?\d*/g;
-
-		var values = transform.match( numberPattern );
-		x = parseInt(values[4]);
-		y = parseInt(values[5]);
-	}
-	x += translation[0];
-	y += translation[1];
-	
-	transform = `translate(${x}px, ${y}px)`;
-	image.style.setProperty('transform', transform);
 }
 
 function updatePositioning() {
@@ -269,7 +198,7 @@ function createTemplate(container, form) {
 
 	const template = container.cloneNode(true);
 	
-	const templateHolder = document.querySelector('.template-holder');
+	const templateHolder = document.querySelector('.image-mosaic .template-holder');
 	//append template to templateHolder
 	templateHolder.innerHTML = "";
 	templateHolder.appendChild(template);
@@ -424,7 +353,7 @@ function selectImage(item) {
 				createResize(item);
 				//traverse through dom until parent is .image-mosaic
 				var parent = item.parentNode;
-				while(parent != document.querySelector('.image-container')) {
+				while(parent != document.querySelector('.image-mosaic .image-container')) {
 					item = parent;
 					parent = item.parentNode;
 					if(item.parentNode.classList.contains('split-wrapper')) {
@@ -541,41 +470,6 @@ function updateImages(container) {
 	});
 }
 
-function checkImageBounds(image, container) {
-	var zoom = container.dataset.zoom-1;
-	//get image center location
-	const rect = image.getBoundingClientRect()
-	const centerX = rect.left + rect.width/2;
-	const centerY = rect.top + rect.height/2;
-	//get edges of image by adding/subtracting half width/height and dividing by zoom
-	const bottomEdge = centerY+rect.height/2*(1+zoom/2);
-	const containerBottom = Math.floor(container.getBoundingClientRect().bottom+0.5);
-	if(bottomEdge < containerBottom) {
-		translateImage(image, [0, (containerBottom-bottomEdge)/(1+zoom)]);
-		//console.log('bottom triggered');
-	}
-	const topEdge = centerY - rect.height/2*(1+zoom/2);
-	const containerTop = Math.floor(container.getBoundingClientRect().top-0.5);
-	if(topEdge > containerTop) {
-		translateImage(image, [0, (containerTop-topEdge)/(1+zoom)]);
-		//console.log('top triggered');
-	}
-	const leftEdge = centerX - rect.width/2*(1+zoom/2);
-	const containerLeft = Math.floor(container.getBoundingClientRect().left-0.5);
-	if(leftEdge > containerLeft) {
-		translateImage(image, [(containerLeft-leftEdge)/(1+zoom), 0]);
-		//console.log('left triggered');
-	}
-	
-	const rightEdge = centerX + rect.width/2*(1+zoom/2);
-	const containerRight = Math.floor(container.getBoundingClientRect().right+0.5);
-	if(rightEdge < containerRight) {
-		translateImage(image, [(containerRight-rightEdge)/(1+zoom), 0]);
-		//console.log('right triggered');
-	}
-	
-}
-
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
@@ -583,13 +477,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 	//add click event listener for .tool-select, take from data-tool and run selectTool
 
-	document.querySelectorAll('.padding-slider').forEach(item => {
+	document.querySelectorAll('.image-mosaic .padding-slider').forEach(item => {
 		item.addEventListener('change', (event) => {
 			updatePositioning();
 		});
 	});
 
-	document.querySelectorAll('.gap-slider').forEach(item => {
+	document.querySelectorAll('.image-mosaic .gap-slider').forEach(item => {
 		item.addEventListener('change', (event) => {
 			updatePositioning();
 			if(item.value == 0) {
@@ -600,12 +494,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		});
 	});
 
-	document.querySelectorAll('.templates .template').forEach(item => {
+	document.querySelectorAll('.image-mosaic .templates .template').forEach(item => {
 		decodeTemplate(item.dataset.template, item);
 	});
 
 	//add click event listener for .step-select, take form data-step and add step-#-selected to closest .step-holder
-	document.querySelectorAll('.step-selector').forEach(item => {
+	document.querySelectorAll('.image-mosaic .step-selector').forEach(item => {
 		item.addEventListener('click', (event) => {
 			const step = item.dataset.step;
 			const stepHolder = item.closest('.step-holder');
@@ -646,7 +540,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						item.classList.add('draggable');
 					}
 				});
-				document.querySelectorAll('.draggable').forEach(item => {
+				document.querySelectorAll('.image-mosaic .draggable').forEach(item => {
 					//when user starts dragging add class dragging
 					item.addEventListener('dragstart', (event) => {
 						item.classList.add('dragging');
@@ -660,21 +554,20 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						event.preventDefault();
 						const image = event.dataTransfer.files[0];
 
-						if(isPolyImage(image)) {
 							const target = document.querySelector('#'+item.dataset.target);
 							target.addEventListener('load', (event) => {
 								target.parentNode.classList.add('uploaded');
 								updateImages(item.parentNode);
-								image.classList.add('pannable');
-								addPanning();
 								target.parentNode.dataset.zoom = 1;
+								target.parentNode.classList.add('pannable');
+								addPanning();
 								//remove scale transform from target.parentNode
 								target.parentNode.style.setProperty('transform', '');
 								target.style.setProperty('transform', '');
 							});
 							target.src = `${URL.createObjectURL(image)}`;
 							
-						}
+
 						//remove classes dragging and draggable
 						item.classList.remove('dragging');
 						item.classList.remove('draggable');
@@ -712,7 +605,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	});
 
 
-	document.querySelectorAll('.image-change').forEach(item => {
+	document.querySelectorAll('.image-mosaic .image-change').forEach(item => {
 		const stepHolder = item.closest('.step-holder');
 		item.addEventListener('change', (event) => {
 			var target = stepHolder.querySelector('.upload-image.selected img');
@@ -721,7 +614,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			}
 			if(target) {
 				const image = item.files[0];
-				if(isPolyImage(image)) {
+				
 					
 					//if 'draggable' in target parent tree, remove it
 					if(target.closest('.draggable')) {
@@ -730,9 +623,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
 					target.addEventListener('load', (event) => {
 						
 						target.parentNode.classList.add('uploaded');
+						target.parentNode.dataset.zoom = 1;
 						updateImages(item.parentNode);
 
-						target.parentNode.dataset.zoom = 1;
+						
 						//remove scale transform from target.parentNode
 						target.parentNode.style.setProperty('transform', '');
 						target.classList.add('pannable');
@@ -740,7 +634,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						target.style.setProperty('transform', '');
 					});
 					target.src = `${URL.createObjectURL(image)}`;
-				}
+
 				//if item has a data-step attached, switch .step-holder class to appropriate step
 				if(item.dataset.step) {
 					
@@ -773,7 +667,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 	imageSelector();
 
-	document.querySelectorAll('.button.merge').forEach(item => {
+	document.querySelectorAll('.image-mosaic .button.merge').forEach(item => {
 		item.addEventListener('click', (event) => {
 			const stepHolder = item.closest('.step-holder');
 			var image = stepHolder.querySelector('.upload-image.selected');
@@ -887,7 +781,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		});
 	});
 
-	document.querySelectorAll('.button.splitter').forEach(item => {
+	document.querySelectorAll('.image-mosaic .button.splitter').forEach(item => {
 		item.addEventListener('click', (event) => {
 			//get type of split from dataset.type
 
@@ -1016,12 +910,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 	});
 
-	document.querySelectorAll('.tabs .select .button').forEach(item => {
+	document.querySelectorAll('.image-mosaic .tabs .select .button').forEach(item => {
 		item.addEventListener('click', (event) => {
 			const tabs = item.closest('.tabs');
 			const select = tabs.querySelector('.select');
 			//get target from matching data-hook
-			const target = document.querySelector('[data-hook="'+select.dataset.target+'"]');
+			const target = document.querySelector('.image-mosaic [data-hook="'+select.dataset.target+'"]');
 			const targetTab = target.querySelector('[data-hook="'+item.dataset.target+'"]');
 			//remove active from all other .button
 			select.querySelectorAll('.button').forEach(button => {
@@ -1039,7 +933,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	});
 
 
-	document.querySelectorAll('.button.corners').forEach(item => {
+	document.querySelectorAll('.image-mosaic .button.corners').forEach(item => {
 		item.addEventListener('click', (event) => {
 			const stepHolder = item.closest('.step-holder');
 			//get corner from classList, top-left etc
@@ -1176,7 +1070,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		});
 	});
 
-	document.querySelectorAll('.zoom-slider').forEach(slider => {
+	document.querySelectorAll('.image-mosaic .zoom-slider').forEach(slider => {
 		slider.addEventListener('input', (event) => {
 			const stepHolder = slider.closest('.step-holder');
 			var target = stepHolder.querySelector('.upload-image.selected .inner-container');
@@ -1252,86 +1146,5 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	    }
 	 });
 	
-	document.querySelectorAll('.url-fetcher').forEach(button => {
-		button.addEventListener('click', (event) => {
-			event.preventDefault();
-			const input = document.querySelector('#url');
-			const header = document.querySelector('#headline');
-			const subhead = document.querySelector('#dek');
-			const imageSelect = document.querySelector('#image');
-			var target = document.querySelector('.image-container .picture .image img');
-	  	var url = input.value + "?" + new URLSearchParams({ csk: 1 }).toString();
-	  	fetch(url).then(function (response) {
-				// The API call was successful!
-				return response.text();
-			}).then(function (html) {
-				// This is the HTML from our response as a text string
-				byline = [];
-				eyebrow = [];
-				var parser = new DOMParser();
-				var doc = parser.parseFromString(html, "text/html");
-				var hed  = doc.querySelector('article .duet--article--lede h1').innerHTML.replace( /(<([^>]+)>)/ig, '');
-				if(doc.querySelector('article .duet--article--lede-image cite')) {
-					var credit = doc.querySelector('article .duet--article--lede-image cite').innerHTML.replace( /(<([^>]+)>)/ig, '');	
-					updateCredit(credit);
-				} else {
-					updateCredit("");
-				}
-				if(doc.querySelector('article .duet--article--date-and-comments time')) {
-					var time = doc.querySelector('article .duet--article--date-and-comments time').innerHTML;
-					time = time.split(',').slice(0,2).join(',');
-					updateDate(time.split('>')[1]);
-				} else {
-					updateDate("")
-				}
-				
-				var bylines = doc.querySelectorAll('article .duet--article--article-byline .font-medium a');
-				bylines.forEach(item => {
-					byline.push(item.innerHTML.replace( /(<([^>]+)>)/ig, ''));
-				});
-				var eyebrows = doc.querySelectorAll('article .article-groups a');
-				eyebrows.forEach(item => {
-					eyebrow.push(item.innerHTML.replace( /(<([^>]+)>)/ig, ''));
-				});
-				updateEyebrows();
-				updateBylines();
-				updateHeader(hed);
-				//split time by comma and keep first two items
-				
-				if(doc.querySelector('article .duet--article--lede .duet--article--lede-image img')) {
-					var imageURL = doc.querySelector('article .duet--article--lede .duet--article--lede-image img').src;
-					var image = createImage(imageURL, target);
-					if(!document.querySelector('#background').checked) {
-						document.querySelector('.image-container .image-inner .picture').classList.remove('hidden');
-						document.querySelector('.edit-type-credit').classList.remove('hidden');
-						document.querySelector('.edit-type-image').classList.remove('hidden');
-					}
-				} else {
-					document.querySelector('.image-container .image-inner .picture').classList.add('hidden');
-					//document.querySelector('.edit-type-credit').classList.add('hidden');
-					//document.querySelector('.edit-type-image').classList.add('hidden');
-				}
-
-				document.querySelector('.input .edit').classList.add('visible');
-				document.querySelector('.image-container').classList.add('visible');
-
-				document.querySelector('.download').classList.add('visible');
-			}).catch(function (err) {
-				// There was an error
-				console.warn('Something went wrong.', err);
-			});
-		});
-	});
-
-	//turn on url fetcher if text is in input
-	document.querySelectorAll('.url-fetcher').forEach(button => {
-		const input = document.querySelector('#url');
-		input.addEventListener('keyup', (event) => {
-			if(input.value) {
-				button.classList.add('active');
-			} else {
-				button.classList.remove('active');
-			}
-		});
-	});
+	
 });

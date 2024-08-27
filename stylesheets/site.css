@@ -861,6 +861,16 @@ header {
     .zoom-slider label svg path, .brightness-slider label svg path, .contrast-slider label svg path {
       fill: var(--brand-color); }
 
+.pannable:not([data-zoom="1"]) {
+  cursor: move !important; }
+
+.pannable img {
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important; }
+
 .tool.title .tool-selector {
   list-style: none;
   display: -ms-grid;
@@ -1832,15 +1842,12 @@ html {
             box-sizing: border-box;
     inset: 0; }
     .image-mosaic .image-container .upload-image img, .image-mosaic .template-display .upload-image img {
-      top: 50%;
-      left: 50%;
-      position: absolute;
-      -webkit-transform: translateX(-50%) translateY(-50%);
-              transform: translateX(-50%) translateY(-50%);
-      -webkit-transform-origin: center center;
-              transform-origin: center center;
+      height: 100%;
+      -o-object-fit: contain;
+         object-fit: contain;
       display: none;
-      z-index: 2; }
+      z-index: 2;
+      width: 100%; }
     .image-mosaic .image-container .upload-image .inner-container.uploaded img, .image-mosaic .template-display .upload-image .inner-container.uploaded img {
       display: block; }
     .image-mosaic .image-container .upload-image .inner-container.uploaded:after, .image-mosaic .template-display .upload-image .inner-container.uploaded:after {

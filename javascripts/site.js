@@ -164,28 +164,35 @@ function addPanning() {
 		if(item.dataset.listeners != true) {
 			//turn on panning on mousedown
 			item.addEventListener('mousedown', (event) => {
+				event.preventDefault();
 				panning = true;
 				initX = event.clientX;
 				initY = event.clientY;
 			});
 			//turn off panning on mouseup
 			item.addEventListener('mouseup', (event) => {
+				event.preventDefault();
 				panning = false;
+				checkImageBounds(item, item.parentNode);
 			});
 			item.addEventListener('mouseout', (event) => {
+				event.preventDefault();
 				panning = false;
+				checkImageBounds(item, item.parentNode);
 			});
 			//pan inside parent element on mousemove
 			item.addEventListener('mousemove', (event) => {
 				event.preventDefault();
 				if(panning && item.classList.contains('pannable')) {
-					//follow mousemove with transform
-					var transform = item.style.transform;
-					translateImage(item, [event.clientX-initX, event.clientY-initY]);
-					//set initX and Y to current mouse position
-					initX = event.clientX;
-					initY = event.clientY;
-					checkImageBounds(item, item.parentNode);
+					if(parseFloat(item.dataset.zoom) > 1 || item.classList.contains('always-pan')) {
+						//follow mousemove with transform
+						var transform = item.style.transform;
+						translateImage(item, [event.clientX-initX, event.clientY-initY]);
+						//set initX and Y to current mouse position
+						initX = event.clientX;
+						initY = event.clientY;
+					}
+					
 				}
 			});
 			item.dataset.listeners = true;
@@ -220,36 +227,61 @@ function checkImageBounds(image, container) {
 	var zoom = image.dataset.zoom-1;
 	//get image center location
 	const rect = image.getBoundingClientRect();
-	const centerX = rect.left + rect.width/2;
+	const contRect = container.getBoundingClientRect();
+	/*const centerX = rect.left + rect.width/2;
 	const centerY = rect.top + rect.height/2;
 	//get edges of image by adding/subtracting half width/height and dividing by zoom
 	const bottomEdge = centerY+rect.height/2*(1+zoom/2);
 	const containerBottom = Math.floor(container.getBoundingClientRect().bottom);
 	//console.log(bottomEdge, containerBottom);
 	if(bottomEdge < containerBottom) {
-		translateImage(image, [0, (containerBottom-bottomEdge)/(1+zoom)]);
-		//console.log('bottom triggered');
+		//translateImage(image, [0, (containerBottom-bottomEdge)/(1+zoom)]);
+		console.log('bottom triggered');
 	}
 	const topEdge = centerY - rect.height/2*(1+zoom/2);
 	const containerTop = Math.floor(container.getBoundingClientRect().top);
 	if(topEdge > containerTop) {
-		translateImage(image, [0, (containerTop-topEdge)/(1+zoom)]);
-		//console.log('top triggered');
+		//translateImage(image, [0, (containerTop-topEdge)/(1+zoom)]);
+		console.log('top triggered');
 	}
 	const leftEdge = centerX - rect.width/2*(1+zoom/2);
 	const containerLeft = Math.floor(container.getBoundingClientRect().left);
 	if(leftEdge > containerLeft) {
-		translateImage(image, [(containerLeft-leftEdge)/(1+zoom), 0]);
-		//console.log('left triggered');
+		//translateImage(image, [(containerLeft-leftEdge)/(1+zoom), 0]);
+		console.log('left triggered');
 	}
 	
 	const rightEdge = centerX + rect.width/2*(1+zoom/2);
 	const containerRight = Math.floor(container.getBoundingClientRect().right);
 	if(rightEdge < containerRight) {
-		translateImage(image, [(containerRight-rightEdge)/(1+zoom), 0]);
-		//console.log('right triggered');
+		//
+		console.log('right triggered');
+	}*/
+	//console.log(rect, contRect);
+	var fix = false;
+	var x = 0;
+	var y = 0;
+
+	if(rect.top > contRect.top) {
+		y = contRect.top - rect.top;
+		fix = true;
 	}
-	
+	if(rect.left > contRect.left) {
+		x = contRect.left - rect.left;
+		console.log(rect, contRect);
+		fix = true;
+	}
+	if(rect.right < contRect.right) {
+		x = contRect.right - rect.right;
+		fix = true;
+	}
+	if(rect.bottom < contRect.bottom) {
+		y = contRect.bottom - rect.bottom;
+		fix = true;
+	}
+	if(fix) {
+		translateImage(image, [x, y])
+	}
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -616,24 +648,26 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			} else {
 				target = document.querySelector(`[data-adjustment='${slider.dataset.target}']`);
 			}
-			var zooms = target.querySelectorAll('.zooming');
-			zooms.forEach(zoom => {
-				var transform = zoom.style.transform;
-				//get translate value from transform
-				var numberPattern = /-?\d+\.?\d*/g;
-				var values = transform.match( numberPattern );
-				//set x and y to 0
-				var x = 0;
-				var y = 0;
-				//if values
-				if(values) {
-				  x=values[0];
-				  y=values[1];
-				}
-				zoom.style.setProperty('transform', `translate(${x}px, ${y}px) scale(${event.target.value/100+1})`);
-				zoom.dataset.zoom =event.target.value/100+1;
-				checkImageBounds(zoom, zoom.parentNode);
-			});
+			if(target) {
+				var zooms = target.querySelectorAll('.zooming');
+				zooms.forEach(zoom => {
+					var transform = zoom.style.transform;
+					//get translate value from transform
+					var numberPattern = /-?\d+\.?\d*/g;
+					var values = transform.match( numberPattern );
+					//set x and y to 0
+					var x = 0;
+					var y = 0;
+					//if values
+					if(values) {
+					  x=values[0];
+					  y=values[1];
+					}
+					zoom.style.setProperty('transform', `translate(${x}px, ${y}px) scale(${event.target.value/100+1})`);
+					zoom.dataset.zoom =event.target.value/100+1;
+					checkImageBounds(zoom, zoom.parentNode);
+				});
+			}
 		});
 	});
 
