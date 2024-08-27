@@ -6,7 +6,7 @@ const colors = ['c000000', 'c6600FF', 'cffffff'];
 const ratios = ['r16x9', 'r9x16'];
 const cmd_ratios = ['r1x1', 'r3x2'];
 
-const ai_ratios = ['r1x1', 'r3x2', 'r5x4', 'r16x9'];
+const ai_ratios = ['r1x1', 'r3x2','r2x3', 'auto', 'r5x4', 'r16x9'];
 var eyebrow = [];
 var byline = [];
 var timestamp;
@@ -917,6 +917,17 @@ document.querySelector('.command-line-image-generator .image-container').addEven
 		document.querySelector('.ai-label .draggable').classList.remove('draggable');
 		document.querySelector('.ai-label .edit').classList.add('selected');
 		document.querySelector('.ai-label .options').classList.add('visible');
+		target.addEventListener('load', (event) => {
+			const container = target.closest('form').querySelector('.image-container');
+			if(container.classList.contains('auto')) {
+				container.style.aspectRatio = `${target.naturalWidth}/${target.naturalHeight}`;
+				if(target.naturalWidth > target.naturalHeight) {
+					container.style.maxWidth = "750px";
+				} else {
+					container.style.maxWidth = "500px";
+				}
+			}
+		});
 	}
 });
 
@@ -933,6 +944,15 @@ document.querySelector('.command-line-image-generator .image-container').addEven
 				//inverse.style.setProperty('transform', `translate(-${result.topCrop.x}px, -${result.topCrop.y+50}px)`);
 				//checkImageBounds();
 				addPanning();
+				const container = target.closest('form').querySelector('.image-container');
+				if(container.classList.contains('auto')) {
+					container.style.aspectRatio = `${target.naturalWidth}/${target.naturalHeight}`;
+					if(target.naturalWidth > target.naturalHeight) {
+						container.style.maxWidth = "750px";
+					} else {
+						container.style.maxWidth = "500px";
+					}
+				}
 			});
 		});
 		document.querySelector('.ai-label .draggable').classList.remove('draggable');
@@ -949,6 +969,16 @@ document.querySelector('.command-line-image-generator .image-container').addEven
 				ratio.querySelector('.inner').classList.add('selected');
 				target.classList.remove(...ai_ratios);
 				target.classList.add(ratio.dataset.ratio);
+				const container = target.closest('form').querySelector('.image-container');
+				if(container.classList.contains('auto')) {
+					const img = target.closest('form').querySelector('.image-container img');
+					container.style.aspectRatio = `${img.naturalWidth}/${img.naturalHeight}`;
+					if(img.naturalWidth > img.naturalHeight) {
+						container.style.maxWidth = "750px";
+					} else {
+						container.style.maxWidth = "500px";
+					}
+				}
 			}
 		});
 	});

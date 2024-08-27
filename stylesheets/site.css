@@ -887,10 +887,10 @@ header {
           border: 2px solid #fff; }
           .input .options .colors .entry .inner:hover, .input .options .colors .entry .inner.selected, .input .options .ratios .entry .inner:hover, .input .options .ratios .entry .inner.selected {
             opacity: 1;
-            border-color: rgba(var(--brand-color), 0.2); }
+            border-color: var(--brand-color); }
           .input .options .colors .entry .inner.selected, .input .options .ratios .entry .inner.selected {
-            background-color: rgba(var(--brand-color), 0.2);
-            border-color: transparent; }
+            background-color: var(--brand-color);
+            color: #fff; }
   .input .url-fetcher {
     padding: 0.25rem 0.75rem;
     text-transform: uppercase;
@@ -2752,9 +2752,13 @@ html {
 .ai-label .input .image-container.r1x1 .r3x2, .ai-label .input .image-container.r1x1 .r5x4, .ai-label .input .image-container.r1x1 .r16x9 {
   display: none; }
 
+.ai-label .input .image-container.r2x3 {
+  aspect-ratio: 2/3 !important;
+  max-width: 500px !important; }
+
 .ai-label .input .image-container.r3x2 {
-  aspect-ratio: 1.5;
-  max-width: 750px; }
+  aspect-ratio: 1.5 !important;
+  max-width: 750px !important; }
 
 .ai-label .input .image-container.r3x2 .r1x1, .ai-label .input .image-container.r3x2 .r5x4, .ai-label .input .image-container.r3x2 .r16x9 {
   display: none; }
@@ -2763,7 +2767,8 @@ html {
   display: block; }
 
 .ai-label .input .image-container.r5x4 {
-  aspect-ratio: 5/4; }
+  aspect-ratio: 5/4 !important;
+  max-width: 750px !important; }
 
 .ai-label .input .image-container.r5x4 .r1x1, .ai-label .input .image-container.r5x4 .r3x2, .ai-label .input .image-container.r5x4 .r16x9 {
   display: none; }
@@ -2772,8 +2777,8 @@ html {
   display: block; }
 
 .ai-label .input .image-container.r16x9 {
-  aspect-ratio: 16/9;
-  max-width: 750px; }
+  aspect-ratio: 16/9 !important;
+  max-width: 750px !important; }
 
 .ai-label .input .image-container.r16x9 .r1x1, .ai-label .input .image-container.r16x9 .r3x2, .ai-label .input .image-container.r16x9 .r5x4 {
   display: none; }
