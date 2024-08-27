@@ -37,7 +37,7 @@ header.hide, .tools.hide {
     margin-left: 1rem; }
   .release-notes p {
     margin: 0;
-    font-family: var(--spec-font);
+    font-family: var(--hed-font);
     font-size: 0.7rem;
     font-style: italic;
     display: inline-block;
