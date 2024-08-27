@@ -41,6 +41,8 @@ header.hide, .tools.hide {
     font-size: 0.7rem;
     font-style: italic;
     display: inline-block;
+    -webkit-transform: translateY(-0.2em);
+            transform: translateY(-0.2em);
     margin-left: 0.5rem; }
   .release-notes.active {
     display: block; }
