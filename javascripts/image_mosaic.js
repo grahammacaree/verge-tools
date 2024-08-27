@@ -4,7 +4,7 @@ var imageArray = [1];
 var mosaicResizing = false;
 var layoutLocked = false;
 
-function isImage(file) {
+function isPolyImage(file) {
 	const fileType = file['type'];
 	const validImageTypes = ['image/jpeg', 'image/png'];
 	if (validImageTypes.includes(fileType)) {
@@ -97,7 +97,7 @@ function lockLayout() {
 		item.addEventListener('drop', (event) => {
 			event.preventDefault();
 			const image = event.dataTransfer.files[0];
-			if(isImage(image)) {
+			if(isPolyImage(image)) {
 				const target = document.querySelector('#'+item.dataset.target);
 				target.addEventListener('load', (event) => {
 
@@ -660,7 +660,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						event.preventDefault();
 						const image = event.dataTransfer.files[0];
 
-						if(isImage(image)) {
+						if(isPolyImage(image)) {
 							const target = document.querySelector('#'+item.dataset.target);
 							target.addEventListener('load', (event) => {
 								target.parentNode.classList.add('uploaded');
@@ -721,7 +721,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			}
 			if(target) {
 				const image = item.files[0];
-				if(isImage(image)) {
+				if(isPolyImage(image)) {
 					
 					//if 'draggable' in target parent tree, remove it
 					if(target.closest('.draggable')) {
