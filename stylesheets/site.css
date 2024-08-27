@@ -958,7 +958,7 @@ header {
     white-space: nowrap;
     font-weight: 600;
     letter-spacing: 0.05rem;
-    font-family: var(--hed-font) -mono;
+    font-family: var(--spec-font);
     opacity: 0.5;
     pointer-events: none; }
     .input .url-fetcher.active {
@@ -1165,7 +1165,7 @@ header {
         margin: 0.5rem 0; }
       .input .image-container .lockup .eyebrow {
         text-transform: uppercase;
-        font-family: var(--hed-font) -mono;
+        font-family: var(--spec-font);
         letter-spacing: .12em;
         font-size: 0.7rem;
         font-weight: 500; }
@@ -1185,7 +1185,7 @@ header {
         margin-top: 1.25rem;
         margin-right: -21.5%; }
         .input .image-container .lockup .picture .credit {
-          font-family: var(--hed-font) -mono;
+          font-family: var(--spec-font);
           position: absolute;
           font-size: 0.65rem;
           letter-spacing: .01em;
@@ -1282,7 +1282,7 @@ header {
               opacity: 0.625;
               border-radius: 0.125rem;
               background-color: rgba(var(--brand-color), 0.2);
-              font-family: var(--hed-font) -mono;
+              font-family: var(--spec-font);
               letter-spacing: 0.01em;
               font-size: 0.65rem;
               text-transform: uppercase;
