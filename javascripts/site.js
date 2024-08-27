@@ -7,6 +7,7 @@ const ratios = ['r16x9', 'r9x16'];
 const cmd_ratios = ['r1x1', 'r3x2'];
 
 const ai_ratios = ['r1x1', 'r3x2','r2x3', 'auto', 'r5x4', 'r16x9'];
+const ai_language = ['generated', 'modified'];
 var eyebrow = [];
 var byline = [];
 var timestamp;
@@ -21,6 +22,9 @@ document.documentElement.classList.remove('no-js');
 
 function switchTool(tool) {
 	if(throughGate) {
+		document.querySelector('article .release-notes').classList.remove('active');
+		document.querySelector('article .tools').classList.remove('hide');
+		document.querySelector('main header').classList.remove('hide');
 		document.querySelector('.tool.active').classList.remove('active');
 		document.querySelector('.tool.'+tool).classList.add('active');
 		document.querySelector('.text-container.active').classList.remove('active');
@@ -983,6 +987,20 @@ document.querySelector('.command-line-image-generator .image-container').addEven
 		});
 	});
 
+	document.querySelectorAll('.ai-label .languages .language').forEach(language => {
+		language.addEventListener('click', (event) => {
+			const target = document.querySelector('.ai-label .image-container');
+			if(!language.classList.contains('selected')) {
+				document.querySelector('.ai-label .language .selected').classList.remove('selected');
+				language.querySelector('.inner').classList.add('selected');
+				language.classList.remove(...ai_language);
+				const container = target.closest('form').querySelector('.image-container');
+				const text = container.querySelector('.language_target');
+				text.innerHTML = language.dataset.language;
+			}
+		});
+	});
+
 	document.querySelectorAll(".toggle-group").forEach(group => {
 		const target = document.querySelector(`.${group.dataset.target}`);
 		var classes = [];
@@ -1095,7 +1113,7 @@ document.querySelector('.installer-image-generator #installer-image').addEventLi
 				}	
 
 				const tool = event.target.closest('.tool');
-				tool.querySelectorAll('.selected').forEach((selected) => {
+				tool.querySelectorAll('.capture .selected').forEach((selected) => {
 					selected.classList.remove('selected');
 				});
 				const target = tool.querySelector('.capture');
@@ -1183,7 +1201,7 @@ document.querySelector('.installer-image-generator #installer-image').addEventLi
 		});
 	})
 
-	document.querySelector('.lockup .switch').addEventListener('click', function() {
+	document.querySelector('.left-column .inner .switch').addEventListener('click', function() {
 		const container = document.querySelector('.flex-container');
 		const gate = document.querySelector('.gate');
 		gate.querySelector('input').value = '';
@@ -1194,6 +1212,18 @@ document.querySelector('.installer-image-generator #installer-image').addEventLi
 		container.classList.remove('verge');		
 		container.classList.remove('polygon');		
 	});
+
+	document.querySelector('.left-column .rn').addEventListener('click', function() {
+		const notes = document.querySelector('article .release-notes');
+		notes.classList.add('active');
+		const header = document.querySelector('main header');
+		header.classList.add('hide');
+		const tools = document.querySelector('article .tools');
+		tools.classList.add('hide');
+		document.querySelectorAll('.left-column .tool-selector .active').forEach(item => {
+			item.classList.remove('active');
+		})
+	})
 
 
 });
