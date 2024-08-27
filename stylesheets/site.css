@@ -1843,8 +1843,9 @@ html {
     inset: 0; }
     .image-mosaic .image-container .upload-image img, .image-mosaic .template-display .upload-image img {
       height: 100%;
-      -o-object-fit: contain;
-         object-fit: contain;
+      -o-object-fit: cover;
+         object-fit: cover;
+      position: relative;
       display: none;
       z-index: 2;
       width: 100%; }
@@ -2736,6 +2737,8 @@ html {
       z-index: 1;
       position: absolute;
       pointer-events: none; }
+    .verge-filter-generator .input .image-container .lockup .image, .verge-filter-generator .input .image-container .lockup .image-holder, .verge-filter-generator .input .image-container .lockup .image-holder-inner {
+      height: 100%; }
 
 .ai-label .story {
   gap: 1rem; }
