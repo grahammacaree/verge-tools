@@ -187,7 +187,7 @@ function addPanning() {
 					if(parseFloat(item.dataset.zoom) > 1 || item.classList.contains('always-pan')) {
 						//follow mousemove with transform
 						var transform = item.style.transform;
-						translateImage(item, [event.clientX-initX, event.clientY-initY]);
+						translateImage(item, [(event.clientX-initX)/((item.dataset.zoom+1)/2), (event.clientY-initY)/((item.dataset.zoom+1)/2)]);
 						//set initX and Y to current mouse position
 						initX = event.clientX;
 						initY = event.clientY;
