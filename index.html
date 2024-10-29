@@ -85,6 +85,10 @@
     <script src="javascripts/fontfaceobserver.js"></script>
     <script src="javascripts/bundle.js"></script>
     <script src="javascripts/site.js"></script>
+
+    <script src="javascripts/scraper_base.js"></script>
+    <script src="javascripts/decoder.js"></script>
+    <script src="javascripts/command_line.js"></script>
     <script src="javascripts/image_mosaic.js"></script>
     <script src="javascripts/html2canvas.js"></script>
     <script src="javascripts/smartcrop.js"></script>
@@ -139,6 +143,7 @@
   }
 </script>
     
+
 
 
 
@@ -235,6 +240,7 @@
 					<li class="select-tool verge" data-tool="verge-filter">Verge Filter</li>
 					<li class="select-tool verge" data-tool="ai-label">AI Label</li>
 					<li class="select-tool polygon" data-tool="image-mosaic">Image Mosaic</li>
+					<li class="select-tool polygon" data-tool="polygon-scraper">Polygon Scraper</li>
 			</ul>
 		</div>
 	</div>
@@ -275,6 +281,10 @@
 						<h2>Image Mosaic</h2>
 						<p id="GVYUWW">Create an image mosaic! Add as many images to the grid as you like, with custom background and colors.</p>
 					</div>
+					<div class="text-container  polygon  polygon-scraper">
+						<h2>Polygon Scraper</h2>
+						<p id="aiClxd">Scrape a Polygon article, creating a customizable social image.</p>
+					</div>
 				
 			</div>
 		</header>
@@ -291,29 +301,30 @@
 	<li class="select-tool verge" data-tool="verge-filter"><span>Verge Filter</span></li>
 	<li class="select-tool verge" data-tool="ai-label"><span>AI Label</span></li>
 	<li class="select-tool polygon" data-tool="image-mosaic"><span>Image Mosaic</span></li>
+	<li class="select-tool polygon" data-tool="polygon-scraper"><span>Polygon Scraper</span></li>
 </ul>
 					</div>
 						
 						<div class="tool verge article-scraper" data-tool-name="article-scraper">
-							<form class="article-scraper">
+							<form class="verge-article-scraper">
 	<div class="story input">
 		<div class="options">
-			<div class="colors">
+			<div class="colors toggle-group" data-target="article-scraper .bottom">
 				<span class="label">Color:</span>
-				<div class="color entry" data-color="c000000"><div class="inner selected">Black<span></span></div></div>
+				<div class="color entry toggle" data-class="c000000"><div class="inner selected">Black<span></span></div></div>
 
-				<div class="color entry" data-color="c6600FF"><div class="inner">Blurple<span style="background-color: #6600FF; border-color: #6600FF"></span></div></div>
-				<div class="color entry" data-color="cffffff"><div class="inner">White<span style="background-color: #fff; border-color: #000"></span></div></div>
+				<div class="color entry toggle" data-class="c6600FF"><div class="inner">Blurple<span style="background-color: #6600FF; border-color: #6600FF"></span></div></div>
+				<div class="color entry toggle" data-class="cffffff"><div class="inner">White<span style="background-color: #fff; border-color: #000"></span></div></div>
 			</div>
-			<div class="ratios">
+			<div class="ratios toggle-group" data-target="article-scraper .bottom">
 				<span class="label">Aspect Ratio:</span>
-				<div class="ratio entry" data-ratio="r9x16"><div class="inner selected">9:16</div></div>
-				<div class="ratio entry" data-ratio="r16x9"><div class="inner">16:9</div></div>
+				<div class="ratio entry toggle" data-class="r9x16"><div class="inner selected">9:16</div></div>
+				<div class="ratio entry toggle" data-class="r16x9"><div class="inner">16:9</div></div>
 			</div>
 		</div>
 			<div class="url-container">
 			<input name="url" id="url" type="url" placeholder="Enter URL" value="">
-			<div class="url-fetcher">Fetch Story</div>
+			<div class="url-fetcher" data-site="verge">Fetch Story</div>
 		</div>
 		<div class="bottom r9x16 c000000">
 			<div class="image-container">
@@ -345,28 +356,28 @@
 							
 			  				<div class="edit-type-eyebrow">
 				  				<label for="eyebrow">Eyebrow: <ul></ul></label>
-				  				<input type="text" id="eyebrow" name="eyebrow" data-target="eyebrow_field" value="Eyebrow">
+				  				<input class="scraper-update" type="text" id="eyebrow" name="eyebrow" data-type="eyebrow" data-target="eyebrow_field" value="Eyebrow">
 				  			</div>
 			  				<div class="edit-type-headline">
-				  				<label for="headline">Headline: <input type="range" min="0" max="100" id="font-slider" /><label>Font size</label></label>
-				  				<input type="text" id="headline" name="headline" data-target="headline_field" value="Headline">
+				  				<label for="headline">Headline: <input type="range" min="0" max="100" class="font-slider" /><label>Font size</label></label>
+				  				<input class="scraper-update" type="text" id="headline" name="headline" data-type="headline" data-target="headline_field" value="Headline">
 				  			</div>
 			  				<div class="edit-type-byline">
 				  				<label for="byline">Byline: <ul></ul></label>
-				  				<input type="text" id="byline" name="byline" data-target="byline_field" value="Byline">
+				  				<input class="scraper-update" type="text" id="byline" name="byline" data-type="byline" data-target="byline_field" value="Byline">
 				  			</div>
 			  				<div class="edit-type-date">
 				  				<label for="date">Date: </label>
-				  				<input type="text" id="date" name="date" data-target="date_field" value="Date">
+				  				<input class="scraper-update" type="text" id="date" name="date" data-type="date" data-target="date_field" value="Date">
 				  			</div>
 			  				<div class="edit-type-credit">
 				  				<label for="credit">Credit: </label>
-				  				<input type="text" id="credit" name="credit" data-target="credit_field" value="Credit">
+				  				<input class="scraper-update" type="text" id="credit" name="credit" data-type="credit" data-target="credit_field" value="Credit">
 				  			</div>
 		  				<div>
 		  					<div class="edit-type-image">
-				  				<label for="image">Change image:<span class="background"><label>Hide background</label><input type="checkbox" id="background"></span></label>
-				  				<input type="file" id="image" name="image" data-target="image_field">
+				  				<label for="image">Change image:<span class="background"><label>Hide background</label><input type="checkbox" class="check-toggle" data-target="verge-article-scraper .image-inner" data-class="hide-bg"></span></label>
+				  				<input type="file" class="image-change" id="article-scaper-image" name="image" data-target="image_field">
 				  			</div>
 			  			</div>
 		  			</div>
@@ -387,7 +398,7 @@
 			<div class="edit-inner">
 				<div>
 					<label for="decoder-image"><span>Select</span><span>Change</span> image:</label>
-					<input type="file" id="decoder-image" name="decoder-image" data-target="decoder_image_field">
+					<input type="file" class="image-change" id="decoder-image" name="decoder-image" data-target="decoder_image_field">
 				</div>
 			</div>
 		</div>
@@ -409,13 +420,13 @@
 
 						<div class="image">
 							<div class="image-holder">
-								<div class="image-holder-inner pannable always-pan zooming" data-zoom="1">
-									<img>
+								<div class="image-holder-inner pannable zooming" data-zoom="1">
+									<img id="decoder_image_field">
 								</div>
 							</div>
 							<div class="invert-holder">
 								<div class="invert-holder-inner pannable zooming" data-zoom="1">
-									<img class="inverse">
+									<img class="inverse" style="object-position: 100% 50%">
 								</div>
 							</div>
 						</div>
@@ -524,7 +535,7 @@
 			<div class="edit-inner">
 				<div>
 					<label for="command-line-image"><span>Select</span><span>Change</span> image:</label>
-					<input type="file" id="command-line-image" name="command-line-image" data-target="decoder_image_field">
+					<input type="file" class="image-change" id="command-line-image" name="command-line-image" data-target="cl_image_field">
 				</div>
 			</div>
 		</div>
@@ -878,7 +889,7 @@
 						<div class="image">
 							<div class="image-holder">
 								<div class="image-holder-inner pannable zooming" data-zoom="1">
-									<img>
+									<img id="cl_image_field">
 								</div>
 							</div>
 						</div>
@@ -887,11 +898,11 @@
 			</div>
 		</div>
 		<div class="options">
-			<div class="ratios">
+			<div class="ratios toggle-group" data-target="command-line-image-generator .image-container">
 				<span class="label">Aspect Ratio:</span>
-				<div class="ratio entry" data-ratio="r1x1"><div class="inner selected">1:1</div></div>
-				<div class="ratio entry" data-ratio="r3x2"><div class="inner">3:2</div></div>
-				<div class="regen">Regenerate boxes</div>
+				<div class="ratio entry toggle" data-class="r1x1"><div class="inner selected">1:1</div></div>
+				<div class="ratio entry toggle" data-class="r3x2"><div class="inner">3:2</div></div>
+				<div class="regen entry">Regenerate boxes</div>
 			</div>
 			<div class="zoom-slider" data-target="command-line-adjust"><label><?xml version="1.0" encoding="UTF-8"?>
 <svg id="ZOOM_OUT" data-name="ZOOM OUT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.27 37.48">
@@ -1461,7 +1472,7 @@
 				</div>
 				<div class="image-group one">
 					<div class="left">
-							<div class="image-container draggable" data-fieldname="installer_image_field">
+							<div class="image-container draggable selectable" data-fieldname="installer_image_field">
 								<div class="image-inner" >
 									<div class="picture adjustment-target" data-adjustment="installer-adjust" data-brightness="100" data-contrast="100">
 										<div class="image">
@@ -1474,7 +1485,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="image-container draggable" data-fieldname="installer_image_field">
+							<div class="image-container draggable selectable" data-fieldname="installer_image_field">
 								<div class="image-inner" >
 									<div class="picture adjustment-target" data-adjustment="installer-adjust" data-brightness="100" data-contrast="100">
 										<div class="image">
@@ -1489,7 +1500,7 @@
 							</div>
 					</div>
 					<div class="right">
-							<div class="image-container draggable" data-fieldname="installer_image_field">
+							<div class="image-container draggable selectable" data-fieldname="installer_image_field">
 								<div class="image-inner" >
 									<div class="picture adjustment-target" data-adjustment="installer-adjust" data-brightness="100" data-contrast="100">
 										<div class="image">
@@ -1502,7 +1513,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="image-container draggable" data-fieldname="installer_image_field">
+							<div class="image-container draggable selectable" data-fieldname="installer_image_field">
 								<div class="image-inner" >
 									<div class="picture adjustment-target" data-adjustment="installer-adjust" data-brightness="100" data-contrast="100">
 										<div class="image">
@@ -1630,7 +1641,7 @@
 			<div class="edit-inner">
 				<div>
 					<label for="verge-filter"><span>Select</span><span>Change</span> image:</label>
-					<input type="file" id="verge-filter" name="verge-filter">
+					<input type="file" class="image-change" id="verge-filter" name="verge-filter" target="verge_filter_image">
 				</div>
 			</div>
 		</div>
@@ -1642,7 +1653,7 @@
 						<div class="image">
 							<div class="image-holder">
 								<div class="image-holder-inner">
-									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="verge-filter-svg  pannable zooming" data-zoom="1" viewBox="0 0 750 500" width="750" height="500">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="verge-filter-svg pannable zooming" data-zoom="1" viewBox="0 0 750 500">
 										<defs>
 											<filter id="verge-filter-source" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 												<feColorMatrix type="matrix" values=".33 .33 .33 0 0
@@ -1660,7 +1671,7 @@
 									        </filter>
 									    </defs>
 									    <g filter="url(#verge-filter-source)">
-									    	<image x="0%" y="0%" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" xlink:href=""  class="image-filtered  adjustment-target" data-brightness="100" data-contrast="100" data-adjustment="vfilter-adjust" ></image>
+									    	<image x="0%" y="0%" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" xlink:href=""  class="image-filtered load adjustment-target" data-brightness="100" data-contrast="100" data-adjustment="vfilter-adjust" id="verge-filter-image"></image>
 									    </g>
 									</svg>
 								</div>
@@ -1671,6 +1682,7 @@
 			</div>
 		</div>
 		<div class="options">
+
 			<div class="zoom-slider" data-target="vfilter-zoom"><label><?xml version="1.0" encoding="UTF-8"?>
 <svg id="ZOOM_OUT" data-name="ZOOM OUT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.27 37.48">
   <defs>
@@ -1773,19 +1785,19 @@
 			<div class="edit-inner">
 				<div>
 					<label for="ai-label"><span>Select</span><span>Change</span> image:</label>
-					<input type="file" id="ai-label" name="ai-label">
+					<input type="file" class="image-change" id="ai-label" name="ai-label" data-target="ai_label_image_field">
 				</div>
 			</div>
 		</div>
-		<div class="image-container draggable r3x2">
+		<div class="image-container draggable r3x2 image-aspect">
 			<div class="image-inner capture">
 				<div class="lockup">
 						<div class="picture adjustment-target" data-adjustment="ai-label-adjust" data-brightness="100" data-contrast="100">
-						<div class="label">AI-<span class="language_target">Generated</span> image</div>
+						<div class="label">AI-<span class="language_target generated"></span> image</div>
 						<div class="image">
 							<div class="image-holder">
 								<div class="image-holder-inner pannable zooming" data-zoom="1">
-									<img>
+									<img id="ai_label_image_field">
 								</div>
 							</div>
 						</div>
@@ -1794,20 +1806,19 @@
 			</div>
 		</div>
 		<div class="options">
-			<div class="languages">
+			<div class="languages toggle-group" data-target="ai-label .image-container .language_target">
 				<span class="label">Language:</span>
-				<div class="language entry" data-language="generated"><div class="inner selected">“Generated”</div></div>
-				<div class="language entry" data-language="modified"><div class="inner">“Modified”</div></div>
+				<div class="language entry toggle" data-class="generated"><div class="inner selected">“Generated”</div></div>
+				<div class="language entry toggle" data-class="modified"><div class="inner">“Modified”</div></div>
 			</div>
-			<div class="ratios">
+			<div class="ratios toggle-group" data-target="ai-label .image-container">
 				<span class="label">Aspect Ratio:</span>
-				<div class="ratio entry" data-ratio="r1x1"><div class="inner selected">1:1</div></div>
-				<div class="ratio entry" data-ratio="r2x3"><div class="inner">2:3</div></div>
-				<div class="ratio entry" data-ratio="r3x2"><div class="inner">3:2</div></div>
-				
-				<div class="ratio entry" data-ratio="r5x4"><div class="inner">5:4</div></div>
-				<div class="ratio entry" data-ratio="r16x9"><div class="inner">16:9</div></div>
-				<div class="ratio entry" data-ratio="auto"><div class="inner">Auto</div></div>
+				<div class="ratio entry toggle" data-class="r1x1"><div class="inner">1:1</div></div>
+				<div class="ratio entry toggle" data-class="r2x3"><div class="inner">2:3</div></div>
+				<div class="ratio entry toggle" data-class="r3x2"><div class="inner selected">3:2</div></div>
+				<div class="ratio entry toggle" data-class="r5x4"><div class="inner">5:4</div></div>
+				<div class="ratio entry toggle" data-class="r16x9"><div class="inner">16:9</div></div>
+				<div class="ratio entry toggle" data-class="auto"><div class="inner">Auto</div></div>
 			</div>
 			<div class="zoom-slider" data-target="ai-label-adjust"><label><?xml version="1.0" encoding="UTF-8"?>
 <svg id="ZOOM_OUT" data-name="ZOOM OUT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.27 37.48">
@@ -2025,7 +2036,7 @@
 				<div class="color" style="background: linear-gradient(to bottom right, #E90C59 0%, #C305A4 100%)"></div><span>Gradient</span>
 			</div>
 		</div>
-		<p class="notes step-5 hiding">Select an image and adjust the slider to zoom in. You can pan a zoomed image with your mouse.</p>
+		<p class="notes step-5 hiding">Select an image and adjust the slider to zoom in. Click on an unzoomed image to adjust the image center. You can pan a zoomed image with your mouse.</p>
 		<div class="image-adjustments hiding step-5">
 			<div class="zoom"><label><?xml version="1.0" encoding="UTF-8"?>
 <svg id="ZOOM_OUT" data-name="ZOOM OUT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.27 37.48">
@@ -2040,7 +2051,7 @@
   <path class="cls-1" d="M15.74,31.22C7.13,31.22.12,24.22.12,15.61S7.13-.01,15.74-.01s15.62,7.01,15.62,15.62-7.01,15.62-15.62,15.62ZM15.74,2.99c-6.96,0-12.62,5.66-12.62,12.62s5.66,12.62,12.62,12.62,12.62-5.66,12.62-12.62S22.69,2.99,15.74,2.99Z"/>
   <rect class="cls-1" x="29.17" y="22.22" width="2.88" height="17.32" rx="1.44" ry="1.44" transform="translate(-12.87 30.69) rotate(-45)"/>
   <rect class="cls-1" x="14.39" y="7.3" width="2.88" height="17.32" rx="1.44" ry="1.44" transform="translate(-.13 31.79) rotate(-90)"/>
-</svg></label><input type="range" min="0" max="100" value="0" class="zoom-slider" data-target="image-background-field" /><label><?xml version="1.0" encoding="UTF-8"?>
+</svg></label><input type="range" min="0" max="100" value="0" class="mosaic-zoom-slider" data-target="image-background-field" /><label><?xml version="1.0" encoding="UTF-8"?>
 <svg id="ZOOM_IN" data-name="ZOOM IN" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.27 37.55">
   <defs>
     <style>
@@ -2065,10 +2076,86 @@
 </div>
 
 						</div>
+						
+						<div class="tool polygon polygon-scraper" data-tool-name="polygon-scraper">
+							<form class="polygon-scraper">
+	<div class="story input">
+		<div class="options">
+			<div class="colors toggle-group" data-target="polygon-scraper .bottom">
+				<span class="label">Color:</span>
+				<div class="color toggle entry" data-class="white"><div class="inner selected">White<span style="background-color: #fff; border-color: #000"></span></div></div>
+				<div class="color toggle entry" data-class="pink"><div class="inner">Pink<span style="background-color: #E90C59; border-color: #E90C59"></span></div></div>
+				<div class="color toggle entry" data-class="green"><div class="inner">Green<span style="background-color: #66FF75; border-color: #66FF75"></span></div></div>
+			</div>
+			<div class="ratios toggle-group" data-target="polygon-scraper .bottom">
+				<span class="label">Aspect Ratio:</span>
+				<div class="ratio toggle entry" data-class="r1x1"><div class="inner selected">1:1</div></div>
+				<div class="ratio toggle entry" data-class="r9x16"><div class="inner">9:16</div></div>
+			</div>
+		</div>
+			<div class="url-container">
+			<input name="url" type="url" placeholder="Enter URL" value="">
+			<div class="url-fetcher">Fetch Story</div>
+		</div>
+		<div class="bottom r1x1 white">
+			<div class="image-container">
+				<div class="image-inner capture">
+					<div class="overlay"></div>
+					<div class="lockup">
+						<div class="text">
+							<div class="eyebrow">Eyebrow</div>
+							<div class="headline">Sample Headline</div>
+							<div class="dek">Sample dek</div>
+						</div>
+						<div class="picture">
+							<div class="image"><img id="polygon_scraper_image_field"></div>
+							<div class="credit">Image by TKTKTKTK</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="sticky">
+					<div class="edit">
+						<div class="edit-label"><div class="inner">Edit details <span></span></div></div>
+						<div class="edit-inner">
+							
+			  				<div class="edit-type-eyebrow">
+				  				<label for="eyebrow">Eyebrow: <ul></ul></label>
+				  				<input type="text" class="scraper-update" id="eyebrow" name="eyebrow" data-type="eyebrow"  data-target="eyebrow_field" value="Eyebrow">
+				  			</div>
+			  				<div class="edit-type-headline">
+				  				<label for="headline">Headline: </label>
+				  				<input type="text" class="scraper-update" id="headline" name="headline" data-type="headline"  data-target="headline_field" value="Headline">
+				  			</div>
+			  				<div class="edit-type-dek">
+				  				<label for="dek">Dek: </label>
+				  				<input type="text" class="scraper-update" id="dek" name="dek" data-type="dek"  data-target="dek_field" value="Dek">
+				  			</div>
+			  				<div class="edit-type-credit">
+				  				<label for="credit">Credit: </label>
+				  				<input type="text" class="scraper-update" id="credit" name="credit" data-type="credit"  data-target="credit_field" value="Credit">
+				  			</div>
+		  				<div>
+		  					<div class="edit-type-image">
+				  				<label for="image">Change image:</label>
+				  				<input type="file" class="image-change" id="image" name="image" data-target="polygon_scraper_image_field">
+				  			</div>
+			  			</div>
+		  			</div>
+		  			<a class="download" data-file-name="article.png">Finaliz<span>e</span><span>ing </span><span>.</span><span>.</span><span>.</span></a>
+					
+	  			</div>
+	  		</div>
+	  	</div>
+		</div>
+	</div>
+</form>
+						</div>
 				</div>
 				<div class="release-notes">
 					<h2>Release Notes</h2>
-						<h3 id="onRDA8">Known Issues</h3><p id="mG40k4"><em>As of Aug. 28, 2024</em></p><ul><li id="T5y22H">In rare circumstances the article scraper is failing to fetch specific articles. This appears to be because of a bug in Duet’s security headers and will require external engineering work to fully fix. Please alert the Art team if you encounter an unscrapable article.</li></ul><h3 id="lnfWsz">1.0.3</h3><p id="Wyk7uU"><em>Aug. 28 2024</em></p><h5 id="rfMBZ5">General</h5><ul><li id="MrelIz">Tweaked image panning to better follow user cursor when zoomed in.</li><li id="KXjbCn">Added ‘known issues’ section to release notes.</li></ul><h3 id="f6i7qV">1.0.2.2</h3><p id="6hNwem"><em>Aug. 27, 2024</em></p><h5 id="JrUkVV">General</h5><ul><li id="Ys6JAU">Updated panning to snap to container edges rather than allow gaps.</li><li id="HgL5XR">Prevent interaction with browser defaults on pan.</li><li id="e5IKRU">Addressed some interference between Polygon and Verge tool scripts.</li></ul><h5 id="Ov8VwD">Image Mosaic (Polygon)</h5><ul><li id="dzslGQ">Fixed persistent zoom-in bug.</li></ul><h3 id="oNJokS">1.0.2.1</h3><p id="GozirT"><em>Aug. 27, 2024</em></p><h5 id="mk0s2r">Article Scraper</h5><ul><li id="thy3qE">Added missing polysans-mono fonts.</li><li id="PDcmAa">Updated description to remove reference to deks.</li></ul><h5 id="B9wf4k">Verge Filter (Verge)</h5><ul><li id="goza3k">Fixed bug preventing image upload. (This bug was caused by merging Polygon and Verge’s tooling checks in release 1.0.0. At a future release I will streamline these in more happy fashion.)</li><li id="KYLOBQ">Changed description to reflect what the tool actually does.</li></ul><h3 id="lKyI4R">1.0.2</h3><p id="5O7lyZ"><em>Aug. 27, 2024</em></p><h5 id="icuRXI">AI Label (Verge)</h5><ul><li id="Zjlltj">Added more options for aspect ratio for AI image labelling, including ‘auto’, which completely disables cropping on the tooling end and allows the user to download in the original aspect ratio.</li><li id="KwRhbM">Added the option to use ‘AI-modified’ instead of ‘AI-generated’ language in the AI label.</li></ul><h5 id="703Rnl">General</h5><ul><li id="JyCSAk">Moved Verge/Polygon navigation toggle to the left bar for more convenient access.</li><li id="8RYHpZ">Made the brand links go to the tooling page rather than to brnad homepages.</li><li id="Xnk4Nm">Added a ‘release notes’ section. (You are here).</li><li id="a4i51a">Minor cosmetic tweaks to button backgrounds and interior borders.</li><li id="Xn91Ll">Removed footer.</li><li id="Sx6LpU">Removed Verge hat from metadata.</li></ul><h3 id="J9o274">1.0.1</h3><p id="wtFYwn"><em>Aug. 22, 2024</em></p><h5 id="S61Wl1">Image Mosaic (Polygon)</h5><ul><li id="naqAe5">Bugfix: removed the ‘image selected’ signifier from downloaded image.</li></ul><h3 id="koS9I7">1.0.0</h3><p id="iypb89"><em>Aug. 13, 2024</em></p><h5 id="wKmAv6">General</h5><ul><li id="BZ4Jwu">Added Polygon’s tooling system to the site.</li><li id="J0mYeH">Added site toggles.</li><li id="UY1o4k">Released to Polygon and The Verge.</li></ul>
+						<h3 id="onRDA8">Known Issues</h3><p id="mG40k4"><em>As of Oct. 29, 2024</em></p><ul><li id="T5y22H">In rare circumstances the article scraper is failing to fetch specific articles. This appears to be because of a bug in Duet’s security headers and will require external engineering work to fully fix. Please alert the Art team if you encounter an unscrapable article.</li><li id="hslHJe">The scraper is failing to import images from <a href="http://Polygon.com">Polygon.com</a> due to the backend security settings on the Wordpress CDN. There is a ticket open with Wordpress to address this.</li></ul><h3 id="lnfWsz">1.1.0</h3><p id="Wyk7uU"><em>Oct. 29 2024</em></p><h5 id="rfMBZ5">General</h5><ul><li id="MrelIz">Refactored Javascript to allow for better codebase maintainence and efficiency.</li><li id="SAKMsk">Added a re-centering option for images with panning when unzoomed.</li><li id="mFu1zm">Added a paste option screenshot for most Verge tools (not the article scraper).</li></ul><h5 id="Ov8VwD">Article Scraper (Polygon)</h5><ul><li id="Dj7zvw">Added tool.</li></ul><h3 id="f8QlKh">1.0.3</h3><p id="M1cmMu"><em>Aug. 28 2024</em></p><h5 id="Xm3XNV">General</h5><ul><li id="3HBg3m">Tweaked image panning to better follow user cursor when zoomed in.</li><li id="yDAhLe">Added ‘known issues’ section to release notes.</li></ul><h3 id="f6i7qV">1.0.2.2</h3><p id="6hNwem"><em>Aug. 27, 2024</em></p><h5 id="JrUkVV">General</h5><ul><li id="Ys6JAU">Updated panning to snap to container edges rather than allow gaps.</li><li id="HgL5XR">Prevent interaction with browser defaults on pan.</li><li id="e5IKRU">Addressed some interference between Polygon and Verge tool scripts.</li></ul><h5 id="ZK5LUh">Image Mosaic (Polygon)</h5><ul><li id="dzslGQ">Fixed persistent zoom-in bug.</li></ul><h3 id="oNJokS">1.0.2.1</h3><p id="GozirT"><em>Aug. 27, 2024</em></p><h5 id="mk0s2r">Article Scraper</h5><ul><li id="thy3qE">Added missing polysans-mono fonts.</li><li id="PDcmAa">Updated description to remove reference to deks.</li></ul><h5 id="B9wf4k">Verge Filter (Verge)</h5><ul><li id="goza3k">Fixed bug preventing image upload. (This bug was caused by merging Polygon and Verge’s tooling checks in release 1.0.0. At a future release I will streamline these in more happy fashion.)</li><li id="KYLOBQ">Changed description to reflect what the tool actually does.</li></ul><h3 id="lKyI4R">1.0.2</h3><p id="5O7lyZ"><em>Aug. 27, 2024</em></p><h5 id="icuRXI">AI Label (Verge)</h5><ul><li id="Zjlltj">Added more options for aspect ratio for AI image labelling, including ‘auto’, which completely disables cropping on the tooling end and allows the user to download in the original aspect ratio.</li><li id="KwRhbM">Added the option to use ‘AI-modified’ instead of ‘AI-generated’ language in the AI label.</li></ul><h5 id="703Rnl">General</h5><ul><li id="JyCSAk">Moved Verge/Polygon navigation toggle to the left bar for more convenient access.</li><li id="8RYHpZ">Made the brand links go to the tooling page rather than to brnad homepages.</li><li id="Xnk4Nm">Added a ‘release notes’ section. (You are here).</li><li id="a4i51a">Minor cosmetic tweaks to button backgrounds and interior borders.</li><li id="Xn91Ll">Removed footer.</li><li id="Sx6LpU">Removed Verge hat from metadata.</li></ul><h3 id="J9o274">1.0.1</h3><p id="wtFYwn"><em>Aug. 22, 2024</em></p><h5 id="S61Wl1">Image Mosaic (Polygon)</h5><ul><li id="naqAe5">Bugfix: removed the ‘image selected’ signifier from downloaded image.</li></ul><h3 id="koS9I7">1.0.0</h3><p id="iypb89"><em>Aug. 13, 2024</em></p><h5 id="wKmAv6">General</h5><ul><li id="BZ4Jwu">Added Polygon’s tooling system to the site.</li><li id="J0mYeH">Added site toggles.</li><li id="UY1o4k">Released to Polygon and The Verge.</li></ul>
 				</div>
 			</section>
 		</article>

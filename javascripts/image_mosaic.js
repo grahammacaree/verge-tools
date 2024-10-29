@@ -4,8 +4,6 @@ var imageArray = [1];
 var mosaicResizing = false;
 var layoutLocked = false;
 
-
-
 function imageSelector() {
 	document.querySelectorAll('.image-mosaic .upload-image').forEach(item => {
 		item.addEventListener('click', (event) => {
@@ -268,7 +266,6 @@ function loadTemplate(template, target) {
 	//get all first children
 	//console.log(template);
 	template.querySelectorAll('.template-display > .element').forEach(item => {
-		console.log(item);
 		html += item.outerHTML;
 	});
 	target.innerHTML = html;
@@ -285,7 +282,7 @@ function selectImage(item) {
 		});
 		item.classList.add('selected');
 		//set zoom slider value to inner-container.dataset.zoom
-		const zoomSlider = stepHolder.querySelector('.zoom-slider');
+		const zoomSlider = stepHolder.querySelector('.mosaic-zoom-slider');
 		zoomSlider.value = (item.querySelector('.inner-container').dataset.zoom - 1) * 100;
 		if(layoutLocked == false) {
 			//find .button.splitter.horizontal
@@ -651,7 +648,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 								stepHolder.querySelectorAll('.step-selector').forEach(selector => {
 									selector.classList.remove('selected');
 								});
-								console.log(selector.dataset.step);
 								stepHolder.querySelector(`.step-selector[data-step="${selector.dataset.step}"]`).classList.add('selected');
 								//add step-selected class to stepHolder
 								stepHolder.classList.add(item.dataset.step+'-selected');
@@ -754,7 +750,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						item.classList.add('faded');
 					}
 					//remove transform from clone image
-					console.log(clone.querySelector('img'));
 					
 					updatePositioning();
 					addPanning();
@@ -1006,8 +1001,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						stepHolder.querySelectorAll('.step-selector').forEach(selector => {
 							selector.classList.remove('selected');
 						});
-
-						console.log(selector.dataset.step);
 						stepHolder.querySelector(`.step-selector[data-step="${selector.dataset.step}"]`).classList.add('selected');
 						stepHolder.classList.add('step-4-selected');
 						//add active to step-selector 3 and 4
@@ -1048,8 +1041,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						stepHolder.querySelectorAll('.step-selector').forEach(selector => {
 							selector.classList.remove('selected');
 						});
-
-						console.log(selector.dataset.step);
 						stepHolder.querySelector(`.step-selector[data-step="${selector.dataset.step}"]`).classList.add('selected');
 						stepHolder.classList.add('step-5-selected');
 						//add active to step-selector 3 and 4
@@ -1069,8 +1060,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			addPanning();
 		});
 	});
-
-	document.querySelectorAll('.image-mosaic .zoom-slider').forEach(slider => {
+	
+	document.querySelectorAll('.image-mosaic .mosaic-zoom-slider').forEach(slider => {
 		slider.addEventListener('input', (event) => {
 			const stepHolder = slider.closest('.step-holder');
 			var target = stepHolder.querySelector('.upload-image.selected .inner-container');
@@ -1140,7 +1131,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	        body: data,
 	      })
 	      .then(() => {
-	        console.log("Form submitted.");
 
 	      })
 	    }
