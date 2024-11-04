@@ -597,6 +597,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				tool.querySelectorAll('.capture .image-selected').forEach((selected) => {
 					selected.classList.remove('image-selected');
 				});
+				tool.querySelectorAll('.capture .selected').forEach((selected) => {
+					selected.classList.remove('selected');
+				});
 				const target = tool.querySelector('.capture');
 				capture(target, event.target, name);
 			});
