@@ -39,7 +39,7 @@ const capture = (id, link, name) => {
 
 function isImage(item, file) {
 	const fileType = file['type'];
-	const validImageTypes = ['image/jpeg', 'image/png'];
+	const validImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
 	if (validImageTypes.includes(fileType)) {
 	    return true;
 	} else {
