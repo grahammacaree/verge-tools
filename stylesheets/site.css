@@ -2768,36 +2768,38 @@ html {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     overflow: hidden; }
-  .polygon-scraper .bottom .image-container .lockup .eyebrow, .polygon-scraper .bottom .image-container .lockup .headline, .polygon-scraper .bottom .image-container .lockup .dek {
-    margin-left: 1.75rem;
-    margin-right: 1.75rem; }
-  .polygon-scraper .bottom .image-container .lockup .headline {
-    letter-spacing: -0.01em;
-    font-weight: 800; }
-  .polygon-scraper .bottom .image-container .lockup .picture .credit {
-    -webkit-transform: none;
-            transform: none; }
-  .polygon-scraper .bottom .image-container .lockup .eyebrow {
-    margin-bottom: 0.5rem;
-    margin-top: 0; }
-  .polygon-scraper .bottom .image-container .lockup .picture {
-    position: relative; }
-    .polygon-scraper .bottom .image-container .lockup .picture .image {
-      position: absolute;
-      inset: 0; }
-      .polygon-scraper .bottom .image-container .lockup .picture .image img {
-        width: 100%;
-        height: 100%;
-        display: block; }
-  .polygon-scraper .bottom .image-container .lockup .eyebrow span {
-    padding: 0.25rem 0.5rem;
-    text-transform: uppercase;
-    font-size: 0.65rem;
-    font-weight: 800;
-    display: inline-block;
-    margin-right: 0.25rem; }
-    .polygon-scraper .bottom .image-container .lockup .eyebrow span:last-child {
-      margin-right: 0; }
+  .polygon-scraper .bottom .image-container .lockup {
+    width: 100%; }
+    .polygon-scraper .bottom .image-container .lockup .eyebrow, .polygon-scraper .bottom .image-container .lockup .headline, .polygon-scraper .bottom .image-container .lockup .dek {
+      margin-left: 1.75rem;
+      margin-right: 1.75rem; }
+    .polygon-scraper .bottom .image-container .lockup .headline {
+      letter-spacing: -0.01em;
+      font-weight: 800; }
+    .polygon-scraper .bottom .image-container .lockup .picture .credit {
+      -webkit-transform: none;
+              transform: none; }
+    .polygon-scraper .bottom .image-container .lockup .eyebrow {
+      margin-bottom: 0.5rem;
+      margin-top: 0; }
+    .polygon-scraper .bottom .image-container .lockup .picture {
+      position: relative; }
+      .polygon-scraper .bottom .image-container .lockup .picture .image {
+        position: absolute;
+        inset: 0; }
+        .polygon-scraper .bottom .image-container .lockup .picture .image img {
+          width: 100%;
+          height: 100%;
+          display: block; }
+    .polygon-scraper .bottom .image-container .lockup .eyebrow span {
+      padding: 0.25rem 0.5rem;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      font-weight: 800;
+      display: inline-block;
+      margin-right: 0.25rem; }
+      .polygon-scraper .bottom .image-container .lockup .eyebrow span:last-child {
+        margin-right: 0; }
   .polygon-scraper .bottom.r9x16 .image-container .image-inner {
     padding-bottom: 0;
     display: flex;
