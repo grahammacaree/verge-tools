@@ -44,26 +44,28 @@ function vergeFetch(html, selected) {
 	var parser = new DOMParser();
 	var doc = parser.parseFromString(html, "text/html");
 	var hed  = doc.querySelector('article .duet--article--lede h1').innerHTML.replace( /(<([^>]+)>)/ig, '');
-	if(doc.querySelector('article .duet--article--lede-image cite')) {
-		var credit = doc.querySelector('article .duet--article--lede-image cite').innerHTML.replace( /(<([^>]+)>)/ig, '');	
+	if(doc.querySelector('article .duet--article--lede .duet--media--caption cite')) {
+		var credit = doc.querySelector('article .duet--article--lede .duet--media--caption cite').innerHTML;	
+		credit = credit.replace('|  ', '');
+		console.log(credit);
 		updateCredit(credit);
 	} else {
 		updateCredit("");
 	}
-	if(doc.querySelector('article .duet--article--date-and-comments time')) {
-		var time = doc.querySelector('article .duet--article--date-and-comments time').innerHTML;
+	if(doc.querySelector('article .duet--article--timestamp time')) {
+		var time = doc.querySelector('article .duet--article--timestamp time').innerHTML;
 		time = time.split(',').slice(0,2).join(',');
-		updateDate(time.split('>')[1]);
+		updateDate(time);
 	} else {
 		updateDate("")
 	}
-	var bylines = doc.querySelectorAll('article .duet--article--article-byline .font-medium a');
+	var bylines = doc.querySelectorAll('article .duet--article--article-byline a');
 	bylines.forEach(item => {
 		byline.push(item.innerHTML.replace( /(<([^>]+)>)/ig, ''));
 	});
-	var eyebrows = doc.querySelectorAll('article .article-groups a');
+	var eyebrows = doc.querySelectorAll('article .duet--article--lede ul li a');
 	eyebrows.forEach(item => {
-		eyebrow.push(item.innerHTML.replace( /(<([^>]+)>)/ig, ''));
+		eyebrow.push(item.innerHTML);
 	});
 	byline.forEach(addByline => {
 		updateBylines(addByline, 1);
@@ -178,13 +180,12 @@ function displayEyebrows(eyebrows) {
 	eyebrows.forEach((item, index) => {
 		editTarget.innerHTML += `<li><span class="item">${item}</span><span class="close">+</span></li>`;
 		if (brand == "verge") {
-			
-			outputTarget.innerHTML += `${item}`;
+			outputTarget.innerHTML += `<span>${item}</span>`;
 			if(index < eyebrows.length -1) {
 				outputTarget.innerHTML += `<span class="divider">/</span>`;
 			}
 		}
-		if (brand = "polygon") {
+		if (brand == "polygon") {
 			outputTarget.innerHTML += `<span>${item}</span>`;
 		}
 	});
