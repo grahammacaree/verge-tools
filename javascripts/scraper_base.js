@@ -7,7 +7,6 @@ function polygonFetch(html, selected) {
 	var doc = parser.parseFromString(html, "text/html");
 	var hed = doc.querySelector('article .duet--article--lede h1').innerHTML.replace( /(<([^>]+)>)/ig, '');
 	var dek = doc.querySelector('article .duet--article--lede h1').parentNode.querySelector('p').innerHTML.replace( /(<([^>]+)>)/ig, '');
-	var eyebrows = doc.querySelectorAll('.duet--article--lede div div div ul li a');
 	if(doc.querySelector('.duet--article--lede cite')) {
 		credit = doc.querySelector('.duet--article--lede cite').innerHTML.replace( /(<([^>]+)>)/ig, '')	
 	} else if (doc.querySelector('.duet--ledes--standard-lede-bottom cite')) {
@@ -16,26 +15,29 @@ function polygonFetch(html, selected) {
 		credit = "";
 	}
 	var target = selected.querySelector('.image-container .picture .image img');
+	
+	var eyebrows = doc.querySelectorAll('article .duet--article--lede ul li a');
+	eyebrows.forEach(item => {
+		eyebrow.push(item.innerHTML);
+	});
+	eyebrow.forEach(addEyebrow => {
+		console.log(addEyebrow)
+		updateEyebrows(addEyebrow, 1);
+	});
+	updateDek(dek);	
+	updateCredit(credit);
+	
+	selected.querySelector('.input .edit').classList.add('visible');
+	selected.querySelector('.image-container').classList.add('visible');
+	selected.querySelector('.download').classList.add('visible');
+
+	updateHeader(hed);	
 	if(doc.querySelector('.duet--layout--entry-image img')) {
 		var imageURL = doc.querySelector('.duet--layout--entry-image img').src+"?" + new URLSearchParams({ csk: 1 }).toString();
 		var image = createImage(imageURL, target);
 	} else {
 		selected.querySelector('.image-container .image-inner .picture').classList.add('hidden');
 	}
-	eyebrows.forEach(item => {
-		eyebrow.push(item.innerHTML.replace( /(<([^>]+)>)/ig, ''));
-	});
-	console.log(eyebrow);
-	
-	updateDek(dek);	
-	updateCredit(credit);
-	eyebrow.forEach(addEyebrow => {
-		updateEyebrows(addEyebrow, 1);
-	});
-	selected.querySelector('.input .edit').classList.add('visible');
-	selected.querySelector('.image-container').classList.add('visible');
-	selected.querySelector('.download').classList.add('visible');
-	updateHeader(hed);	
 }
 
 function vergeFetch(html, selected) {
@@ -75,15 +77,16 @@ function vergeFetch(html, selected) {
 	});
 	updateHeader(hed);	
 	var target = selected.querySelector('.image-container .picture .image img');
+	
+	selected.querySelector('.input .edit').classList.add('visible');
+	selected.querySelector('.image-container').classList.add('visible');
+	selected.querySelector('.download').classList.add('visible');
 	if(doc.querySelector('article .duet--article--lede .duet--article--lede-image img')) {
 		var imageURL = doc.querySelector('article .duet--article--lede .duet--article--lede-image img').src;
 		var image = createImage(imageURL, target);
 	} else {
 		selected.querySelector('.image-container .image-inner .picture').classList.add('hidden');
 	}
-	selected.querySelector('.input .edit').classList.add('visible');
-	selected.querySelector('.image-container').classList.add('visible');
-	selected.querySelector('.download').classList.add('visible');
 }
 
 function updateFields(value, type) {
@@ -170,8 +173,9 @@ function updateBylines(value, direction) {
 function displayEyebrows(eyebrows) {
 	var brand = "verge";
 	if(document.querySelector('.tool.active').classList.contains('polygon-scraper')) {
-		brand = "polygon;"
+		brand = "polygon";
 	}
+	console.log(brand);
 	const editTarget = document.querySelector('.tool.active .edit-type-eyebrow ul');
 	document.querySelector('.tool.active [data-type="eyebrow"]').value = "Add Eyebrow";
 	const outputTarget = document.querySelector('.tool.active .image-container .lockup .eyebrow');

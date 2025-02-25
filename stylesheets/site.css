@@ -2800,6 +2800,8 @@ html {
       margin-right: 0.25rem; }
       .polygon-scraper .bottom .image-container .lockup .eyebrow span:last-child {
         margin-right: 0; }
+  .polygon-scraper .bottom.r9x16 .edit .edit-inner .edit-type-eyebrow {
+    display: block; }
   .polygon-scraper .bottom.r9x16 .image-container .image-inner {
     padding-bottom: 0;
     display: flex;
