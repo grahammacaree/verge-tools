@@ -186,8 +186,8 @@ main {
       .gate .password button:hover {
         background-color: rgba(255, 255, 255, 0.5); }
   .gate.brand .brand-select {
-    -ms-grid-columns: 1fr 1fr;
-    grid-template-columns: 1fr 1fr; }
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr; }
   .gate.brand .brand-item {
     cursor: pointer;
     aspect-ratio: 1; }

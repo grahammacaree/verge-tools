@@ -618,9 +618,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			removeGate('verge');
 
 		}
-		if(stringToHash(input.value+"grahamwashere") == -26573789574) {
+		/*if(stringToHash(input.value+"grahamwashere") == -26573789574) {
 			removeGate('polygon');
-		}
+		}*/
 	})
 
 	document.querySelector('#password-input').addEventListener('keyup', (event) => {
@@ -628,17 +628,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		if(stringToHash(input.value+"grahamwashere") == -1047751711 && event.keyCode == 13) {
 			removeGate('verge');
 		}
-		if(stringToHash(input.value+"grahamwashere") == -26573789574 && event.keyCode == 13) {
+		/*if(stringToHash(input.value+"grahamwashere") == -26573789574 && event.keyCode == 13) {
 			removeGate('polygon');
-		}
+		}*/
 	})
 
 	if (localStorage.getItem("vergetools") === "-1047751711") {
 		removeGate('verge');
 	}
-	if (localStorage.getItem("vergetools") === "-26573789574") {
+	/*if (localStorage.getItem("vergetools") === "-26573789574") {
 		removeGate('polygon');
-	}
+	}*/
 
 
 	function removeGate(brand) {
@@ -653,7 +653,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			root.style.setProperty('--text-font', 'FK Roman Standard,Georgia,serif');
 			root.style.setProperty('--spec-font', 'Poly Sans Mono, Courier New, Courier, monospace');
 		}
-		if(brand == "polygon") {
+		/*if(brand == "polygon") {
 			localStorage.setItem("vergetools", -26573789574);	
 			root.style.setProperty('--brand-color', '#E90C59');
 			root.style.setProperty('--hed-font', 'Montserrat, sans-serif');
@@ -661,7 +661,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			root.style.setProperty('--spec-font', 'IBM Plex Sans, sans-serif');
 			root.style.setProperty('--text-font', 'Georgia,serif');
 			console.log(root.style);
-		}
+		}*/
 		document.querySelector('.flex-container').classList.add(brand);
 	}
 
@@ -687,7 +687,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		});
 	})
 
-	document.querySelector('.left-column .inner .switch').addEventListener('click', function() {
+	/*document.querySelector('.left-column .inner .switch').addEventListener('click', function() {
 		const container = document.querySelector('.flex-container');
 		const gate = document.querySelector('.gate');
 		gate.querySelector('input').value = '';
@@ -697,7 +697,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		gate.classList.add('active');
 		container.classList.remove('verge');		
 		container.classList.remove('polygon');		
-	});
+	});*/
 
 	document.querySelector('.left-column .rn').addEventListener('click', function() {
 		const notes = document.querySelector('article .release-notes');
