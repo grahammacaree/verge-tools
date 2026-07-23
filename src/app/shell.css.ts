@@ -509,6 +509,8 @@ globalStyle(".left-column ul li", {
   cursor: "pointer",
   position: "relative",
   margin: "1rem 0",
+  display: "flex",
+  alignItems: "center",
 });
 
 globalStyle(".left-column ul li:before", {
@@ -518,8 +520,7 @@ globalStyle(".left-column ul li:before", {
   aspectRatio: "1",
   marginRight: "0.5em",
   backgroundColor: "#CECECE",
-  WebkitTransform: "translateY(0.125em)",
-  transform: "translateY(0.125em)",
+  flexShrink: "0",
 });
 
 globalStyle(".left-column ul li:after", {
@@ -555,8 +556,10 @@ globalStyle(".left-column ul li a", {
   color: "inherit",
   textDecoration: "none",
   marginBottom: "0",
-  width: "100%",
-  display: "block",
+  display: "inline-block",
+  flex: "1",
+  minWidth: "0",
+  paddingRight: "1.25em",
 });
 
 globalStyle(".flex-container.unlocked", {
