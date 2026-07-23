@@ -34,6 +34,8 @@ Most image tools follow the same path:
 
    **CSS scope:** Tool layout CSS is usually nested under a generator class (e.g. `.decoder-image-generator .input .image-container`). The off-screen clone drops live form ancestors, so pass `cssScope: ['decoder-image-generator', 'input']` (outermost → innermost) — or pass `cssScope` at `capture()` time when classes are dynamic (Article Scraper ratio/color). Without this, absolute layers stack and downloads look broken.
 
+   **SVG fills:** Before capture, computed `fill` values are copied from the live node onto clone shapes. Stylesheet-only fills (e.g. scraper wordmark on blurple/black) are otherwise often dropped by `html-to-image`.
+
 Pan/zoom (`useImageAdjustments`) is the **sole writer** of media `transform` / `object-position`, and of user brightness/contrast `filter` on the **holders** (`.image-holder-inner`, etc.) so tool CSS filters on `<img>` (Decoder) can stack. Tools should not also bind those properties on the same nodes. Gestures paint via `rAF`; React state commits on pointer-up / slider transitions.
 
 Prefer these hooks over reimplementing capture or pan logic inside a tool.

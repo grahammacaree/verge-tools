@@ -515,7 +515,11 @@ globalStyle(".input .bottom.cffffff .image-container .image-inner .lockup .eyebr
   color: "var(--brand-color)",
 });
 
-globalStyle(".input .bottom.cffffff .image-container .image-inner .picture .credit", {
+globalStyle(".input .bottom.cffffff .image-container .image-inner .lockup .picture .credit", {
+  color: "rgba(0, 0, 0, 0.5)",
+});
+
+globalStyle(".input .bottom.cffffff.r16x9 .image-container .image-inner > .picture .credit", {
   color: "rgba(0, 0, 0, 0.5)",
 });
 
@@ -563,7 +567,7 @@ globalStyle(".input .bottom.r9x16 .image-container .image-inner .lockup .eyebrow
   display: "none",
 });
 
-globalStyle(".input .bottom.r9x16 .image-container .image-inner .picture .image", {
+globalStyle(".input .bottom.r9x16 .image-container .image-inner .lockup .picture .image", {
   aspectRatio: "1",
 });
 
@@ -668,14 +672,15 @@ globalStyle(".input .image-container .lockup .byline:before", {
   fontWeight: "300",
 });
 
-globalStyle(".input .image-container .picture", {
+/* 9:16 — photo lives inside `.lockup` (padded column). */
+globalStyle(".input .image-container .lockup .picture", {
   position: "relative",
   marginTop: "1.25rem",
   marginRight: "-21.5%",
   zIndex: "0",
 });
 
-globalStyle(".input .image-container .picture .credit", {
+globalStyle(".input .image-container .lockup .picture .credit", {
   fontFamily: "var(--spec-font)",
   position: "absolute",
   fontSize: "0.65rem",
@@ -691,17 +696,24 @@ globalStyle(".input .image-container .picture .credit", {
   whiteSpace: "nowrap",
 });
 
-globalStyle(".input .image-container .picture .image", {
+globalStyle(".input .image-container .lockup .picture .image", {
   width: "100%",
   position: "relative",
 });
 
-globalStyle(".input .image-container .picture .image img", {
+globalStyle(".input .image-container .lockup .picture .image img", {
   width: "100%",
   height: "100%",
   objectFit: "cover",
   OObjectPosition: "center center",
   objectPosition: "center center",
+});
+
+/* 16:9 — photo is a sibling of `.lockup` under `.image-inner` (see r16x9 rules above). */
+globalStyle(".input .bottom.r16x9 .image-container .image-inner > .picture", {
+  /* margin from the 9:16 in-lockup rules must not apply */
+  marginTop: "0",
+  marginRight: "0",
 });
 
 globalStyle(".input .edit", {

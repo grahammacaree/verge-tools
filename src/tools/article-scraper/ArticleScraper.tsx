@@ -166,12 +166,21 @@ export function ArticleScraper() {
                   </div>
                   <div className="byline">{byline}</div>
                   <div className="date">{date}</div>
+                  {/* 9:16 keeps the photo in-flow inside the padded lockup (legacy). */}
+                  {ratio === 'r9x16' ? (
+                    <div className="picture">
+                      <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
+                      <div className="credit">{credit}</div>
+                    </div>
+                  ) : null}
                 </div>
-                {/* Sibling of lockup — 16:9 absolute positioning is relative to `.image-inner`, not the 80% text box. */}
-                <div className="picture">
-                  <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
-                  <div className="credit">{credit}</div>
-                </div>
+                {/* 16:9 photo is a sibling so absolute positioning covers the full frame, not the 80% text box. */}
+                {ratio === 'r16x9' ? (
+                  <div className="picture">
+                    <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
+                    <div className="credit">{credit}</div>
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className="right">

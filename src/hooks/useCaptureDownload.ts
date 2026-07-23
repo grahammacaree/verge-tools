@@ -22,6 +22,24 @@ function wrapWithCssScope(node: HTMLElement, scope: string[]): HTMLElement {
   return current;
 }
 
+/**
+ * `html-to-image` often drops stylesheet `fill` on SVG paths (e.g. Verge wordmark
+ * color variants). Copy computed fills from the live tree onto the clone.
+ */
+function bakeSvgFillsFromLive(liveRoot: HTMLElement, cloneRoot: HTMLElement): void {
+  const selector =
+    'svg path, svg polygon, svg circle, svg rect, svg ellipse, svg line, svg polyline';
+  const liveShapes = liveRoot.querySelectorAll(selector);
+  const cloneShapes = cloneRoot.querySelectorAll(selector);
+  const n = Math.min(liveShapes.length, cloneShapes.length);
+  for (let i = 0; i < n; i++) {
+    const fill = getComputedStyle(liveShapes[i]!).fill;
+    if (fill && fill !== 'none') {
+      cloneShapes[i]!.setAttribute('fill', fill);
+    }
+  }
+}
+
 export function useCaptureDownload(fileName: string, options: CaptureOptions = {}) {
   const [state, setState] = useState<CaptureState>('ready');
   const format = options.format ?? 'jpeg';
@@ -67,6 +85,7 @@ export function useCaptureDownload(fileName: string, options: CaptureOptions = {
         host.appendChild(framed);
         document.body.appendChild(host);
         try {
+          bakeSvgFillsFromLive(node, clone);
           // Matte from the *live* node — clone may not get root background-color from html-to-image.
           const matte =
             runtime?.backgroundColor ??
