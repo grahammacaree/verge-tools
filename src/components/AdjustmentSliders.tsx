@@ -6,7 +6,7 @@ type Props = {
   onBrightness: (v: number) => void;
   onContrast: (v: number) => void;
   visible?: boolean;
-  /** Default true. Set false for a second panel’s B/C-only row (Decoder invert). */
+  /** Default true. Set false to hide the zoom row. */
   showZoom?: boolean;
   brightnessLabel?: string;
   contrastLabel?: string;

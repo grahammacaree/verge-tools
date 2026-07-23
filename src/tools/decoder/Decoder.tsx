@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { AdjustmentSliders } from '../../components/AdjustmentSliders';
 import { FinalizeButton } from '../../components/FinalizeButton';
 import { ImageFileInput } from '../../components/ImageFileInput';
@@ -12,6 +12,7 @@ const ALIGNMENTS = ['even', 'between', 'around'] as const;
 
 type Glyph = (typeof GLYPHS)[number];
 type Alignment = (typeof ALIGNMENTS)[number];
+type Panel = 'main' | 'invert';
 
 type Column = {
   alignment: Alignment;
@@ -33,6 +34,7 @@ function randomColumns(): Column[] {
 export function Decoder() {
   const [file, setFile] = useState<File | null>(null);
   const [columns, setColumns] = useState<Column[]>(() => randomColumns());
+  const [activePanel, setActivePanel] = useState<Panel>('main');
   const url = useObjectUrl(file);
   const captureRef = useRef<HTMLDivElement>(null);
   const { state, capture, reset: resetCapture } = useCaptureDownload('decoder.jpg', {
@@ -42,10 +44,11 @@ export function Decoder() {
   const invert = useImageAdjustments({
     initial: { objectPosition: '100% 50%' },
   });
+  const active = activePanel === 'main' ? main : invert;
 
   const logoSrc = assetUrl('images/decoder/logo.png');
 
-  // Zoom stays shared; brightness/contrast and pan are per panel.
+  // Zoom stays shared; brightness/contrast apply to the last-selected panel (main default).
   const setZoom = useCallback(
     (zoom: number) => {
       main.setZoom(zoom);
@@ -54,10 +57,20 @@ export function Decoder() {
     [main.setZoom, invert.setZoom],
   );
 
+  const selectPanel = useCallback(
+    (panel: Panel, handlers: typeof main.pointerHandlers) =>
+      (event: ReactPointerEvent<HTMLElement>) => {
+        setActivePanel(panel);
+        handlers.onPointerDown?.(event);
+      },
+    [],
+  );
+
   const onImage = useCallback(
     (next: File) => {
       setFile(next);
       setColumns(randomColumns());
+      setActivePanel('main');
       resetCapture();
     },
     [resetCapture],
@@ -99,6 +112,7 @@ export function Decoder() {
                         data-zoom={main.adj.zoom}
                         ref={main.elementRef}
                         {...main.pointerHandlers}
+                        onPointerDown={selectPanel('main', main.pointerHandlers)}
                       >
                         {/* transform / filter / object-position painted by useImageAdjustments */}
                         {url ? <img src={url} alt="" /> : <img alt="" />}
@@ -110,6 +124,7 @@ export function Decoder() {
                         data-zoom={invert.adj.zoom}
                         ref={invert.elementRef}
                         {...invert.pointerHandlers}
+                        onPointerDown={selectPanel('invert', invert.pointerHandlers)}
                       >
                         {url ? (
                           <img className={`inverse${url ? ' loaded' : ''}`} src={url} alt="" />
@@ -129,22 +144,11 @@ export function Decoder() {
             </div>
             <AdjustmentSliders
               zoom={main.adj.zoom}
-              brightness={main.adj.brightness}
-              contrast={main.adj.contrast}
+              brightness={active.adj.brightness}
+              contrast={active.adj.contrast}
               onZoom={setZoom}
-              onBrightness={main.setBrightness}
-              onContrast={main.setContrast}
-              brightnessLabel="Main brightness"
-              contrastLabel="Main contrast"
-            />
-            <AdjustmentSliders
-              showZoom={false}
-              brightness={invert.adj.brightness}
-              contrast={invert.adj.contrast}
-              onBrightness={invert.setBrightness}
-              onContrast={invert.setContrast}
-              brightnessLabel="Invert brightness"
-              contrastLabel="Invert contrast"
+              onBrightness={active.setBrightness}
+              onContrast={active.setContrast}
             />
             <FinalizeButton
               state={state}

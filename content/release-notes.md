@@ -23,7 +23,7 @@ _July 23, 2026 — TypeScript / React rebuild_
 
 ##### Decoder
 
-- Separate brightness/contrast for main and invert panels (shared zoom).
+- Shared zoom; brightness/contrast apply to the last-selected panel (main by default).
 
 ##### Verge Filter & AI Label
 
