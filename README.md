@@ -40,7 +40,7 @@ In the repo: **Settings → Pages → Build and deployment → Source: GitHub Ac
 
 | Tool | Purpose |
 |------|---------|
-| Article Scraper | Fetch a Verge story and compose a social lockup |
+| Article Scraper | Fetch a Verge story and compose a social lockup (1:1 / 9:16 / 16:9) |
 | Decoder Image Generator | Decoder-styled image with glyph columns |
 | Command Line Image Generator | Command Line frame + accent boxes |
 | Installer Image Generator | 1–4 image mosaic with pattern backgrounds |

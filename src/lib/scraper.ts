@@ -34,6 +34,102 @@ export function eyebrowFromUrl(url: string): string {
   }
 }
 
+function cleanEyebrowLabel(raw: string): string {
+  return raw
+    .replace(/\bFollow\b/gi, '')
+    .replace(/\bSee\s+All\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isJunkEyebrow(label: string): boolean {
+  if (!label) return true;
+  if (/^(follow|close|see\s*all)$/i.test(label)) return true;
+  if (/^see\s+all\b/i.test(label)) return true;
+  if (/^by\s+/i.test(label)) return true;
+  if (label.length > 40) return true;
+  return false;
+}
+
+function dedupeEyebrows(labels: string[]): string[] {
+  const seen = new Set<string>();
+  return labels.filter((label) => {
+    const key = label.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+/** Prefer primary + categories from Duet’s `__NEXT_DATA__` when present. */
+function eyebrowsFromNextData(doc: Document): string[] {
+  const raw = doc.querySelector('#__NEXT_DATA__')?.textContent;
+  if (!raw) return [];
+  try {
+    const data = JSON.parse(raw) as {
+      props?: {
+        pageProps?: {
+          hydration?: {
+            responses?: Array<{
+              data?: {
+                node?: {
+                  primaryCategory?: { title?: string };
+                  categories?: Array<{ title?: string }>;
+                };
+              };
+            }>;
+          };
+        };
+      };
+    };
+    const node = data.props?.pageProps?.hydration?.responses?.[0]?.data?.node;
+    if (!node) return [];
+    const labels: string[] = [];
+    if (node.primaryCategory?.title) labels.push(node.primaryCategory.title.trim());
+    for (const cat of node.categories ?? []) {
+      if (cat.title) labels.push(cat.title.trim());
+    }
+    return dedupeEyebrows(labels.map(cleanEyebrowLabel).filter((l) => !isJunkEyebrow(l)));
+  } catch {
+    return [];
+  }
+}
+
+function eyebrowsFromLedeButtons(doc: Document): string[] {
+  // Category chips render as lede buttons (“Policy”, “AI”); ignore Follow / Close chrome.
+  return dedupeEyebrows(
+    Array.from(doc.querySelectorAll('article .duet--article--lede button'))
+      .map((el) => {
+        const clone = el.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll('svg, aside').forEach((n) => n.remove());
+        return cleanEyebrowLabel(stripHtml(clone.innerHTML));
+      })
+      .filter((label) => !isJunkEyebrow(label)),
+  );
+}
+
+function eyebrowsFromLegacyBreadcrumbs(doc: Document): string[] {
+  return dedupeEyebrows(
+    Array.from(
+      doc.querySelectorAll('article .duet--article--lede [id^="follow-category-breadcrumb-"] > button'),
+    )
+      .map((el) => {
+        const clone = el.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll('svg, aside').forEach((n) => n.remove());
+        return cleanEyebrowLabel(stripHtml(clone.innerHTML));
+      })
+      .filter((label) => !isJunkEyebrow(label)),
+  );
+}
+
+function eyebrowsFromLedeLinks(doc: Document): string[] {
+  return dedupeEyebrows(
+    Array.from(doc.querySelectorAll('article .duet--article--lede ul li a'))
+      .map((el) => cleanEyebrowLabel(stripHtml(el.innerHTML)))
+      .filter((label) => !isJunkEyebrow(label)),
+  );
+}
+
 export function formatArticleDate(isoOrDisplay: string): string {
   const parsed = new Date(isoOrDisplay);
   if (Number.isNaN(parsed.getTime())) return isoOrDisplay;
@@ -84,35 +180,12 @@ export function parseVergeArticle(html: string, pageUrl?: string): VergeArticle 
     }
   }
 
-  // Category breadcrumbs only — not every button in the lede (those include “Follow” CTAs).
-  let eyebrows = Array.from(
-    doc.querySelectorAll('article .duet--article--lede [id^="follow-category-breadcrumb-"] > button'),
-  )
-    .map((el) => {
-      const clone = el.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll('svg, aside').forEach((n) => n.remove());
-      return stripHtml(clone.innerHTML)
-        .replace(/\bFollow\b/gi, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-    })
-    .filter((label) => label.length > 0 && !/^follow$/i.test(label));
-
-  // Dedupe (lede can render the same chip more than once).
-  const seenEyebrow = new Set<string>();
-  eyebrows = eyebrows.filter((label) => {
-    const key = label.toLowerCase();
-    if (seenEyebrow.has(key)) return false;
-    seenEyebrow.add(key);
-    return true;
-  });
-
-  if (eyebrows.length === 0) {
-    eyebrows = Array.from(doc.querySelectorAll('article .duet--article--lede ul li a'))
-      .map((el) => stripHtml(el.innerHTML).trim())
-      .filter((label) => label.length > 0 && !/^follow$/i.test(label));
-  }
-
+  // Category chips: Next data → lede buttons → legacy breadcrumb ids → links → URL path.
+  // (Lede `<a>` text is often “See All Policy”, which must not win over real chips.)
+  let eyebrows = eyebrowsFromNextData(doc);
+  if (eyebrows.length === 0) eyebrows = eyebrowsFromLedeButtons(doc);
+  if (eyebrows.length === 0) eyebrows = eyebrowsFromLegacyBreadcrumbs(doc);
+  if (eyebrows.length === 0) eyebrows = eyebrowsFromLedeLinks(doc);
   if (eyebrows.length === 0 && pageUrl) {
     const fromPath = eyebrowFromUrl(pageUrl);
     if (fromPath) eyebrows = [fromPath];

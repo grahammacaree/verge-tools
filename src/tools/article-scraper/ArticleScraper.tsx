@@ -15,7 +15,7 @@ import {
 export function ArticleScraper() {
   const [url, setUrl] = useState('');
   const [color, setColor] = useState('c000000');
-  const [ratio, setRatio] = useState('r9x16');
+  const [ratio, setRatio] = useState('r1x1');
   const [headline, setHeadline] = useState('Sample Headline');
   const [eyebrow, setEyebrow] = useState('Eyebrow');
   const [byline, setByline] = useState('Byline');
@@ -118,6 +118,7 @@ export function ArticleScraper() {
               label="Aspect Ratio:"
               value={ratio}
               options={[
+                { className: 'r1x1', label: '1:1' },
                 { className: 'r9x16', label: '9:16' },
                 { className: 'r16x9', label: '16:9' },
               ]}
@@ -166,8 +167,8 @@ export function ArticleScraper() {
                   </div>
                   <div className="byline">{byline}</div>
                   <div className="date">{date}</div>
-                  {/* 9:16 keeps the photo in-flow inside the padded lockup (legacy). */}
-                  {ratio === 'r9x16' ? (
+                  {/* Tall layouts keep the photo in-flow inside the padded lockup (legacy 9:16). */}
+                  {ratio === 'r9x16' || ratio === 'r1x1' ? (
                     <div className="picture">
                       <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
                       <div className="credit">{credit}</div>

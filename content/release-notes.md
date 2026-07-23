@@ -7,6 +7,14 @@ _As of July 23, 2026_
 - Article Scraper falls back to Microlink metadata when the browser can’t fetch `theverge.com` directly (CORS). Eyebrow/credit may need a quick manual tweak after fetch.
 - Lede image import can still fail when the Wordpress CDN blocks cross-origin blob fetches; the preview may hotlink instead. Replace the image manually if needed.
 
+### 2.0.1
+
+_July 23, 2026_
+
+##### Article Scraper
+
+- Added a **1:1** aspect option (default; tall-style lockup, wider photo crop, smaller type; no date line).
+
 ### 2.0.0
 
 _July 23, 2026 — TypeScript / React rebuild_

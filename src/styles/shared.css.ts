@@ -415,20 +415,24 @@ globalStyle(".input .bottom.r16x9 .image-container .image-inner.hide-bg .picture
   display: "none",
 });
 
-globalStyle(".input .bottom.r9x16 .edit-type-eyebrow", {
+globalStyle(".input .bottom.r9x16 .edit-type-eyebrow, .input .bottom.r1x1 .edit-type-eyebrow", {
   display: "none",
 });
 
-globalStyle(".input .bottom.r9x16 .edit-type-image .background", {
+globalStyle(".input .bottom.r1x1 .edit-type-date", {
   display: "none",
 });
 
-globalStyle(".input .bottom.r9x16 .sticky", {
+globalStyle(".input .bottom.r9x16 .edit-type-image .background, .input .bottom.r1x1 .edit-type-image .background", {
+  display: "none",
+});
+
+globalStyle(".input .bottom.r9x16 .sticky, .input .bottom.r1x1 .sticky", {
   position: "sticky",
   top: "0",
 });
 
-globalStyle(".input .bottom.r9x16 .right", {
+globalStyle(".input .bottom.r9x16 .right, .input .bottom.r1x1 .right", {
   paddingBottom: "2rem",
   paddingRight: "1rem",
   paddingTop: "1rem",
@@ -569,6 +573,57 @@ globalStyle(".input .bottom.r9x16 .image-container .image-inner .lockup .eyebrow
 
 globalStyle(".input .bottom.r9x16 .image-container .image-inner .lockup .picture .image", {
   aspectRatio: "1",
+});
+
+/* 1:1 — tall-style lockup in a square frame; wider photo crop + smaller type. */
+globalStyle(".input .bottom.r1x1 .image-container .image-inner", {
+  aspectRatio: "1",
+  marginLeft: "auto",
+  marginRight: "auto",
+  maxWidth: "36rem",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .logo", {
+  display: "block",
+  width: "54%",
+  top: "0.5rem",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup", {
+  padding: "14% 12% 0 6%",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup .eyebrow", {
+  display: "none",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup .date", {
+  display: "none",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup .headline", {
+  margin: "0.15rem auto 0.35rem",
+  lineHeight: "1.02",
+  vars: {
+    "--base-font-size": "1.15rem",
+  },
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup .byline, .input .bottom.r1x1 .image-container .image-inner .lockup .date", {
+  fontSize: "0.8rem",
+  margin: "0.35rem 0",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup .picture", {
+  marginTop: "0.85rem",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup .picture .image", {
+  aspectRatio: "16/9",
+});
+
+globalStyle(".input .bottom.r1x1 .image-container .image-inner .lockup .picture .credit", {
+  fontSize: "0.55rem",
 });
 
 globalStyle(".input .image-container", {

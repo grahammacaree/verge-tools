@@ -5,7 +5,7 @@ Nav order follows this file. Each `##` heading is the public label; the first li
 ## Article Scraper
 id: article-scraper
 
-Read a Verge story and output a custom image with headline, authors, etc.
+Read a Verge story and output a custom social lockup (1:1 default; also 9:16 and 16:9).
 
 ## Decoder Image Generator
 id: decoder-image-generator
