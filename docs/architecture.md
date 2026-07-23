@@ -19,8 +19,10 @@ src/
 ## Shell
 
 1. `PasswordGate` unlocks via the legacy hash and sets `localStorage.vergetools`.
-2. `LeftNav` switches the active `ToolId`.
-3. `App` renders the matching tool component under `.flex-container.verge`.
+2. `useToolRoute` keeps the active `ToolId` in sync with the path (`/verge-tools/<tool-id>`; home is `/verge-tools/`).
+3. `LeftNav` / home grid use real `href`s (cmd-click works); click uses `history.pushState`.
+4. `App` renders the matching tool under `.flex-container.verge`.
+5. Production build copies `index.html` → `404.html` so GitHub Pages serves the SPA for deep links / refresh.
 
 ## Shared media pipeline
 
@@ -28,7 +30,7 @@ Most image tools follow the same path:
 
 1. **Ingest** — `useImageIngest` (file input, paste, drag-drop); jpeg/png/webp only.
 2. **Adjust** — `useImageAdjustments` (zoom, pan when zoomed, object-position when not, brightness/contrast).
-3. **Download** — `useCaptureDownload` waits for fonts, strips selection chrome, runs `html-to-image` at `pixelRatio: 2`, then downloads. Default format is **JPEG** (`quality: 0.9`, white matte).
+3. **Download** — `useCaptureDownload` waits for fonts, strips selection chrome, runs `html-to-image` at `pixelRatio: 2`, then downloads. Default format is **JPEG** (`quality: 0.9`). JPEG matte defaults to the capture node’s computed `background-color` (fallback `#ffffff`) because `html-to-image` often omits the root element’s CSS background — Installer’s dark pattern fill depends on this.
 
    **CSS scope:** Tool layout CSS is usually nested under a generator class (e.g. `.decoder-image-generator .input .image-container`). The off-screen clone drops live form ancestors, so pass `cssScope: ['decoder-image-generator', 'input']` (outermost → innermost) — or pass `cssScope` at `capture()` time when classes are dynamic (Article Scraper ratio/color). Without this, absolute layers stack and downloads look broken.
 

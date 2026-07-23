@@ -1,11 +1,19 @@
+import type { MouseEvent } from 'react';
 import { HOME } from '../lib/content';
 import { markdownInline } from '../lib/markdown';
+import { toolIdToPath } from '../lib/routing';
 import { TOOLS, type ToolId } from '../lib/tools';
 
 type Props = {
   active: ToolId;
   onSelect?: (id: ToolId) => void;
 };
+
+function navClick(e: MouseEvent, id: ToolId, onSelect?: (id: ToolId) => void) {
+  if (!onSelect || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+  e.preventDefault();
+  onSelect(id);
+}
 
 export function ToolHeader({ active, onSelect }: Props) {
   if (active === 'release-notes') return null;
@@ -19,8 +27,10 @@ export function ToolHeader({ active, onSelect }: Props) {
         {onSelect ? (
           <ul className="tool-selector">
             {TOOLS.map((tool) => (
-              <li key={tool.id} className="select-tool verge" onClick={() => onSelect(tool.id)}>
-                <span>{tool.label}</span>
+              <li key={tool.id} className="select-tool verge">
+                <a href={toolIdToPath(tool.id)} onClick={(e) => navClick(e, tool.id, onSelect)}>
+                  <span>{tool.label}</span>
+                </a>
               </li>
             ))}
           </ul>

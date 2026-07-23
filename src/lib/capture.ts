@@ -9,7 +9,11 @@ export type CaptureOptions = {
   quality?: number;
   /** Default `2`. */
   pixelRatio?: number;
-  /** JPEG matte behind transparent pixels; default `#ffffff`. */
+  /**
+   * JPEG matte behind transparent pixels.
+   * Default: the node’s computed `background-color` when opaque, else `#ffffff`.
+   * (`html-to-image` often skips the root element’s CSS background.)
+   */
   backgroundColor?: string;
   /**
    * Ancestor class names re-applied around the off-screen clone so tool-scoped CSS still matches.
@@ -29,13 +33,30 @@ export async function waitForFonts(): Promise<void> {
   }
 }
 
+/** True when CSS reports no fill (so a JPEG matte is required). */
+export function isTransparentCssColor(color: string): boolean {
+  const c = color.trim().toLowerCase();
+  return !c || c === 'transparent' || c === 'rgba(0, 0, 0, 0)' || c === 'rgba(0,0,0,0)';
+}
+
+/**
+ * JPEG has no alpha — pick a matte. Prefer an explicit color, then the node’s own
+ * opaque background (html-to-image frequently omits root `background-color`).
+ */
+export function resolveJpegMatte(node: HTMLElement, explicit?: string): string {
+  if (explicit) return explicit;
+  const computed = getComputedStyle(node).backgroundColor;
+  if (!isTransparentCssColor(computed)) return computed;
+  return '#ffffff';
+}
+
 export async function captureNode(
   node: HTMLElement,
   {
     format = 'jpeg',
     quality = 0.9,
     pixelRatio = 2,
-    backgroundColor = '#ffffff',
+    backgroundColor,
   }: CaptureOptions = {},
 ): Promise<string> {
   await waitForFonts();
@@ -43,8 +64,12 @@ export async function captureNode(
   if (format === 'png') {
     return toPng(node, shared);
   }
-  // Matte — JPEG has no alpha; avoids holes from layered CSS.
-  return toJpeg(node, { ...shared, quality, backgroundColor });
+  // Matte — JPEG has no alpha; avoids holes from layered CSS / missing root backgrounds.
+  return toJpeg(node, {
+    ...shared,
+    quality,
+    backgroundColor: resolveJpegMatte(node, backgroundColor),
+  });
 }
 
 export function downloadDataUrl(dataUrl: string, fileName: string): void {

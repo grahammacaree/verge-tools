@@ -1,7 +1,8 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy } from 'react';
 import { LeftNav } from './LeftNav';
 import { PasswordGate, useGateState } from './PasswordGate';
 import { ToolHeader } from './ToolHeader';
+import { useToolRoute } from '../hooks/useToolRoute';
 import type { ToolId } from '../lib/tools';
 import { ReleaseNotes } from '../tools/release-notes/ReleaseNotes';
 
@@ -35,7 +36,7 @@ function ActiveTool({ id }: { id: ToolId }) {
 
 export function App() {
   const { unlocked, unlock } = useGateState();
-  const [active, setActive] = useState<ToolId>('title');
+  const [active, setActive] = useToolRoute();
   const showingNotes = active === 'release-notes';
 
   return (

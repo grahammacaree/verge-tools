@@ -4,6 +4,8 @@ Editorial image and layout tools for The Verge Art Team — social lockups, Deco
 
 **Live:** [grahammacaree.github.io/verge-tools](https://grahammacaree.github.io/verge-tools/)
 
+Deep links use the tool id, e.g. [`…/installer-image-generator`](https://grahammacaree.github.io/verge-tools/installer-image-generator), [`…/article-scraper`](https://grahammacaree.github.io/verge-tools/article-scraper), [`…/release-notes`](https://grahammacaree.github.io/verge-tools/release-notes).
+
 **Maintainer:** [Graham MacAree](https://github.com/grahammacaree)
 
 ## Why this lives outside Duet
@@ -30,7 +32,9 @@ pnpm run preview
 
 ## Deploy
 
-Pushing to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds and publishes `dist/` to GitHub Pages. Enable Pages in the repo settings to use the **GitHub Actions** source.
+Pushing to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds and publishes `dist/` to GitHub Pages.
+
+In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions** (not “Deploy from a branch”). Branch deploys publish the unbuilt `index.html` and the site goes blank.
 
 ## Tools
 

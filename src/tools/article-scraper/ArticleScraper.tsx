@@ -166,10 +166,11 @@ export function ArticleScraper() {
                   </div>
                   <div className="byline">{byline}</div>
                   <div className="date">{date}</div>
-                  <div className="picture">
-                    <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
-                    <div className="credit">{credit}</div>
-                  </div>
+                </div>
+                {/* Sibling of lockup — 16:9 absolute positioning is relative to `.image-inner`, not the 80% text box. */}
+                <div className="picture">
+                  <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
+                  <div className="credit">{credit}</div>
                 </div>
               </div>
             </div>

@@ -441,6 +441,7 @@ globalStyle(".left-column .rn", {
   fontSize: "0.7rem",
   textTransform: "uppercase",
   cursor: "pointer",
+  textDecoration: "none",
 });
 
 globalStyle(".left-column .switch", {
@@ -550,6 +551,14 @@ globalStyle(".left-column ul li:hover:after, .left-column ul li.active:after", {
   borderBottomColor: "var(--brand-color)",
 });
 
+globalStyle(".left-column ul li a", {
+  color: "inherit",
+  textDecoration: "none",
+  marginBottom: "0",
+  width: "auto",
+  display: "inline",
+});
+
 globalStyle(".flex-container.unlocked", {
   visibility: "visible",
 });
@@ -596,4 +605,12 @@ globalStyle("header .lockup .text-container.title .tool-selector li:hover", {
   background: "transparent",
   borderColor: "var(--brand-color)",
   color: "var(--brand-color)",
+});
+
+globalStyle("header .lockup .text-container.title .tool-selector li a", {
+  color: "inherit",
+  textDecoration: "none",
+  display: "block",
+  height: "100%",
+  width: "100%",
 });

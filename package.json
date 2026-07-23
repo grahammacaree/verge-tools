@@ -6,7 +6,7 @@
   "packageManager": "pnpm@10.27.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
     "preview": "vite preview",
     "compress-images": "node scripts/compress-images.mjs"
   },

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { captureNode, downloadDataUrl, type CaptureOptions } from '../lib/capture';
+import { captureNode, downloadDataUrl, resolveJpegMatte, type CaptureOptions } from '../lib/capture';
 
 export type CaptureState = 'ready' | 'capturing' | 'done';
 
@@ -67,12 +67,17 @@ export function useCaptureDownload(fileName: string, options: CaptureOptions = {
         host.appendChild(framed);
         document.body.appendChild(host);
         try {
+          // Matte from the *live* node — clone may not get root background-color from html-to-image.
+          const matte =
+            runtime?.backgroundColor ??
+            backgroundColor ??
+            (format === 'jpeg' ? resolveJpegMatte(node) : undefined);
           // Capture the frame node (not the scope shells) so ancestors only affect CSS matching.
           const dataUrl = await captureNode(clone, {
             format,
             quality,
             pixelRatio,
-            backgroundColor: runtime?.backgroundColor ?? backgroundColor,
+            backgroundColor: matte,
           });
           downloadDataUrl(dataUrl, fileName);
         } finally {
