@@ -1,12 +1,22 @@
 import { TOOLS, type ToolId } from './tools';
 
+/** All addressable segments — do not depend on content catalog parse alone. */
 const ROUTE_IDS = new Set<string>([
   'release-notes',
-  ...TOOLS.map((t) => t.id),
-  // Deprecated tools still deep-linkable if revived in the URL bar.
+  'article-scraper',
+  'decoder-image-generator',
   'command-line-image-generator',
+  'installer-image-generator',
+  'verge-filter',
+  'ai-label',
   'image-mosaic',
+  ...TOOLS.map((t) => t.id),
 ]);
+
+function normalizePath(path: string): string {
+  if (!path || path === '/') return '/';
+  return path.replace(/\/+$/, '') || '/';
+}
 
 /** Pathname relative to `import.meta.env.BASE_URL`, no leading/trailing slash. */
 export function pathSegment(pathname = window.location.pathname): string {
@@ -33,10 +43,11 @@ export function toolIdToPath(id: ToolId): string {
 
 export function navigateToTool(id: ToolId, mode: 'push' | 'replace' = 'push'): void {
   const next = toolIdToPath(id);
-  const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-  const nextFull = new URL(next, window.location.origin);
-  const nextStr = `${nextFull.pathname}${nextFull.search}${nextFull.hash}`;
-  if (current === nextStr) return;
+  const nextPath = new URL(next, window.location.origin).pathname;
+  // Skip only when URL already names this tool (trailing-slash tolerant).
+  if (pathToToolId() === id && normalizePath(window.location.pathname) === normalizePath(nextPath)) {
+    return;
+  }
   if (mode === 'replace') {
     window.history.replaceState({ tool: id }, '', next);
   } else {

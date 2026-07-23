@@ -7,23 +7,28 @@ export function useToolRoute(): [ToolId, (id: ToolId) => void] {
   const [active, setActive] = useState<ToolId>(() => pathToToolId());
 
   useEffect(() => {
+    const sync = () => setActive(pathToToolId());
+
     const id = pathToToolId();
     // Unknown segments → home; also normalize `/verge-tools` vs trailing slash.
     if (pathSegment() && id === 'title') {
       navigateToTool('title', 'replace');
-    } else if (window.location.pathname !== new URL(toolIdToPath(id), window.location.origin).pathname) {
-      navigateToTool(id, 'replace');
+    } else {
+      const expected = new URL(toolIdToPath(id), window.location.origin).pathname;
+      if (window.location.pathname !== expected) {
+        navigateToTool(id, 'replace');
+      }
     }
-    setActive(id);
+    sync();
 
-    const onPop = () => setActive(pathToToolId());
-    window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
   }, []);
 
   const select = (id: ToolId) => {
-    navigateToTool(id);
+    // Update UI first so a history no-op can never leave the shell stuck.
     setActive(id);
+    navigateToTool(id);
   };
 
   return [active, select];

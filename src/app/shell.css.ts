@@ -555,8 +555,8 @@ globalStyle(".left-column ul li a", {
   color: "inherit",
   textDecoration: "none",
   marginBottom: "0",
-  width: "auto",
-  display: "inline",
+  width: "100%",
+  display: "block",
 });
 
 globalStyle(".flex-container.unlocked", {
