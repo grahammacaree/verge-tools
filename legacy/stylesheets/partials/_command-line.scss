@@ -1,0 +1,205 @@
+.command-line-image-generator {
+	.story {
+		gap: 1rem;
+	}
+	.input {
+		.edit {
+		    .edit-inner label {
+				display: block;
+				span {
+					display: none;
+					&:first-child {
+						display: inline;
+					}
+
+				}
+			}
+			&.selected .edit-inner label span {
+				display: inline;
+				&:first-child {
+					display: none;
+				}
+			}
+			input[type=file]{
+			  color:transparent;
+			}
+			
+		}
+
+		.options {
+			display: none;
+			margin: 0;
+    		padding: 0;
+			&.visible {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+				.download {
+					display: block;
+					margin-top: 0;
+				}
+			}
+			
+			input[type="range"] {
+				accent-color: $blurple;
+
+			}
+			.regen {
+				background-color: $blurple;
+			    padding: 0.25rem 0.75rem;
+			    text-transform: uppercase;
+			    color: $secondary-color;
+			    font-style: normal;
+			    font-size: 0.75rem;
+			    cursor: pointer;
+			    border: 2px solid $blurple;
+			    flex: 1 1 0;
+			    border-radius: 0.125rem;
+			    white-space: nowrap;
+			    font-weight: 600;
+			    letter-spacing: 0.05rem;
+			    font-family: $polysans-mono;
+			    text-align: center;
+			    pointer-events: auto;
+			    user-select: none;
+			    width: 25%;
+			    &:hover {
+			        background-color: transparent;
+			        color: $blurple;
+			    }
+			}
+			.ratios {
+				width: 100%;
+			}
+		}
+		.image-container {
+			margin: 0;
+			padding:  0;
+			aspect-ratio: 1;
+			max-width: 500px;
+			flex: 1;
+			user-select: none;
+			display: block;
+			order: 0;
+			background-color: #f9f9f9;
+
+			svg {
+				position: absolute;
+				width: 100%;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				.command-line-boxes {
+					transform-origin: center center;
+				}
+			}
+			&.r1x1 {
+				aspect-ratio: 1;
+				.r1x1 {
+					display: block;
+				}
+				.r3x2 {
+					display: none;
+				}
+			}
+			&.r3x2 {
+				aspect-ratio: 1.5;
+				max-width: 750px;
+				.r1x1 {
+					display: none;
+				}
+				.r3x2 {
+					display: block;
+				}
+				.lockup {
+					aspect-ratio: 1.5;
+					.image {
+						inset: 7% 21%;
+					}
+				}
+			}
+			&.draggable {
+				border: 0.125rem dashed $blurple;
+				border-radius: 0.5rem;
+				position: relative;
+				&:after {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					max-width: 90%;
+					display: block;
+					content: "Drop image";
+					font-family: $polysans;
+					font-weight: 600;
+					font-size: 2.5rem;
+					color: $blurple;
+					transform: translate(-50%, -50%);
+					text-align: center;
+				}
+				&.dragging {
+					background-color: rgba($blurple, 0.25);
+				}
+				div {
+					display: none;
+				}
+			}
+			.image-inner {
+				position: relative;
+				overflow: hidden;
+				img.download {
+					display: none;
+				}
+			}
+			.lockup {
+				font-family: $polysans;
+				color: #fff;
+				position: relative;
+				z-index: 1;
+				overflow: hidden;
+				aspect-ratio: 1;
+				cursor: move;
+				.picture {
+					position: relative;
+					margin: 0;
+					height: 100%;
+					width: 100%;
+				}
+				.image {
+					filter: grayscale(1);
+					position: absolute;
+					inset: 7%;
+					width: auto;
+					.image-holder {
+						position: absolute;
+						inset: 0;
+					}
+					.image-holder {
+						
+						.image-holder-inner {
+							width: 100%;
+							height: 100%;
+							//background-color: #000;
+							text-align: center;
+							img {
+								height: 100%;
+								width: 100%;
+							}
+						}
+					}
+					img {
+						//filter: saturate(0.125)  brightness(0.625);
+						transform-origin: center center;
+					}
+				}
+				.layer {
+					inset: -1px;
+					z-index: 1;
+					position: absolute;
+					pointer-events: none;
+					
+				}
+			}
+		}
+	}
+}
+

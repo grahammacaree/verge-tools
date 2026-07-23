@@ -1,0 +1,175 @@
+@font-face {
+    font-family: FK Roman Standard;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-Regular.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-Regular.woff) format("woff")
+}
+
+@font-face {
+    font-family: FK Roman Standard;
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-Oblique.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-Oblique.woff) format("woff")
+}
+
+@font-face {
+    font-family: FK Roman Standard;
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-Bold.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-Bold.woff) format("woff")
+}
+
+@font-face {
+    font-family: FK Roman Standard;
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-BoldOblique.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/FKRomanStandard-BoldOblique.woff) format("woff")
+}
+
+@font-face {
+    font-family: Manuka Condensed;
+    font-weight: 900;
+    font-style: normal;
+    font-display: fallback;
+    src: url(https://s3.amazonaws.com/assets.sbnation.com/csk/uploads/verge-fonts/ManukaCondensed-Black.woff2) format("woff2"), url(https://s3.amazonaws.com/assets.sbnation.com/csk/uploads/verge-fonts/ManukaCondensed-Black.woff) format("woff")
+}
+
+@font-face {
+    font-family: Manuka Condensed;
+    font-weight: 1000;
+    font-style: normal;
+    font-display: fallback;
+    src: url(https://s3.amazonaws.com/assets.sbnation.com/csk/uploads/verge-fonts/ManukaCondensed-Ultra.woff2) format("woff2"), url(https://s3.amazonaws.com/assets.sbnation.com/csk/uploads/verge-fonts/ManukaCondensed-Ultra.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Slim.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Slim.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-SlimItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-SlimItalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Neutral.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Neutral.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-NeutralItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-NeutralItalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Median.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Median.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-MedianItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-MedianItalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Bulky.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-Bulky.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans;
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-BulkyItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-BulkyItalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-SlimMono.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-SlimMono.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-SlimMonoItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-SlimMonoItalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-NeutralMono.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-NeutralMono.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-NeutralMonoItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-NeutralMonoItalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-MedianMono.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-MedianMono.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-MedianMonoItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-MedianItalic.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-BulkyMono.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-BulkyMono.woff) format("woff")
+}
+
+@font-face {
+    font-family: Poly Sans Mono;
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src: url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-BulkyMonoItalic.woff2) format("woff2"), url(https://cdn.vox-cdn.com/shared_fonts/verge-duet/PolySans-BulkyMonoItalic.woff) format("woff")
+}

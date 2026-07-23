@@ -1,0 +1,118 @@
+.left-column {
+    width: 20%;
+    left: 0;
+    top: 0;
+    position: sticky;
+    padding: 0 1.5rem;
+    height: 100vh;
+    background-color: $gray;
+    border-right: 0.075rem solid $darkgray;
+    .top {
+        display: flex;
+        margin-bottom: 1rem;
+        gap: 1rem;
+        justify-content: space-between;
+        & > * {
+            flex: 0 0 auto;
+        }
+        align-items: center;
+    }
+    .rn {
+        font-family: var(--spec-font);
+        color: var(--brand-color);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        cursor: pointer;
+
+    }
+    .switch {
+        display: inline-block;
+        left: 1.5rem;
+        border: 0.075rem solid var(--brand-color);
+        letter-spacing: 0.01em;
+        background-color: var(--brand-color);
+        color: #fff;
+        font-size: 15px;
+        text-transform: uppercase;
+        font-family: var(--spec-font);
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        & > div {
+            display: inline-block;
+            svg {
+                display: block;
+                height: 18px;
+                margin-right: 0.5rem;
+                transform: translateY(2px);
+            }
+        }
+        span {
+            transform: translateY(-2px);
+            display: inline-block;
+        }
+    }
+    .inner {
+        position: sticky;
+        top: 0;
+        padding: 1rem 0;
+    }
+    a {
+        width: 100%;
+        margin-bottom: 1rem;
+        display: block;
+        svg {
+            width: 100%;
+            path {
+                fill: $primary-color;
+            }
+        }
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        width: 100%;
+        li {
+            font-family: var(--hed-font);
+            color: $primary-color;
+            font-size: 0.95rem;
+            cursor: pointer;
+            position: relative;
+            margin: 1rem 0;
+            position: relative;
+
+            &:before {
+                display: inline-block;
+                content: "";
+                width: 1em;
+                aspect-ratio: 1;
+                margin-right: 0.5em;
+                background-color: $darkgray;
+                transform: translateY(0.125em);
+            }
+            &:after {
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translate(0, -50%) translateX(0.125rem) rotate(-45deg);
+                border-left: 0.125rem solid transparent;
+                border-top: 0.125rem solid transparent;
+                border-right: 0.125rem solid $darkgray;
+                border-bottom: 0.125rem solid $darkgray;
+                height: 0.5em;
+                width: 0.5em;
+                content: "";
+            }
+            &:hover, &.active {
+                color: var(--brand-color);
+                &:before {
+                    background-color: var(--brand-color);
+                }
+                &:after {
+                    border-right-color: var(--brand-color);
+                    border-bottom-color: var(--brand-color);
+                }
+            }
+        }
+    }
+}

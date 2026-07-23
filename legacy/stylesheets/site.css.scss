@@ -1,0 +1,531 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+$polysans: Poly Sans,Helvetica,Arial,sans-serif;
+$polysans-mono: Poly Sans Mono, Courier New, Courier, monospace;
+$fk-roman-standard: FK Roman Standard,Georgia,serif;
+
+$gray: #F9F9F9;
+$darkgray: #CECECE;
+
+$primary-color: #090909;
+$secondary-color: #fff;
+$blurple: #6600FF;
+$franklin: #3cffd0;
+$mobile-cutoff: 769px;
+$tablet-cutoff: 1180px;
+
+:root {
+    --brand-color: #6600FF;
+    --hed-font: Poly Sans,Helvetica,Arial,sans-serif;
+    --spec-font: Poly Sans Mono, Courier New, Courier, monospace;
+    --text-font: FK Roman Standard,Georgia,serif;
+}
+
+header.hide, .tools.hide {
+    display: none;
+}
+
+.release-notes {
+    display: none;
+    h3, h5 {
+        color: var(--brand-color);
+    }
+    h2, h3, {
+        font-family: var(--hed-font);
+    }
+    h3 {
+        margin: 0;
+        display: inline-block;
+    }
+    ul {
+        margin-top: 0.5rem;
+    }
+    ul li {
+        font-family: var(--lext-font);
+        color: $primary-color;
+        font-size: 0.7rem;
+        margin-left: 1rem;
+        &::marker {
+            color: var(--brand-color);
+        }
+    }
+    h5 {
+        font-family: var(--spec-font);
+        font-size: 0.7rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        margin-top: 0.75rem;
+        margin-bottom: 0;
+        letter-spacing: 0.015em;
+        margin-left: 1rem;
+    }
+    p {
+        margin: 0;
+        font-family: var(--hed-font);
+        font-size: 0.7rem;
+        font-style: italic;
+        display: inline-block;
+        transform: translateY(-0.2em);
+        margin-left: 0.5rem;
+    }
+    &.active {
+        display: block;
+    }
+}
+
+
+html {
+    font-size: 20px;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flex-container {
+    display: flex;
+    &.polygon {
+        .verge {
+            display: none !important;
+        }
+    }
+    &.verge {
+        .polygon {
+            display: none !important;
+        }
+    }
+}
+
+main {
+    width: 80%;
+    margin-right: 0;
+}
+
+
+.gate {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 9999;
+    background-color: #111; 
+    font-family: $polysans;
+    color: #fff;
+    .close {
+        display: block;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        aspect-ratio: 1;
+        height: 2.5rem;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        background-color: transparent;
+        color: #fff;
+        transform: translate(0.5rem, -0.5rem);
+        cursor: pointer;
+        font-size: 30px; 
+        z-index: 1;
+        box-sizing: border-box;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.5);      
+        }
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 3px;
+            border-radius: 1.5px;
+            background-color: #fff;
+            width: 62.5%;
+            &:first-child {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+            &:last-child {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }
+        }
+    }
+    &.active {
+        display: block;
+    }
+    .inner {
+        width: 92%;
+        max-width: 900px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .brand-select {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        font-weight: 700;
+        font-size: 32px;
+        text-align: center;
+        user-select: none;
+        .brand-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            &.verge-brand {
+                font-family: $polysans;
+            }
+            &.polygon-brand {
+                font-family: "Montserrat", sans-serif;
+                font-weight: 500;
+            }
+            aspect-ratio: 3;
+            span {
+                display: none;
+            }
+        }
+        svg {
+            width: 100%;
+            max-height: 25svh;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+    }
+    &.brand .close {
+        display: none;
+    }
+    &.brand .brand-select .brand-item {
+        background-color: #111;
+        &:hover {
+            filter: invert(1);
+
+        }
+    }
+    .password {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        justify-content: center;
+        span {
+            
+            color: #fff;
+            font-size: 20px;
+            height: 24px;
+            padding: 2px; 
+        }
+        input {
+            padding: 2px;
+            height: 24px;
+            font-size: 20px;
+            font-weight: 700;
+            
+            border: none;
+        }
+        button {
+            aspect-ratio: 1;
+            height: 2.5rem;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            background-color: transparent;
+            color: #fff;
+            transform: translate(0.5rem, -0.5rem);
+            cursor: pointer;
+            font-size: 30px; 
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.5);      
+            }
+        }
+    }
+    &.brand {
+        .brand-select {
+            grid-template-columns: 1fr;
+        }
+        .brand-item {
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+        .brand-item span {
+            display: block;
+        }
+    }
+    &.brand .password {
+        display: none;
+    }
+    &.verge {
+        background-color: $blurple;
+        font-family: $polysans;
+        .polygon-brand {
+            display: none;
+        }
+        .password input {
+            color: $blurple; 
+            font-family: $polysans;
+        }
+    }
+    &.polygon {
+        background: linear-gradient(to bottom right, #E90C59 0%, #C305A4 100%);
+        font-family: "IBM Plex Sans", sans-serif;
+        .verge-brand {
+            display: none;
+        }
+        .password input {
+            color: #C305A4; 
+            font-family: "IBM Plex Sans", sans-serif;
+        }
+    }
+}
+
+
+.ads,
+.m-ad {
+    max-width: 92%;
+    text-align: center;
+
+    &:not(:empty) {
+        margin: 40px auto;
+    }
+}
+
+.tablet,
+.desktop {
+    display: none;
+}
+
+@media(min-width: $mobile-cutoff) {
+    .mobile {
+        display: none;
+    }
+
+    .tablet {
+        display: block;
+    }
+}
+
+@media(min-width: $tablet-cutoff) {
+
+    .desktop,
+    .desktop.tablet {
+        display: block;
+    }
+
+    .tablet {
+        display: none;
+    }
+}
+
+.sr-only {
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+}
+
+.m-ad {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.m-ad iframe {
+  text-align: center;
+}
+
+
+@media screen and (max-width:768px) {
+
+  section.ad {
+    position: relative;
+    margin-top: 0;
+    .ad__inner {
+      max-width: 800px;
+      margin: 45px auto 45px auto;
+      text-align: center;
+    }
+  }
+
+  #div-gpt-ad-csk_athena_2 {
+    min-width: auto;
+  }
+}
+
+@import 'fonts';
+
+:root {
+  --scaling: 1;
+}
+
+a.download {
+    margin: 2rem auto 0.5rem;
+    padding: 0.75rem;
+    background-color: var(--brand-color);
+    text-transform: uppercase;
+    color: $secondary-color;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 0.125rem solid var(--brand-color);
+    cursor: pointer;
+    font-family: var(--hed-font);
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    font-weight: 600;
+    letter-spacing: 0.075em;
+    font-family: var(--spec-font);
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+    opacity: 0.5;
+    pointer-events: none;
+    &.active {
+        pointer-events: auto;
+        opacity: 1;
+    }
+    &.visible {
+        display: block;
+    }
+    &:hover {
+        background-color: $secondary-color;
+        color: var(--brand-color);
+        text-decoration: none;
+    }
+    span {
+      &:first-child {
+        display: inline;
+     }
+      display: none;
+      &:nth-child(n+3) {
+        animation: 2s ease-in-out infinite downloading;
+      }
+      &:nth-child(3) {
+        animation-delay: calc(2s / 3);
+      }
+      &:nth-child(4) {
+        animation-delay: calc(4s / 3);
+        margin-left: -0.4rem;
+        margin-right: -0.4rem;
+      }
+    }
+    &.downloading {
+        cursor: default;
+        pointer-events: none;
+        opacity: 0.9;
+        span {
+            display: inline-block;
+            &:first-child {
+                display: none;
+            }
+        }
+    }
+}
+
+@keyframes downloading {
+  0% { transform: translateY(0)}
+  16.6666666667% { transform: translateY(-0.25rem)}; 
+  33.3333% { transform: translateY(0)}
+  100% { transform: translateY(0)}
+}
+
+article {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  font-family: var(--hed-font);
+  max-width: 1000px;
+  margin: 0 auto;
+  section {
+    padding: 1rem 2rem;
+    position: relative;
+    .story {
+      display: flex;
+      flex-direction: column;
+    }
+    .contain {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        .contain-inner {
+            width: 100%;
+            padding-top: 177%;
+        }
+    }/*
+    #capture {
+        position: absolute;
+        width: 1080px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(var(--scaling));
+        opacity: 0;
+        margin-left: auto;
+        margin-right: auto;
+        background-position: center center;
+        background-size: cover;
+        display: flex;
+        transition: opacity 0.25s ease-in-out;
+        transform-origin: center center;
+        &.active {
+            opacity: 1;
+        }
+        .inner {
+            padding-top: 177%;
+            position: relative;
+            width: 100%;
+            .interior {
+                position: absolute;
+                inset: 0;
+                padding: calc(1rem /  var(--scaling));
+                display: flex;
+                flex-direction: column;
+                gap: calc(1rem /  var(--scaling));
+                .story {
+                    display: grid;
+                    grid-template-columns: 1fr 3fr;
+                    gap: calc(0.5rem /  var(--scaling));
+                    align-items: center;
+                }
+                .story-image {
+                    background-color: rgba($primary-color, 0.5);
+                    background-size: cover;
+                    background-position: center center;
+                    .padding {
+                        padding-top: 100%;
+                    }
+                }
+                h2, h3 {
+                    margin: 0;
+                }
+                h2 {
+                    font-size: calc(2rem /  var(--scaling));
+                    text-align: center;
+                    margin-bottom: calc(2rem /  var(--scaling));
+                }
+                h3 {
+                    font-size: calc(1.25rem /  var(--scaling));
+                    margin-bottom: calc(0.5rem /  var(--scaling));
+                }
+                p {
+                    font-size: calc(1rem /  var(--scaling));
+                    font-family: $fk-roman-standard;
+                    line-height: 1.3;
+                    margin: 0;
+                }
+            }
+        }
+    }*/
+  }
+}
+
+
+@import 'partials/defaults/header';
+@import 'partials/left-column';
+@import 'partials/tools';
+@import 'partials/decoder';
+@import 'partials/command-line';
+@import 'partials/image-mosaic';
+@import 'partials/installer';
+@import 'partials/verge-filter';
+@import 'partials/polygon-scraper';
+@import 'partials/ai-label';

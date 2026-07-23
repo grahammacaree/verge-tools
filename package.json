@@ -1,0 +1,29 @@
+{
+  "name": "verge-tools",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.27.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "compress-images": "node scripts/compress-images.mjs"
+  },
+  "dependencies": {
+    "@vanilla-extract/css": "^1.21.1",
+    "html-to-image": "^1.11.13",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vanilla-extract/vite-plugin": "^5.2.5",
+    "@vitejs/plugin-react": "^4.4.1",
+    "sharp": "^0.35.3",
+    "svgo": "^4.0.2",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  }
+}

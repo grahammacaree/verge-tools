@@ -1,0 +1,245 @@
+.decoder-image-generator {
+	.story {
+		gap: 1rem;
+	}
+	.input {
+		.edit {
+		    .edit-inner label {
+				display: block;
+				span {
+					display: none;
+					&:first-child {
+						display: inline;
+					}
+
+				}
+			}
+			&.selected .edit-inner label span {
+				display: inline;
+				&:first-child {
+					display: none;
+				}
+			}
+			input[type=file]{
+			  color:transparent;
+			}
+			
+		}
+
+		.options {
+			display: none;
+			margin: 0;
+    		padding: 0;
+			&.visible {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+				.download {
+					display: block;
+					margin-top: 0;
+				}
+			}
+			
+			input[type="range"] {
+				accent-color: $blurple;
+
+			}
+			.regen {
+				background-color: $blurple;
+			    padding: 0.25rem 0.75rem;
+			    text-transform: uppercase;
+			    color: $secondary-color;
+			    font-style: normal;
+			    font-size: 0.75rem;
+			    cursor: pointer;
+			    border: 2px solid $blurple;
+			    flex: 1;
+			    border-radius: 0.125rem;
+			    white-space: nowrap;
+			    font-weight: 600;
+			    letter-spacing: 0.05rem;
+			    font-family: $polysans-mono;
+			    margin: 0.25rem 1rem 0 0;
+			    text-align: center;
+			    pointer-events: auto;
+			    &:hover {
+			        background-color: transparent;
+			        color: $blurple;
+			    }
+			}
+		}
+		.image-container {
+			margin: 0;
+			padding:  0;
+			aspect-ratio: 3/2;
+			flex: 1;
+			user-select: none;
+			display: block;
+			order: 0;
+			&.draggable {
+				border: 0.125rem dashed $blurple;
+				border-radius: 0.5rem;
+				position: relative;
+				&:after {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					max-width: 90%;
+					display: block;
+					content: "Drop image";
+					font-family: $polysans;
+					font-weight: 600;
+					font-size: 2.5rem;
+					color: $blurple;
+					transform: translate(-50%, -50%);
+					text-align: center;
+				}
+				&.dragging {
+					background-color: rgba($blurple, 0.25);
+				}
+				div {
+					display: none;
+				}
+			}
+			.image-inner {
+				position: relative;
+				overflow: hidden;
+				img.download {
+					display: none;
+				}
+			}
+			.lockup {
+				font-family: $polysans;
+				color: #fff;
+				position: relative;
+				z-index: 1;
+				overflow: hidden;
+				aspect-ratio: 3/2;
+				cursor: move;
+				.picture {
+					position: relative;
+					margin: 0;
+					height: 100%;
+					width: 100%;
+				}
+				.image {
+					//aspect-ratio: 4/3;
+					filter: grayscale(1);
+					position: absolute;
+					inset: 0;
+					.image-holder, .invert-holder {
+						position: absolute;
+						inset: 0;
+					}
+					.image-holder {
+						left: 27.5%;
+						.image-holder-inner {
+							width: 100%;
+							height: 100%;
+							background-color: #000;
+							text-align: center;
+							img {
+								height: 100%;
+								width: 100%;
+								//opacity mask from left to right. 95% black, 100% transparent
+								-webkit-mask-image: linear-gradient(to right, #000 97.5%, transparent 100%);
+								mask-image: linear-gradient(to right, #000 97.5%, transparent 100%);
+								object-fit: cover;
+							}
+						}
+					}
+					img {
+						filter: saturate(0.125)  brightness(0.625);
+						transform-origin: center center;
+					}
+					.invert-holder {
+						
+						left: 0;
+						top: 0;
+						bottom: 0;
+						right: 72.25%;
+						overflow: hidden;
+						.invert-holder-inner {
+							width: 100%;
+							height: 100%;
+							background-color: #000;
+							text-align: right;
+							float: right;
+						}
+						img {
+							filter: invert(1)  contrast(1.6) brightness(1.35);
+							height: 100%;
+							width: 100%;
+						}
+					}
+				}
+				.layer {
+					inset: 0;
+					z-index: 1;
+					position: absolute;
+					pointer-events: none;
+					.big svg{
+						left: 100%;
+						top: 50%;
+						height: 100%;
+						transform: translate(-37.5%, -50%);
+						position: absolute;
+					}
+					.small {
+						position: absolute;
+						width: calc(100% / 3);
+						top: 0;
+						left: 0;
+						bottom: 0;
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						.col {
+							flex: 1;
+							position: relative;
+							display: flex;
+							flex-direction: column;
+							gap: 1rem;
+							padding: 2rem 1rem;
+							max-width: calc(100%/3);
+							justify-content: space-evenly;
+							margin: auto;
+							height: 100%;
+							box-sizing: border-box;
+							.column {
+								width: 100%;
+								aspect-ratio: 1;
+								background-size: contain;
+								background-position: center center;
+								background-repeat: no-repeat;
+								&.slash {
+									background-image: url('/images/decoder/Dash.svg');
+								}
+								&.x {
+									background-image: url('/images/decoder/X.svg');
+								}
+								&.filled {
+									background-image: url('/images/decoder/Square.svg');
+								}
+								&.square {
+									background-image: url('/images/decoder/Outline.svg');
+								}
+							}
+							&.between {
+								justify-content: space-between;
+							}
+
+							&.around {
+								justify-content: space-around;
+							}
+							&.even {
+								justify-content: space-evenly;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

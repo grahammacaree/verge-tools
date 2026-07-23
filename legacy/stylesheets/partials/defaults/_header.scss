@@ -1,0 +1,180 @@
+header {
+    width: 100%;
+    .nav {
+    	height: 2rem;
+        width: 92%;
+        max-width: 1100px;
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        @media(min-width: $mobile-cutoff) {
+            margin: 0 auto 80px;
+        }
+        .faded-logo {
+            width: 265px;
+            position: absolute;
+            top: -3px;
+            left: -16px;
+            z-index: 1;
+            @media(min-width: $mobile-cutoff) {
+                pointer-events: none;
+                width: 769px;
+                top: -24px;
+                left: -200px;
+                z-index: 0;
+            }
+            svg path {
+                fill: $primary-color;
+                @media(min-width: $mobile-cutoff) {
+                    fill: rgba(#ccc, 0.5);
+                }
+            }
+        }
+        @media(min-width: $mobile-cutoff) {
+            height: 80px;
+            max-width: 1100px;
+            justify-content: none;
+        }
+
+        .nav-bar {
+            display: none;
+            border-bottom: 1px solid $primary-color;
+            padding-bottom: 12px;
+            transform: translateY(-0.5rem);
+
+            ul {
+                list-style: none;
+                font-family: var(--hed-font);
+                font-size: 1rem;
+                font-weight: 300;
+                margin: 0;
+                padding: 0;
+            }
+
+            li {
+                display: inline-block;
+
+                a {
+                    color: $primary-color;
+                    text-decoration: none;
+                    transition: color .3s;
+
+                    &:hover {
+                        color: gray;
+                    }
+                }
+
+                svg {
+                    width: 117px;
+                    display: inline-block;
+                    height: auto;
+                    -webkit-transform: translateY(37.5%);
+                    transform: translateY(25%);
+
+                    path {
+                        fill: $primary-color;
+                    }
+                }
+
+                &:after {
+                    content: "/";
+                    display: inline-block;
+                    margin: 0 0.75rem;
+                    opacity: 0.75;
+                }
+
+                &:last-child:after {
+                    display: none;
+                }
+            }
+
+            @media(min-width: $mobile-cutoff) {
+                display: block;
+                margin-left: auto;
+                margin-top: auto;
+                transform: translateY(0);
+            }
+        }
+    }
+
+    .lockup {
+        max-width: 1000px;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        margin: 0 auto;
+        padding: 2rem 2rem 0;
+        box-sizing: border-box;
+        position: relative;
+        
+        .text-container {
+            display: none;
+            background-color: $gray;
+            padding: 1rem;
+            border: 0.075rem solid $darkgray;
+            position: relative;
+            &.title {
+                padding: 1rem 1.5rem;
+            }
+            h1 {
+                margin-top: 0;
+            }
+            &.active {
+                display: block;
+            }
+            &:not(.title).active {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 2rem;
+                h2 {
+                    font-size: 1.5rem;
+                    margin: 0;
+                    padding: 0;
+                    font-weight: 700;
+                }
+                p {
+                    font-size: 0.9rem;
+                    margin: 0;
+                }
+            }
+        }
+        @media(min-width: $tablet-cutoff) {
+            gap: 0rem;
+        }
+
+        h1, h2 {
+            font-size: 2.8125rem;
+            font-weight: 700;
+            letter-spacing: -.02em;
+            line-height: 1.04;
+            padding-bottom: 8px;
+            font-family: var(--hed-font);
+            @media(min-width: $tablet-cutoff) {
+                font-size: 3.5rem;
+            }
+
+        }
+
+        p {
+            font-weight: 300;
+            font-size: 1rem;
+            font-family: var(--text-font);
+        }
+
+        h1, h2,
+        p {
+            margin: 8px 0;
+            
+
+            @media(min-width: $mobile-cutoff) {
+                max-width: 100%;
+                margin: 0.75rem 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+.user-messages {
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 0;
+	overflow: visible;
+	display: flex;
+	gap: 1.25rem;
+	z-index: 1;
+	.message {
+		font-family: $polysans;
+		padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+		background-color: rgba($secondary-color, 0.75);
+		color: $primary-color;
+		border-top: 0.125rem solid $blurple;
+		white-space: nowrap;
+		font-size: 0.85rem;
+		transition: transform 0.25s ease-in-out;
+		flex: 0;
+		align-self: flex-end;
+		backdrop-filter: blur(0.25rem);
+		&.active {
+			animation: message 0.25s ease-in-out forwards;
+			animation-iteration-count: 1;
+		}
+		&.active.hidden {
+			animation: messageOut 0.25s ease-in-out forwards;
+			animation-iteration-count: 1;
+		}
+		button {
+			background-color: $blurple;
+			color: $secondary-color;
+			border: 0.075rem solid $blurple;
+			border-radius: 0.125rem;
+			padding: 0 0.25rem 0.125rem;
+			cursor: pointer;
+			font-family: $polysans-mono;
+			margin-left: 0.5rem;
+			font-size: 0.65rem;
+			text-transform: uppercase;
+			font-weight: 500;
+			letter-spacing: 0.05em;
+    		transform: translateY(-0.075rem);
+			&:hover {
+				background-color: transparent;
+				color: $blurple;
+			}
+		}
+	}
+}
+
+@keyframes message {
+	0% {
+		transform: translateY(100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes messageOut {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(100%);
+	}
+}
