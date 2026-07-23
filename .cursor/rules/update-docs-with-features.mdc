@@ -1,0 +1,26 @@
+---
+description: Update docs when shipping new functionality
+alwaysApply: true
+---
+
+# Keep docs in sync with features
+
+When implementing **new or changed user-facing behavior**, update documentation in the same change — do not leave docs for a follow-up.
+
+## What to touch (as relevant)
+
+| Area | Files |
+|------|--------|
+| Per-tool behavior / defaults | `docs/tools/<tool>.md` |
+| Staff UI tip / placeholder copy | `content/tips/<tool-id>.md`, `content/tools.md` |
+| User-facing changelog | `content/release-notes.md` (user-facing only; no eng theater) |
+| Shared pipeline / shell | `docs/architecture.md` |
+| Repo overview / setup | `README.md` |
+
+## Defaults and options
+
+If you add a control or change a **default** (e.g. aspect ratio), say so in the tool doc and tips, and reflect it in release notes when the change ships for staff.
+
+## Out of scope
+
+Pure refactors, internal renames, and capture/CSS fixes with no staff-visible change do not need release-notes entries. Still update architecture docs if the maintainer contract changed (e.g. new `cssScope` requirement).
