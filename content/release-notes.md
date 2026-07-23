@@ -6,14 +6,20 @@ _As of July 23, 2026_
 
 - Article Scraper falls back to Microlink metadata when the browser can’t fetch `theverge.com` directly (CORS). Eyebrow/credit may need a quick manual tweak after fetch.
 - Lede image import can still fail when the Wordpress CDN blocks cross-origin blob fetches; the preview may hotlink instead. Replace the image manually if needed.
+- **Load from URL** (image source **URL** mode) only works when the image host allows cross-origin fetches (many CDNs do not). Use File / paste / drag-drop if Load fails.
 
 ### 2.0.1
 
 _July 23, 2026_
 
+##### General
+
+- Choose image supports a **File | URL** mode toggle everywhere — Decoder, Installer, Verge Filter, AI Label, Article Scraper change-image, and Command Line / Mosaic if revived.
+
 ##### Article Scraper
 
 - Added a **1:1** aspect option (default; tall-style lockup, wider photo crop, smaller type; no date line).
+- Drag to pan the lede crop (plus a Zoom slider under Change image).
 
 ### 2.0.0
 

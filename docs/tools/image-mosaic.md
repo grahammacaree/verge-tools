@@ -11,7 +11,7 @@ Multi-step layout tool: split/merge cells, assign images, background textures, c
 ## Wizard steps
 
 1. Layout (templates or custom split/merge/padding/gap/cutout)
-2. Images
+2. Images (file, drop, or **URL** mode per cell)
 3. Background
 4. Filter
 5. Adjust (zoom/pan)

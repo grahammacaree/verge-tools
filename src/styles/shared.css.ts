@@ -272,7 +272,7 @@ globalStyle(".input .options .colors .entry.selected .inner span, .input .option
   borderColor: "#fff",
 });
 
-globalStyle(".input .url-fetcher", {
+globalStyle(".input .url-fetcher, .image-source-panel .url-fetcher", {
   padding: "0.25rem 0.75rem",
   textTransform: "uppercase",
   color: "red",
@@ -289,7 +289,7 @@ globalStyle(".input .url-fetcher", {
   pointerEvents: "none",
 });
 
-globalStyle(".input .url-fetcher.active", {
+globalStyle(".input .url-fetcher.active, .image-source-panel .url-fetcher.active", {
   opacity: "1",
   pointerEvents: "auto",
   backgroundColor: "var(--brand-color)",
@@ -297,7 +297,7 @@ globalStyle(".input .url-fetcher.active", {
   borderColor: "var(--brand-color)",
 });
 
-globalStyle(".input .url-fetcher:hover", {
+globalStyle(".input .url-fetcher:hover, .image-source-panel .url-fetcher.active:hover", {
   backgroundColor: "transparent",
   color: "var(--brand-color)",
 });
@@ -314,6 +314,117 @@ globalStyle(".input .url-container", {
 
 globalStyle(".input .url-container input", {
   flex: "1",
+});
+
+globalStyle(".image-source-controls", {
+  width: "100%",
+});
+
+globalStyle(".image-source-mode", {
+  display: "flex",
+  gap: "0.85rem",
+  margin: "0.1rem 0 0.45rem",
+  width: "100%",
+  borderBottom: "1px solid #CECECE",
+});
+
+globalStyle(".image-source-mode button", {
+  appearance: "none",
+  flex: "0 0 auto",
+  margin: "0 0 -1px",
+  padding: "0.15rem 0 0.35rem",
+  border: "0",
+  borderBottom: "2px solid transparent",
+  borderRadius: "0",
+  background: "transparent",
+  color: "#090909",
+  fontFamily: "var(--spec-font)",
+  fontSize: "0.65rem",
+  fontWeight: "600",
+  letterSpacing: "0.04rem",
+  textTransform: "uppercase",
+  cursor: "pointer",
+  lineHeight: "1.2",
+  opacity: "0.45",
+});
+
+globalStyle(".image-source-mode button:hover", {
+  opacity: "0.85",
+  color: "var(--brand-color)",
+});
+
+globalStyle(".image-source-mode button.selected", {
+  opacity: "1",
+  color: "var(--brand-color)",
+  borderBottomColor: "var(--brand-color)",
+  backgroundColor: "transparent",
+});
+
+globalStyle(".image-source-panels", {
+  display: "grid",
+  width: "100%",
+  position: "relative",
+});
+
+globalStyle(".image-source-panel", {
+  gridArea: "1 / 1",
+  minWidth: "0",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+});
+
+globalStyle(".image-source-panel.is-inactive", {
+  visibility: "hidden",
+  pointerEvents: "none",
+});
+
+globalStyle(".image-source-panel .url-container", {
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "nowrap",
+  gap: "1rem",
+  width: "100%",
+  maxWidth: "28rem",
+  alignItems: "center",
+});
+
+globalStyle(".image-source-panel .url-container input", {
+  flex: "1",
+  width: "100%",
+  height: "1.25rem",
+  marginTop: "0.125rem",
+  boxSizing: "border-box",
+  font: "inherit",
+  fontStyle: "normal",
+  pointerEvents: "auto",
+});
+
+globalStyle(".image-source-panel .url-fetcher", {
+  appearance: "none",
+  background: "transparent",
+  margin: "0",
+  lineHeight: "1.2",
+  alignSelf: "center",
+  display: "inline-flex",
+  alignItems: "center",
+});
+
+globalStyle(".image-source-panel .url-error", {
+  position: "absolute",
+  left: "0",
+  right: "0",
+  top: "100%",
+  margin: "0.25rem 0 0",
+  fontSize: "0.75rem",
+});
+
+/** `button.url-fetcher` resets — match legacy div chrome (article fetch + image URL). */
+globalStyle(".input button.url-fetcher, .image-source-panel button.url-fetcher", {
+  appearance: "none",
+  background: "transparent",
+  margin: "0",
+  lineHeight: "1.2",
 });
 
 globalStyle(".input .bottom", {
@@ -358,6 +469,7 @@ globalStyle(".input .bottom.r16x9 .image-container .image-inner .picture", {
 globalStyle(".input .bottom.r16x9 .image-container .image-inner .picture .image", {
   position: "absolute",
   inset: "0",
+  overflow: "hidden",
 });
 
 globalStyle(".input .bottom.r16x9 .image-container .image-inner .picture img", {
@@ -754,6 +866,18 @@ globalStyle(".input .image-container .lockup .picture .credit", {
 globalStyle(".input .image-container .lockup .picture .image", {
   width: "100%",
   position: "relative",
+  overflow: "hidden",
+});
+
+globalStyle(".input .image-container .lockup .picture .image .image-holder", {
+  position: "absolute",
+  inset: "0",
+});
+
+globalStyle(".input .image-container .lockup .picture .image .image-holder-inner", {
+  position: "absolute",
+  inset: "0",
+  overflow: "hidden",
 });
 
 globalStyle(".input .image-container .lockup .picture .image img", {
@@ -769,6 +893,11 @@ globalStyle(".input .bottom.r16x9 .image-container .image-inner > .picture", {
   /* margin from the 9:16 in-lockup rules must not apply */
   marginTop: "0",
   marginRight: "0",
+});
+
+globalStyle(".input .edit .edit-inner .edit-type-image .zoom-slider", {
+  marginTop: "0.85rem",
+  width: "100%",
 });
 
 globalStyle(".input .edit", {
@@ -920,7 +1049,7 @@ globalStyle(".input .edit .edit-inner div input", {
   marginTop: "0.125rem",
 });
 
-globalStyle(".input .edit .edit-inner div input[type=\"text\"]", {
+globalStyle(".input .edit .edit-inner div input[type=\"text\"], .input .edit .edit-inner div input[type=\"url\"]", {
   height: "1.25rem",
 });
 

@@ -4,7 +4,7 @@ Overlays an “AI-generated image” or “AI-modified image” label on an uplo
 
 ## Flow
 
-1. Upload image
+1. Upload image (File | URL toggle; also paste / drop)
 2. Choose language (generated / modified) and aspect ratio (including **Auto**)
 3. Adjust → Finalize → `ai-label.jpg`
 

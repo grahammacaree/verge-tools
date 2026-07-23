@@ -4,7 +4,7 @@ Maps an uploaded image through an SVG filter that remaps luminance into Verge-ad
 
 ## Flow
 
-1. Upload image
+1. Upload image (File | URL toggle; also paste / drop)
 2. Choose aspect ratio (**Auto** default = image’s natural ratio) and adjust zoom / brightness / contrast
 3. Finalize → `verge-filter.jpg`
 

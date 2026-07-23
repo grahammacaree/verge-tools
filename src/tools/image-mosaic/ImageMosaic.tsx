@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FinalizeButton } from '../../components/FinalizeButton';
+import { ImageSourceControls } from '../../components/ImageFileInput';
 import { useCaptureDownload } from '../../hooks/useCaptureDownload';
 import { assetUrl } from '../../lib/assetUrl';
+import { tip } from '../../lib/content';
 import { MosaicCanvas } from './MosaicCanvas';
 import { fetchMosaicTemplates, saveMosaicTemplate } from './sheets';
 import { buildTemplateHtml, decodeTemplateHtml, encodeTemplateHtml } from './templateCodec';
@@ -16,7 +18,6 @@ import {
   updateCell,
   updateSplitRatio,
 } from './treeOps';
-import { tip } from '../../lib/content';
 import {
   MOSAIC_BACKGROUNDS,
   MOSAIC_FILTERS,
@@ -370,15 +371,9 @@ export function ImageMosaic() {
               <span>Select</span>
               <span>Change</span> image:
             </label>
-            <input
-              type="file"
-              className="image-change"
+            <ImageSourceControls
+              onFile={(file) => onFileInput(file)}
               id="image-background-input"
-              accept="image/jpeg,image/png,image/webp"
-              onChange={(e) => {
-                onFileInput(e.target.files?.[0]);
-                e.target.value = '';
-              }}
             />
           </div>
 

@@ -6,7 +6,7 @@ Places an image under Command Line’s SVG frame and randomized accent boxes.
 
 ## Flow
 
-1. Upload image
+1. Upload image (File | URL toggle; also paste / drop)
 2. Choose 1:1 or 3:2
 3. Boxes/rotation regenerate on load or **Regenerate**
 4. Adjust → Finalize → `command-line.jpg`

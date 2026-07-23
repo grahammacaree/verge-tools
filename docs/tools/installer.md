@@ -5,7 +5,7 @@ Mosaic-style frame with 1–4 image slots and Installer pattern backgrounds.
 ## Flow
 
 1. Choose number of images (One–Four) and a background pattern (optional color swap)
-2. Drop/select an image per slot (click a slot to target it)
+2. Drop/select an image per slot (or **URL** mode); click a slot to target it
 3. Adjust selected slot → Download → `installer.jpg`
 
 ## Implementation notes

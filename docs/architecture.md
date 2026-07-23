@@ -28,7 +28,7 @@ src/
 
 Most image tools follow the same path:
 
-1. **Ingest** — `useImageIngest` (file input, paste, drag-drop); jpeg/png/webp only.
+1. **Ingest** — `useImageIngest` (file input, paste, drag-drop) plus **File | URL** mode on `ImageFileInput` / `ImageSourceControls` (`fileFromImageUrl` in `lib/imageUrl.ts`); jpeg/png/webp only. Remote loads need CORS-friendly hosts.
 2. **Adjust** — `useImageAdjustments` (zoom, pan when zoomed, object-position when not, brightness/contrast).
 3. **Download** — `useCaptureDownload` waits for fonts, strips selection chrome, runs `html-to-image` at `pixelRatio: 2`, then downloads. Default format is **JPEG** (`quality: 0.9`). JPEG matte defaults to the capture node’s computed `background-color` (fallback `#ffffff`) because `html-to-image` often omits the root element’s CSS background — Installer’s dark pattern fill depends on this.
 

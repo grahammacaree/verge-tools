@@ -282,15 +282,7 @@ export async function fetchArticleHtml(url: string): Promise<string> {
   return fetchArticleHtmlDirect(url);
 }
 
-/** Fetch a remote image and return a blob object URL (helps with some CDN CORS cases). */
-export async function imageUrlToObjectUrl(imageUrl: string): Promise<string> {
-  const response = await fetch(imageUrl);
-  if (!response.ok) {
-    throw new Error(`Image fetch failed (${response.status})`);
-  }
-  const blob = await response.blob();
-  return URL.createObjectURL(blob);
-}
+export { imageUrlToObjectUrl } from './imageUrl';
 
 export function formatBylines(bylines: string[]): string {
   if (bylines.length === 0) return '';

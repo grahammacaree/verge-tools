@@ -4,7 +4,7 @@ Composes an uploaded image into Decoder’s dual-panel look with decorative glyp
 
 ## Flow
 
-1. Upload / paste / drop image
+1. Upload / paste / drop image (or switch to **URL** mode)
 2. Glyph columns generate randomly; **Regenerate glyphs** to reshuffle
 3. Shared zoom; brightness / contrast apply to the last-selected panel (main default — click a panel to target it)
 4. Finalize → `decoder.jpg`

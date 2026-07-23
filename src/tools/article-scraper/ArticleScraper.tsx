@@ -1,16 +1,46 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { FinalizeButton } from '../../components/FinalizeButton';
+import { ImageSourceControls } from '../../components/ImageFileInput';
 import { ToggleGroup } from '../../components/ToggleGroup';
 import { VergeWordmark } from '../../components/VergeLogos';
 import { tip } from '../../lib/content';
 import { useCaptureDownload } from '../../hooks/useCaptureDownload';
+import { useImageAdjustments } from '../../hooks/useImageAdjustments';
 import { useObjectUrl } from '../../hooks/useImageIngest';
+import { imageUrlToObjectUrl } from '../../lib/imageUrl';
 import {
   fetchVergeArticle,
   formatBylines,
   formatEyebrows,
-  imageUrlToObjectUrl,
 } from '../../lib/scraper';
+
+type PictureProps = {
+  heroUrl: string | null;
+  credit: string;
+  zoom: number;
+  elementRef: ReturnType<typeof useImageAdjustments>['elementRef'];
+  pointerHandlers: ReturnType<typeof useImageAdjustments>['pointerHandlers'];
+};
+
+function ScraperPicture({ heroUrl, credit, zoom, elementRef, pointerHandlers }: PictureProps) {
+  return (
+    <div className="picture">
+      <div className="image">
+        <div className="image-holder">
+          <div
+            className="image-holder-inner pannable zooming"
+            data-zoom={zoom}
+            ref={elementRef}
+            {...pointerHandlers}
+          >
+            {heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}
+          </div>
+        </div>
+      </div>
+      <div className="credit">{credit}</div>
+    </div>
+  );
+}
 
 export function ArticleScraper() {
   const [url, setUrl] = useState('');
@@ -34,6 +64,8 @@ export function ArticleScraper() {
   const captureRef = useRef<HTMLDivElement>(null);
   const remoteBlobRef = useRef<string | null>(null);
   const { state, capture, reset: resetCapture } = useCaptureDownload('article.jpg');
+  const { adj, setZoom, pointerHandlers, elementRef, reset: resetAdjustments } =
+    useImageAdjustments();
 
   useEffect(() => {
     return () => {
@@ -42,6 +74,11 @@ export function ArticleScraper() {
       }
     };
   }, []);
+
+  // New crop box when aspect changes — start from a clean frame.
+  useEffect(() => {
+    resetAdjustments();
+  }, [ratio, resetAdjustments]);
 
   const setRemoteBlob = useCallback((next: string | null) => {
     if (remoteBlobRef.current?.startsWith('blob:') && remoteBlobRef.current !== next) {
@@ -74,22 +111,32 @@ export function ArticleScraper() {
         }
       }
       setHasStory(true);
+      resetAdjustments();
       resetCapture();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Fetch failed');
     } finally {
       setLoading(false);
     }
-  }, [url, loading, resetCapture, setRemoteBlob]);
+  }, [url, loading, resetCapture, resetAdjustments, setRemoteBlob]);
 
   const onImageChange = useCallback(
     (file: File) => {
       setImageFile(file);
       setRemoteBlob(null);
+      resetAdjustments();
       resetCapture();
     },
-    [resetCapture, setRemoteBlob],
+    [resetCapture, resetAdjustments, setRemoteBlob],
   );
+
+  const pictureProps: PictureProps = {
+    heroUrl,
+    credit,
+    zoom: adj.zoom,
+    elementRef,
+    pointerHandlers,
+  };
 
   return (
     <div className="tool verge article-scraper active" data-tool-name="article-scraper">
@@ -169,19 +216,11 @@ export function ArticleScraper() {
                   <div className="date">{date}</div>
                   {/* Tall layouts keep the photo in-flow inside the padded lockup (legacy 9:16). */}
                   {ratio === 'r9x16' || ratio === 'r1x1' ? (
-                    <div className="picture">
-                      <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
-                      <div className="credit">{credit}</div>
-                    </div>
+                    <ScraperPicture {...pictureProps} />
                   ) : null}
                 </div>
                 {/* 16:9 photo is a sibling so absolute positioning covers the full frame, not the 80% text box. */}
-                {ratio === 'r16x9' ? (
-                  <div className="picture">
-                    <div className="image">{heroUrl ? <img src={heroUrl} alt="" /> : <img alt="" />}</div>
-                    <div className="credit">{credit}</div>
-                  </div>
-                ) : null}
+                {ratio === 'r16x9' ? <ScraperPicture {...pictureProps} /> : null}
               </div>
             </div>
             <div className="right">
@@ -236,16 +275,20 @@ export function ArticleScraper() {
                           />
                         </span>
                       </label>
-                      <input
-                        type="file"
-                        className="image-change"
-                        id="article-scaper-image"
-                        accept="image/jpeg,image/png,image/webp"
-                        onChange={(e) => {
-                          const f = e.target.files?.[0];
-                          if (f) onImageChange(f);
-                        }}
-                      />
+                      <ImageSourceControls onFile={onImageChange} id="article-scaper-image" />
+                      {heroUrl ? (
+                        <div className="zoom-slider">
+                          <label htmlFor="article-scraper-zoom">Zoom</label>
+                          <input
+                            id="article-scraper-zoom"
+                            type="range"
+                            min={0}
+                            max={100}
+                            value={Math.round((adj.zoom - 1) * 100)}
+                            onChange={(e) => setZoom(Number(e.target.value) / 100 + 1)}
+                          />
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AdjustmentSliders } from '../../components/AdjustmentSliders';
 import { FinalizeButton } from '../../components/FinalizeButton';
+import { ImageFileInput } from '../../components/ImageFileInput';
 import { ToggleGroup } from '../../components/ToggleGroup';
 import { useCaptureDownload } from '../../hooks/useCaptureDownload';
 import { useImageIngest, useObjectUrl, useDropZone } from '../../hooks/useImageIngest';
@@ -239,26 +240,11 @@ export function Installer() {
             </div>
           </div>
 
-          <div className="edit visible">
-            <div className="edit-inner">
-              <div>
-                <label htmlFor="installer-image">
-                  <span>Select</span>
-                  <span>Change</span> image:
-                </label>
-                <input
-                  type="file"
-                  id="installer-image"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
-                    if (f) assignFile(selectedIndex, f);
-                    e.target.value = '';
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+          <ImageFileInput
+            onFile={(file) => assignFile(selectedIndex, file)}
+            id="installer-image"
+            hasFile={Boolean(slots[selectedIndex]?.file)}
+          />
 
           <div className="options options-bottom visible">
             <AdjustmentSliders
