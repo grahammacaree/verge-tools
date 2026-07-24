@@ -1,18 +1,20 @@
 # Verge Tools
 
-Editorial image and layout tools for The Verge Art Team — social lockups, Decoder/Installer frames, filters, AI labels, and related helpers. Staff use the live Pages app in the browser; this repo is the source for that app.
+> **Frozen / unmaintained.** This public repo is a **portfolio snapshot** of the 2.0 rebuild. It is not the staff production app and will not receive further updates. Active development continues in Vox Media’s private org.
 
-**Live:** [grahammacaree.github.io/verge-tools](https://grahammacaree.github.io/verge-tools/)
+Editorial image and layout tools for The Verge Art Team — social lockups, Decoder/Installer frames, filters, AI labels, and related helpers.
+
+**Demo (GitHub Pages):** [grahammacaree.github.io/verge-tools](https://grahammacaree.github.io/verge-tools/)
 
 Deep links use the tool id, e.g. [`…/installer-image-generator`](https://grahammacaree.github.io/verge-tools/installer-image-generator), [`…/article-scraper`](https://grahammacaree.github.io/verge-tools/article-scraper), [`…/release-notes`](https://grahammacaree.github.io/verge-tools/release-notes).
 
-**Maintainer:** [Graham MacAree](https://github.com/grahammacaree)
+**Author:** [Graham MacAree](https://github.com/grahammacaree)
 
 ## Why this lives outside Duet
 
 These tools started life as a workaround when editorial engineers couldn’t ship inside Duet (see [history](docs/history.md)). They stay in a separate static app on purpose: Art tooling needs **fast iteration** — copy tweaks, capture fixes, new ratios — without waiting on Duet release cycles or coupling editorial helpers to the site platform.
 
-Duet remains the CMS/front-end for The Verge. This repo is only the Art Team’s tooling surface (and may later sit on a Verge host such as `tools.theverge.com`).
+Duet remains the CMS/front-end for The Verge. This snapshot shows the Art Team’s tooling surface as of the freeze.
 
 ## Development
 
@@ -52,13 +54,13 @@ Command Line and Image Mosaic are deprecated in the nav (source kept if Art want
 
 ## Password gate
 
-Access uses the same soft client-side gate as the legacy site (`src/lib/gate.ts`). It is friction, not security — do not put secrets in this public repo.
+The soft client-side gate is **disabled** in this frozen public snapshot so the demo is browsable. Gate helpers remain in `src/lib/gate.ts` / `src/app/PasswordGate.tsx` for reference / staff hosting.
 
 ## Documentation
 
 - [Architecture](docs/architecture.md)
 - [History](docs/history.md) — why pre-2.0 commits look like minified build dumps
-- [Roadmap](docs/roadmap.md) — parity → auth → S3 → new tools → publish
+- [Roadmap](docs/roadmap.md) — historical plan (auth → S3 → new tools); not active for this freeze
 - [Per-tool notes](docs/tools/)
 - [UI copy (`content/`)](content/README.md) — home intro, tool blurbs, release notes
 

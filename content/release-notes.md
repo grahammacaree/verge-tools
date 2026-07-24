@@ -1,5 +1,7 @@
 ## Release Notes
 
+> **Frozen public snapshot.** This GitHub Pages build is no longer maintained. Active Verge Tools development moved to Vox Media’s private org / staff host.
+
 ### Known Issues
 
 _As of July 23, 2026_

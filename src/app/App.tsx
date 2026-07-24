@@ -1,6 +1,5 @@
 import { Suspense, lazy } from 'react';
 import { LeftNav } from './LeftNav';
-import { PasswordGate, useGateState } from './PasswordGate';
 import { ToolHeader } from './ToolHeader';
 import { useToolRoute } from '../hooks/useToolRoute';
 import type { ToolId } from '../lib/tools';
@@ -35,33 +34,31 @@ function ActiveTool({ id }: { id: ToolId }) {
 }
 
 export function App() {
-  const { unlocked, unlock } = useGateState();
   const [active, setActive] = useToolRoute();
   const showingNotes = active === 'release-notes';
 
+  // Soft gate removed for this public portfolio freeze. Gate code remains under
+  // `PasswordGate.tsx` / `lib/gate.ts` for the staff-hosted copy.
   return (
-    <>
-      {!unlocked ? <PasswordGate onUnlock={unlock} /> : null}
-      <div className={`flex-container verge${unlocked ? ' unlocked' : ''}`}>
-        <LeftNav active={active} onSelect={setActive} />
-        <main>
-          <header className={showingNotes ? 'hide' : undefined}>
-            <div className="lockup">
-              <ToolHeader active={active} onSelect={setActive} />
+    <div className="flex-container verge unlocked">
+      <LeftNav active={active} onSelect={setActive} />
+      <main>
+        <header className={showingNotes ? 'hide' : undefined}>
+          <div className="lockup">
+            <ToolHeader active={active} onSelect={setActive} />
+          </div>
+        </header>
+        <article>
+          <section className="left">
+            <div className={`tools${showingNotes ? ' hide' : ''}`}>
+              <Suspense fallback={<p className="tool-loading">Loading tool…</p>}>
+                <ActiveTool id={active} />
+              </Suspense>
             </div>
-          </header>
-          <article>
-            <section className="left">
-              <div className={`tools${showingNotes ? ' hide' : ''}`}>
-                <Suspense fallback={<p className="tool-loading">Loading tool…</p>}>
-                  <ActiveTool id={active} />
-                </Suspense>
-              </div>
-              {showingNotes ? <ReleaseNotes /> : null}
-            </section>
-          </article>
-        </main>
-      </div>
-    </>
+            {showingNotes ? <ReleaseNotes /> : null}
+          </section>
+        </article>
+      </main>
+    </div>
   );
 }

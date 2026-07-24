@@ -18,7 +18,7 @@ src/
 
 ## Shell
 
-1. `PasswordGate` unlocks via the legacy hash and sets `localStorage.vergetools`.
+1. Soft password gate is **disabled** in this public freeze (`App` always renders `.unlocked`). Gate helpers remain in `PasswordGate.tsx` / `lib/gate.ts`.
 2. `useToolRoute` keeps the active `ToolId` in sync with the path (`/verge-tools/<tool-id>`; home is `/verge-tools/`).
 3. `LeftNav` / home grid use real `href`s (cmd-click works); click uses `history.pushState`.
 4. `App` renders the matching tool under `.flex-container.verge`.
