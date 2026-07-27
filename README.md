@@ -1,6 +1,6 @@
 # Verge Tools
 
-> **Frozen / unmaintained.** This public repo is a **portfolio snapshot** of the 2.0 rebuild. It is not the staff production app and will not receive further updates. Active development continues in Vox Media’s private org.
+> **Frozen / unmaintained.** This public repo will not receive further updates. Active development continues in Vox Media’s private org.
 
 Editorial image and layout tools for The Verge Art Team — social lockups, Decoder/Installer frames, filters, AI labels, and related helpers.
 
